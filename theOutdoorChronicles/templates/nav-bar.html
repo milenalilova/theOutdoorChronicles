@@ -1,0 +1,14 @@
+<header>
+    <nav>
+        <div class="navbar">
+            <a href="{% url 'home page' %}">Home</a>
+            <a href="{% url 'register' %}">Register</a>
+            <a href="{% url 'login' %}">Login</a>
+
+            <form action="{% url 'logout' %}" method="post" style="display: inline">
+                {% csrf_token %}
+                <button type="submit" class="navbar-link">Logout</button>
+            </form>
+        </div>
+    </nav>
+</header>

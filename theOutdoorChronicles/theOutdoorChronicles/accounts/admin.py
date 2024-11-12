@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from theOutdoorChronicles.accounts.forms import AppUserCreationForm, AppUserEditForm
+from theOutdoorChronicles.accounts.models import AppUser, Profile
 
 UserModel = get_user_model()
 
@@ -33,3 +34,8 @@ class AppUserAdmin(UserAdmin):
             },
         ),
     )
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name')

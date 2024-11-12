@@ -8,7 +8,9 @@ UserModel = get_user_model()
 class AppUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = UserModel
-        fields = ('username', 'email')
+        fields = ('username', 'email', )
+
+#      TODO fix how the form displays in the template
 
 
 class AppUserEditForm(UserChangeForm):
