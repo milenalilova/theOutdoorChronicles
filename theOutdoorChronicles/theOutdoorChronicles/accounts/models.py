@@ -12,6 +12,10 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         unique=True
     )
 
+    email = models.EmailField(
+        unique=True
+    )
+
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,
@@ -29,11 +33,12 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 
     objects = AppUserManager()
 
-    USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = []
+    EMAIL_FIELD = "email"
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
-        return self.username
+        return self.email
 
 
 class Profile(models.Model):
@@ -50,12 +55,6 @@ class Profile(models.Model):
 
     last_name = models.CharField(
         max_length=30,
-        null=True,
-        blank=True
-    )
-
-    email = models.EmailField(
-        unique=True,
         null=True,
         blank=True
     )
