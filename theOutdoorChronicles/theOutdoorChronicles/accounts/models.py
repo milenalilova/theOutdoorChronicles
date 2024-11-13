@@ -44,7 +44,8 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(
         AppUser,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        primary_key=True
     )
 
     first_name = models.CharField(
@@ -86,5 +87,3 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
-
-
