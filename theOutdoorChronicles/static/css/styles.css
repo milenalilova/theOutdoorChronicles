@@ -1,0 +1,138 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Pacifico, cursive;
+    line-height: 1.6;
+    background-image: url('/static/images/waterfall_background.jpg'); /* Path to your image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/*TODO fix the image size*/
+
+/* Navbar styles - updated to ensure consistency */
+.navbar {
+    padding: 15px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a, .navbar button[type="submit"] { /* Specifically target submit buttons in navbar */
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+/* Remove any form specific styling within navbar */
+.navbar form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+}
+
+.navbar a:hover, .navbar button[type="submit"]:hover {
+    color: #007bff;
+}
+
+/* Main content styles */
+main {
+    flex: 1;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+/* Generic container for content sections */
+.container {
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* Messages/Alerts styling */
+.messages {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Form styles - but not affecting navbar buttons */
+form:not(.navbar form) {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Regular submit buttons (not in navbar) */
+button[type="submit"]:not(.navbar button[type="submit"]) {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:not(.navbar button[type="submit"]):hover {
+    background-color: #0056b3;
+}
+
+
+
