@@ -6,9 +6,9 @@
                 <a href="{% url 'register' %}">Register</a>
                 <a href="{% url 'login' %}">Login</a>
             {% else %}
-                <a href="{% url 'profile details' user.profile.pk %}">Profile Details</a>
-                <a href="{% url 'edit profile' user.profile.pk %}">Edit Profile</a>
-{#                <a href="{% url 'delete profile' profile.pk %}">Delete Profile</a>#}
+                <a href="{% url 'profile details' user.pk %}">Profile Details</a>
+                <a href="{% url 'edit profile' user.pk %}">Edit Profile</a>
+                <a href="{% url 'delete profile' user.pk %}">Delete Profile</a>
 
                 <form action="{% url 'logout' %}" method="post" style="display: inline">
                 {% csrf_token %}

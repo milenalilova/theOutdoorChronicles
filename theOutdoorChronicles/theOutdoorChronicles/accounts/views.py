@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -39,4 +39,25 @@ class ProfileEditView(UpdateView):
 
 
 class ProfileDeleteView(DeleteView):
-    pass
+    model = UserModel
+    form_class = ProfileDeleteForm
+    template_name = 'accounts/profile-delete-page.html'
+    success_url = reverse_lazy('home page')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_initial(self):
+        profile = Profile.objects.get(user=self.request.user)
+        return profile.__dict__
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        logout(self.request)
+        return response
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(user=self.request.user)
+        context['profile'] = profile
+        return context
