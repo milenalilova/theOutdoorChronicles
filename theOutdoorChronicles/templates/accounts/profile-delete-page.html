@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Profile Delete
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Profile Delete Page</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    
+    <button>Delete</button>
+    </form>
+
+{% endblock %}

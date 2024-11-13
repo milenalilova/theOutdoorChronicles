@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
+from theOutdoorChronicles.accounts.models import Profile
+
 UserModel = get_user_model()
 
 
@@ -50,10 +52,21 @@ class AppUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
 
-#      TODO fix how the form displays in the template
-
-
 class AppUserEditForm(UserChangeForm):
-    class Meta(UserCreationForm.Meta):
+    class Meta(UserChangeForm.Meta):
         model = UserModel
         fields = '__all__'
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user',)
+
+
+class ProfileDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ('user',)
+
+
