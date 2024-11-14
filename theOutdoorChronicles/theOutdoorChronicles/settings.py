@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'theOutdoorChronicles.accounts.apps.AccountsConfig',
-    'theOutdoorChronicles.common.apps.CommonConfig'
+    'theOutdoorChronicles.common.apps.CommonConfig',
+    'theOutdoorChronicles.trails.apps.TrailsConfig',
+    'theOutdoorChronicles.animals.apps.AnimalsConfig',
+    'theOutdoorChronicles.photos.apps.PhotosConfig'
 ]
 
 MIDDLEWARE = [
