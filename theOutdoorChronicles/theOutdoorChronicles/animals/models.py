@@ -45,4 +45,4 @@ class Animal(models.Model):
         blank=True
     )
 
-    trail = models.ManyToManyField(Trail)
+    trails = models.ManyToManyField(Trail)
