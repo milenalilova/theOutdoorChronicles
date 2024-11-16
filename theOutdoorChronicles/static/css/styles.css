@@ -16,6 +16,7 @@ body {
     /*background-position: center;*/
     /*background-attachment: fixed;*/
 }
+
 /*TODO the image is just for testing*/
 
 /* Navbar styles - updated to ensure consistency */
@@ -134,4 +135,16 @@ button[type="submit"]:not(.navbar button[type="submit"]):hover {
 }
 
 
+/* Profile card styles */
+.profile-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+    max-width: 300px;
+}
 
+.profile-info {
+    margin: 10px 0;
+}

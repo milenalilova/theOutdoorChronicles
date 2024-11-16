@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Profile Edit
+    Edit Trail Page
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Profile Edit Page</h1>
+    <h1>This is the Edit Trail Page</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Edit</button>
+        <button type="submit">Edit Trail</button>
     </form>
 {% endblock %}

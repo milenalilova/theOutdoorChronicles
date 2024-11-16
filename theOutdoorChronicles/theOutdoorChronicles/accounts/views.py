@@ -35,14 +35,14 @@ class ProfileEditView(UpdateView):
     template_name = 'accounts/profile-edit-page.html'
 
     def get_success_url(self):
-        return reverse_lazy('profile details', kwargs={'pk': self.object.pk})
+        return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})
 
 
 class ProfileDeleteView(DeleteView):
     model = UserModel
     form_class = ProfileDeleteForm
     template_name = 'accounts/profile-delete-page.html'
-    success_url = reverse_lazy('home page')
+    success_url = reverse_lazy('home-page')
 
     def get_object(self, queryset=None):
         return self.request.user

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Trail Details
+{% endblock %}
+
+{% block main_content %}
+    <div class="container mt-5">
+        <!-- Hero section -->
+        <h1 class="text-center">{{ trail.name }}</h1>
+        <div class="hero-section mb-4">
+            <img src="{{ trail.image.url }}" alt="{{ trail.name }} trail picture"
+                 class="img-fluid w-100" style="height: 400px; object-fit: cover;">
+            <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white bg-dark bg-opacity-50 p-3 rounded">
+                
+                <p class="lead">Length {{ trail.length }} km·Elevation Gain {{ trail.elevation_gain }}
+                    Difficulty {{ trail.difficulty }} Route Type{{ trail.route_type }} </p>
+            </div>
+        </div>
+
+        <!-- Trail details -->
+        <div class="card mb-3 p-3">
+            <h2>Trail Details</h2>
+            <div class="profile-info">
+                <p><strong>Location:</strong> {{ trail.location }}</p>
+                <p><strong>Description:</strong></p>
+                <p>{{ trail.description }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    Trail Details Page#}
+{#{% endblock %}#}
+{##}
+{#{% block main_content %}#}
+{#    <h1>This is the Trail Details Page</h1>#}
+{##}
+{#    <div class="profile-card">#}
+{#        <img src="{{ trail.image.url }}" alt="{{ trail.name }}'s trail picture"#}
+{#             class="profile-image"#}
+{#             style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">#}
+{##}
+{#        <h1>Trail Details</h1>#}
+{#        <div class="profile-info">#}
+{#            <p>#}
+{#                Trail Name:#}
+{#                {{ trail.name }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Last Name:#}
+{#                {{ profile.last_name }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Location:#}
+{#                {{ trail.location }}#}
+{#            </p>#}
+{#            <p>#}
+{#                length:#}
+{#                {{ trail.length }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Elevation Gain:#}
+{#                {{ trail.elevation_gain }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Difficulty:#}
+{#                {{ trail.difficulty }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Route Type:#}
+{#                {{ trail.route_type }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Description:#}
+{#                {{ trail.description }}#}
+{#            </p>#}
+{##}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}#}
+{##}
