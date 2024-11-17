@@ -63,6 +63,8 @@ class ProfileEditForm(forms.ModelForm):
         model = Profile
         exclude = ('user',)
 
+# TODO get the field username to be able to change it.
+
 
 class ProfileDeleteForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

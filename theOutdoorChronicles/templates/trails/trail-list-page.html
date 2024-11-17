@@ -8,6 +8,8 @@
     <h1>This is the Trail List Page</h1>
 
     {% for trail in trails %}
-        {{ trail }}
+        {{ trail.name }}
+        {{ trail.location }}
+        <a href="{% url 'trail-details' trail.pk %}">Trail Details</a>
     {% endfor %}
 {% endblock %}

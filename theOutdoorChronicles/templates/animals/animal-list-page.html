@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    List Animal Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the List Animal Page</h1>
+    {%  for animal in animals %}
+        {{ animal.common_name }}
+        {{ animal.species}}
+        <a href="{% url 'animal-details' animal.pk %}">Animal Details</a>
+    {% endfor %}
+{% endblock %}

@@ -12,7 +12,7 @@
             <img src="{{ trail.image.url }}" alt="{{ trail.name }} trail picture"
                  class="img-fluid w-100" style="height: 400px; object-fit: cover;">
             <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white bg-dark bg-opacity-50 p-3 rounded">
-                
+
                 <p class="lead">Length {{ trail.length }} km·Elevation Gain {{ trail.elevation_gain }}
                     Difficulty {{ trail.difficulty }} Route Type{{ trail.route_type }} </p>
             </div>
@@ -28,6 +28,9 @@
             </div>
         </div>
     </div>
+
+    <a href="{% url 'trail-edit' trail.pk %}">Edit Trail</a>
+    <a href="{% url 'trail-delete' trail.pk %}">Delete Trail</a>
 {% endblock %}
 
 

@@ -1,6 +1,5 @@
 from django.urls import path, include
 
-from theOutdoorChronicles import trails
 from theOutdoorChronicles.trails import views
 
 urlpatterns = [

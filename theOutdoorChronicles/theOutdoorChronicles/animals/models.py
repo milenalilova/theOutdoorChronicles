@@ -51,3 +51,5 @@ class Animal(models.Model):
         TrailLog,
         blank=True
     )
+
+# TODO add option unassigned to trails field so Animal object can be created if no trail exists yet

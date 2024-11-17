@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Animal Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Delete Animal Page</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Delete Animal</button>
+    </form>
+{% endblock %}
