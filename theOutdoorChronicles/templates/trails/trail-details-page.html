@@ -1,36 +1,70 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Trail Details
+    {{ trail.name }} - Trail Details
 {% endblock %}
 
 {% block main_content %}
-    <div class="container mt-5">
-        <!-- Hero section -->
-        <h1 class="text-center">{{ trail.name }}</h1>
-        <div class="hero-section mb-4">
-            <img src="{{ trail.image.url }}" alt="{{ trail.name }} trail picture"
-                 class="img-fluid w-100" style="height: 400px; object-fit: cover;">
-            <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white bg-dark bg-opacity-50 p-3 rounded">
-
-                <p class="lead">Length {{ trail.length }} km·Elevation Gain {{ trail.elevation_gain }}
-                    Difficulty {{ trail.difficulty }} Route Type{{ trail.route_type }} </p>
+    <div class="trail-details-container">
+        <!-- Hero Image Section -->
+        <div class="trail-hero">
+            <img src="{{ trail.image.url }}" alt="{{ trail.name }} trail picture">
+            <div class="trail-difficulty {{ trail.difficulty|lower }}">
+                {{ trail.difficulty }}
             </div>
         </div>
 
-        <!-- Trail details -->
-        <div class="card mb-3 p-3">
-            <h2>Trail Details</h2>
-            <div class="profile-info">
-                <p><strong>Location:</strong> {{ trail.location }}</p>
-                <p><strong>Description:</strong></p>
+        <!-- Trail Information -->
+        <div class="trail-info-container">
+            <div class="trail-header">
+                <h1>{{ trail.name }}</h1>
+                <p class="trail-location">
+                    <i class="fas fa-map-marker-alt"></i> {{ trail.location }}
+                </p>
+            </div>
+
+            <!-- Key Statistics -->
+            <div class="trail-stats-card">
+                <div class="stat-item">
+                    <i class="fas fa-route"></i>
+                    <div class="stat-content">
+                        <span class="stat-label">Length</span>
+                        <span class="stat-value">{{ trail.length }} km</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-mountain"></i>
+                    <div class="stat-content">
+                        <span class="stat-label">Elevation Gain</span>
+                        <span class="stat-value">{{ trail.elevation_gain }}m</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-road"></i>
+                    <div class="stat-content">
+                        <span class="stat-label">Route Type</span>
+                        <span class="stat-value">{{ trail.route_type }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="trail-description-card">
+                <h2>Trail Description</h2>
                 <p>{{ trail.description }}</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="trail-actions">
+                <a href="{% url 'trail-edit' trail.pk %}" class="action-button edit">
+                    <i class="fas fa-edit"></i> Edit Trail
+                </a>
+                <a href="{% url 'trail-delete' trail.pk %}" class="action-button delete">
+                    <i class="fas fa-trash-alt"></i> Delete Trail
+                </a>
             </div>
         </div>
     </div>
-
-    <a href="{% url 'trail-edit' trail.pk %}">Edit Trail</a>
-    <a href="{% url 'trail-delete' trail.pk %}">Delete Trail</a>
 {% endblock %}
 
 

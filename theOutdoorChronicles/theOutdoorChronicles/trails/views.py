@@ -27,6 +27,7 @@ class TrailDetailsView(DetailView):
 class TrailListView(ListView):
     model = Trail
     context_object_name = 'trails'
+    paginate_by = 3
     template_name = 'trails/trail-list-page.html'
 
 
