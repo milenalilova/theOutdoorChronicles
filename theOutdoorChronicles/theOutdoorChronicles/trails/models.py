@@ -65,6 +65,9 @@ class Trail(models.Model):
         blank=False
     )
 
+    def __str__(self):
+        return f"{self.name}, {self.location}"
+
 
 class TrailLog(TimeStampMixin, models.Model):
     title = models.CharField(
