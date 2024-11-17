@@ -2,7 +2,8 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from theOutdoorChronicles.animals.models import Animal
-from theOutdoorChronicles.trails.models import Trail, TrailLog
+from theOutdoorChronicles.trail_logs.models import TrailLog
+from theOutdoorChronicles.trails.models import Trail
 
 UserModel = get_user_model()
 

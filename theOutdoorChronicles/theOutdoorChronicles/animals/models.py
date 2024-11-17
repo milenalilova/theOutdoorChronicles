@@ -1,6 +1,7 @@
 from django.db import models
 
-from theOutdoorChronicles.trails.models import Trail, TrailLog
+from theOutdoorChronicles.trail_logs.models import TrailLog
+from theOutdoorChronicles.trails.models import Trail
 
 
 class Animal(models.Model):

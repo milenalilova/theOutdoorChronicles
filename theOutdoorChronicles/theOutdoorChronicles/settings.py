@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'theOutdoorChronicles.common.apps.CommonConfig',
     'theOutdoorChronicles.trails.apps.TrailsConfig',
     'theOutdoorChronicles.animals.apps.AnimalsConfig',
-    'theOutdoorChronicles.photos.apps.PhotosConfig'
+    'theOutdoorChronicles.photos.apps.PhotosConfig',
+    'theOutdoorChronicles.trail_logs.apps.TrailLogsConfig'
 ]
 
 MIDDLEWARE = [
