@@ -20,7 +20,8 @@ class AnimalDetailsView(DetailView):
     pk_url_kwarg = 'animal_id'
     template_name = 'animals/animal-details-page.html'
 
-    #     TODO add a list of trails the animal is found on in the context
+
+#      TODO add a list of trails the animal is found on in the context
 
 
 class AnimalListView(ListView):

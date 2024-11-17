@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Photo Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Create Photo Page</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Photo</button>
+    </form>
+{% endblock %}

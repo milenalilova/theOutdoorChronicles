@@ -22,3 +22,5 @@ class TrailDeleteForm(TrailBaseForm):
         super().__init__(*args, **kwargs)
         for _, field in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'
+
+

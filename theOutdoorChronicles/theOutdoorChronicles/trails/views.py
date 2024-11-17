@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, TrailDeleteForm
 from theOutdoorChronicles.trails.models import Trail
@@ -19,6 +19,7 @@ class TrailDetailsView(DetailView):
     model = Trail
     pk_url_kwarg = 'trail_id'
     template_name = 'trails/trail-details-page.html'
+
 
 #     TODO add a list of animals often found on the trail to the context
 

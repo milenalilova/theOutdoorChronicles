@@ -52,4 +52,7 @@ class Animal(models.Model):
         blank=True
     )
 
+    def __str__(self):
+        return f"{self.species}; {self.common_name}"
+
 # TODO add option unassigned to trails field so Animal object can be created if no trail exists yet
