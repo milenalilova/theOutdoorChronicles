@@ -10,6 +10,7 @@ urlpatterns = [
     path('trails/', include('theOutdoorChronicles.trails.urls')),
     path('animals/', include('theOutdoorChronicles.animals.urls')),
     path('photos/', include('theOutdoorChronicles.photos.urls')),
+    path('trail-logs/', include('theOutdoorChronicles.trail_logs.urls')),
 ]
 
 if settings.DEBUG:
