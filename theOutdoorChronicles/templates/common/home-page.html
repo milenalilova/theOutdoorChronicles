@@ -6,4 +6,21 @@
 
 {% block main_content %}
     <h1>This is the Home Page</h1>
+
+    {% if user.is_authenticated %}
+        <h2>Hello, {{ user.username }}</h2>
+    {% else %}
+        <h2>Explore Trails and Species</h2>
+    {% endif %}
+
+    {% for trail in random_trails %}
+        <p>{{ trail }}</p>
+    {% endfor %}
+
+    {% for animal in random_animals %}
+        <p>{{ animal }}</p>
+    {% endfor %}
+
 {% endblock %}
+
+{# TODO make Logon/Register on one page, one button - if registered, login, if not, register #}
