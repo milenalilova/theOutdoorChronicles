@@ -14,7 +14,6 @@ class TrailLogCreateView(CreateView):
     def form_valid(self, form):
         log = form.save(commit=False)
         log.user = self.request.user
-
         return super().form_valid(form)
 
     def get_success_url(self):

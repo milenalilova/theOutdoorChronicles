@@ -4,6 +4,17 @@ from theOutdoorChronicles.trail_logs.models import TrailLog
 
 
 class TrailLogBaseForm(forms.ModelForm):
+    date_completed = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+        input_formats=['%Y-%m-%d']
+    )
+    duration = forms.DurationField(
+        widget=forms.TextInput(attrs={
+            'placeholder': 'HH:MM'
+        }),
+        help_text='Enter duration as hours:minutes'
+    )
+
     class Meta:
         model = TrailLog
         exclude = ('user',)
@@ -11,8 +22,6 @@ class TrailLogBaseForm(forms.ModelForm):
 
 class TrailLogCreateForm(TrailLogBaseForm):
     pass
-
-# TODO fix date field to display date format
 
 
 class TrailLogEditForm(TrailLogBaseForm):
@@ -22,6 +31,7 @@ class TrailLogEditForm(TrailLogBaseForm):
 class TrailLogDeleteForm(TrailLogBaseForm):
     class Meta(TrailLogBaseForm.Meta):
         exclude = ('trail', 'user')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for _, field in self.fields.items():
