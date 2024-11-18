@@ -7,6 +7,16 @@
 {% block main_content %}
     <h1>This is the List Trail Log Page</h1>
     {% for log in trail_logs %}
-        {{ log }}
+        <div>
+            <p>
+                {{ log.title }}
+            </p>
+            <p>
+                {{ log.date_completed }}
+            </p>
+            <p>
+                {{ log.notes }}
+            </p>
+        </div>
     {% endfor %}
 {% endblock %}

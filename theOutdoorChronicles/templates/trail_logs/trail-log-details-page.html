@@ -6,5 +6,22 @@
 
 {% block main_content %}
     <h1>This is the Details Trail Log Page</h1>
-    {{ trail_log }}
+    <p>
+        {{ trail_log.title }}
+    </p>
+    <p>
+        {{ trail_log.date_completed }}
+    </p>
+    <p>
+        {{ trail_log.notes }}
+    </p>
+
+    <div class="trail-actions">
+        <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-button edit">
+            <i class="fas fa-edit"></i> Edit Trail Log
+        </a>
+        <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-button delete">
+            <i class="fas fa-trash-alt"></i> Delete Trail Log
+        </a>
+    </div>
 {% endblock %}

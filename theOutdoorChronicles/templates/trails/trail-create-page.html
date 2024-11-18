@@ -8,7 +8,7 @@
     <h1>This is the Create Trail Page</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
-        <button>Create Trail</button>
+        {{ form.as_p }}
+        <button type="submit">Create Trail</button>
     </form>
 {% endblock %}

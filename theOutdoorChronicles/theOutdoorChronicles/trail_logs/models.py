@@ -57,3 +57,6 @@ class TrailLog(TimeStampMixin, models.Model):
 
     class Meta:
         ordering = ['-date_completed']
+
+    def __str__(self):
+        return self.title
