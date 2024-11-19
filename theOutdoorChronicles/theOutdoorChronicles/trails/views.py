@@ -55,3 +55,5 @@ class TrailDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_initial(self):
         return self.object.__dict__
+
+

@@ -21,5 +21,5 @@
     {% if perms.animals.delete_animal %}
         <a href="{% url 'animal-delete' animal.pk %}">Delete Animal</a>
     {% endif %}
-    <a href="{% url 'photo-create' %}">Upload Your Photo</a>
+    <a href="{% url 'animals-photo-upload' animal_id=animal.pk%}">Upload Your Photo</a>
 {% endblock %}

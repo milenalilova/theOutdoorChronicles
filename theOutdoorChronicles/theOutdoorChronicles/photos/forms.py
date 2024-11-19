@@ -6,15 +6,11 @@ from theOutdoorChronicles.photos.models import Photo
 class PhotoBaseForm(forms.ModelForm):
     class Meta:
         model = Photo
-        exclude = ('user', 'trail_log')
+        exclude = ('user',)
 
 
 class PhotoCreateForm(PhotoBaseForm):
     pass
-
-
-# TODO change the form to handle different scenarios if the photo is uploaded from different pages on the site.
-#  Possibly 2 forms
 
 
 class PhotoEditForm(PhotoBaseForm):

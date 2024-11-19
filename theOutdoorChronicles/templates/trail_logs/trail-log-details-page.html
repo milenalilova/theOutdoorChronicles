@@ -23,7 +23,7 @@
         <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-button delete">
             <i class="fas fa-trash-alt"></i> Delete Trail Log
         </a>
-      <a href="{% url 'photo-create'  %}" class="action-button create">
+        <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" class="action-button create">
             <i class="fas fa-edit"></i> Upload a Photo
         </a>
     </div>

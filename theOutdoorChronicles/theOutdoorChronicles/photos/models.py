@@ -43,8 +43,8 @@ class Photo(models.Model):
         related_name='photos'
     )
 
-
-
+    def __str__(self):
+        return f"{self.trail.name}_{self.pk}"
 
 # TODO potentially add indexing for better performance
 #     class Meta:
