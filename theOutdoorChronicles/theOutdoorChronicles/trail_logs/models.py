@@ -1,7 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.common.mixins import TimeStampMixin
+from theOutdoorChronicles.photos.models import Photo
 from theOutdoorChronicles.trails.models import Trail
 
 UserModel = get_user_model()
@@ -51,9 +53,29 @@ class TrailLog(TimeStampMixin, models.Model):
         default=False
     )
 
-    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name='trail_logs'
+    )
 
-    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    trail = models.ForeignKey(
+        Trail,
+        on_delete=models.CASCADE,
+        related_name='trail_logs'
+    )
+
+    animals = models.ManyToManyField(
+        Animal,
+        blank=True,
+        related_name='trail_logs'
+    )
+
+    photos = models.ManyToManyField(
+        Photo,
+        blank=True,
+        related_name='trail_logs'
+    )
 
     class Meta:
         ordering = ['-date_completed']

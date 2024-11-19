@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.db import models
 
 from theOutdoorChronicles.animals.models import Animal
-from theOutdoorChronicles.trail_logs.models import TrailLog
 from theOutdoorChronicles.trails.models import Trail
 
 UserModel = get_user_model()
@@ -26,27 +25,24 @@ class Photo(models.Model):
 
     user = models.ForeignKey(
         UserModel,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='photos'
     )
 
     trail = models.ForeignKey(
         Trail,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='photos'
     )
 
     animal = models.ForeignKey(
         Animal,
         on_delete=models.SET_NULL,
         null=True,
-        blank=True
+        blank=True,
+        related_name='photos'
     )
-    trail_log = models.ForeignKey(
-        TrailLog,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
 
-    )
 
 
 

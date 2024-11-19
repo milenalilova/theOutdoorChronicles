@@ -1,6 +1,5 @@
 from django.db import models
 
-from theOutdoorChronicles.trail_logs.models import TrailLog
 from theOutdoorChronicles.trails.models import Trail
 
 
@@ -46,11 +45,9 @@ class Animal(models.Model):
         blank=True
     )
 
-    trails = models.ManyToManyField(Trail)
-
-    trail_logs = models.ManyToManyField(
-        TrailLog,
-        blank=True
+    trails = models.ManyToManyField(
+        Trail,
+        related_name='animals'
     )
 
     def __str__(self):
