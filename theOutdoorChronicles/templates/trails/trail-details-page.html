@@ -67,6 +67,13 @@
                         <i class="fas fa-trash-alt"></i> Delete Trail
                     </a>
                 {% endif %}
+                <a href="{% url 'photo-create' %}" class="action-button edit">
+                    <i class="fas fa-edit"></i> Upload Your Photo
+                </a>
+                <a href="{% url 'trail-log-create' %}" class="action-button edit">
+                    <i class="fas fa-edit"></i> Log Your Experience
+                </a>
+                {#            TODO fix the buttons look (Photo and Log, class="action-button edit")>#}
             </div>
         </div>
     </div>

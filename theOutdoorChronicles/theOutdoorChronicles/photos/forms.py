@@ -13,6 +13,10 @@ class PhotoCreateForm(PhotoBaseForm):
     pass
 
 
+# TODO change the form to handle different scenarios if the photo is uploaded from different pages on the site.
+#  Possibly 2 forms
+
+
 class PhotoEditForm(PhotoBaseForm):
     pass
 
@@ -20,6 +24,7 @@ class PhotoEditForm(PhotoBaseForm):
 class PhotoDeleteForm(PhotoBaseForm):
     class Meta(PhotoBaseForm.Meta):
         fields = ('image', 'description')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for _, field in self.fields.items():

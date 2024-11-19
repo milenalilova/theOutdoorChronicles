@@ -23,6 +23,8 @@ class TrailLogBaseForm(forms.ModelForm):
 class TrailLogCreateForm(TrailLogBaseForm):
     pass
 
+# TODO exclude the trail field. Takes the pk from url
+
 
 class TrailLogEditForm(TrailLogBaseForm):
     pass

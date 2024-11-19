@@ -24,6 +24,9 @@ class PhotoCreateView(CreateView):
         return reverse_lazy('photo-details', kwargs={'photo_id': self.object.pk})
 
 
+#     TODO handle different scenarios for photo uploaded from different pages on the site
+
+
 class PhotoDetailView(DetailView):
     model = Photo
     pk_url_kwarg = 'photo_id'

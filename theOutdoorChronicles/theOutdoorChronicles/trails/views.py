@@ -17,6 +17,7 @@ class TrailCreateView(PermissionRequiredMixin, CreateView):
         return reverse_lazy('trail-details', kwargs={'trail_id': self.object.pk})
 
 
+
 class TrailDetailsView(DetailView):
     model = Trail
     pk_url_kwarg = 'trail_id'

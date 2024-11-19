@@ -40,3 +40,4 @@ class AnimalDeleteForm(AnimalBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 #  TODO fix the form to show only the trails the animal is on
+# TODO create a search animals form based on animal common name, species, trail found on

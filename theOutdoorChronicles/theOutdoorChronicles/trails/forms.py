@@ -24,3 +24,4 @@ class TrailDeleteForm(TrailBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
+# TODO create a search trails form based on trail names, location, animals found
