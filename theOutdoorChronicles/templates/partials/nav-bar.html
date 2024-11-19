@@ -6,12 +6,19 @@
                 <a href="{% url 'register' %}">Register</a>
                 <a href="{% url 'login' %}">Login</a>
             {% else %}
-                <a href="{% url 'profile-details' user.pk %}">Profile Details</a>
-{#                <a href="{% url 'edit-profile' user.pk %}">Edit Profile</a>#}
-{#                <a href="{% url 'delete-profile' user.pk %}">Delete Profile</a>#}
+
                 <a href="{% url 'trail-list' %}">Explore Trails</a>
                 <a href="{% url 'animal-list' %}">Explore Animals</a>
+                <a href="{% url 'trail-log-create' %}">Create Trail Log</a>
 
+                {% if perms.trails.add_trail %}
+                    <a href="{% url 'trail-create' %}">Create Trail</a>
+                {% endif %}
+
+                {% if perms.animals.add_animal %}
+                    <a href="{% url 'animal-create' %}">Create Animal</a>
+                {% endif %}
+                <a href="{% url 'profile-details' user.pk %}">Profile Details</a>
                 <form action="{% url 'logout' %}" method="post" style="display: inline">
                 {% csrf_token %}
                 <button type="submit" class="navbar-link">Logout</button>
@@ -22,4 +29,4 @@
 </header>
 
 
-{# TODO add logit to display links based on permissions etc#}
+{# TODO add logic to display links based on permissions etc#}

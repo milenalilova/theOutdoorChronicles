@@ -7,7 +7,7 @@
 {% block main_content %}
     <h1>This is the Details Animal Page</h1>
     <div>
-        <img src="{{ animal.image.url }}" alt="{{ photo.trail.name}}'s picture"
+        <img src="{{ animal.image.url }}" alt="{{ animal.species }}'s picture"
              class="img-fluid w-100" style="height: 400px; object-fit: cover;">
 
     </div>
@@ -15,7 +15,10 @@
     {{ animal.common_name }}
     {{ animal.species }}
     Found on Trails: {{ animal.trails }}
-
-    <a href="{% url 'animal-edit' animal.pk %}">Edit Animal</a>
-    <a href="{% url 'animal-delete' animal.pk %}">Delete Animal</a>
+    {% if perms.animals.change_animal %}
+        <a href="{% url 'animal-edit' animal.pk %}">Edit Animal</a>
+    {% endif %}
+    {% if perms.animals.delete_animal %}
+        <a href="{% url 'animal-delete' animal.pk %}">Delete Animal</a>
+    {% endif %}
 {% endblock %}

@@ -55,70 +55,19 @@
             </div>
 
             <!-- Action Buttons -->
+
             <div class="trail-actions">
-                <a href="{% url 'trail-edit' trail.pk %}" class="action-button edit">
-                    <i class="fas fa-edit"></i> Edit Trail
-                </a>
-                <a href="{% url 'trail-delete' trail.pk %}" class="action-button delete">
-                    <i class="fas fa-trash-alt"></i> Delete Trail
-                </a>
+                {% if perms.trails.change_trail %}
+                    <a href="{% url 'trail-edit' trail.pk %}" class="action-button edit">
+                        <i class="fas fa-edit"></i> Edit Trail
+                    </a>
+                {% endif %}
+                {% if perms.trails.delete_trail %}
+                    <a href="{% url 'trail-delete' trail.pk %}" class="action-button delete">
+                        <i class="fas fa-trash-alt"></i> Delete Trail
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
 {% endblock %}
-
-
-
-{#{% extends 'base.html' %}#}
-{##}
-{#{% block title %}#}
-{#    Trail Details Page#}
-{#{% endblock %}#}
-{##}
-{#{% block main_content %}#}
-{#    <h1>This is the Trail Details Page</h1>#}
-{##}
-{#    <div class="profile-card">#}
-{#        <img src="{{ trail.image.url }}" alt="{{ trail.name }}'s trail picture"#}
-{#             class="profile-image"#}
-{#             style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">#}
-{##}
-{#        <h1>Trail Details</h1>#}
-{#        <div class="profile-info">#}
-{#            <p>#}
-{#                Trail Name:#}
-{#                {{ trail.name }}#}
-{#            </p>#}
-{#            <p>#}
-{#                Last Name:#}
-{#                {{ profile.last_name }}#}
-{#            </p>#}
-{#            <p>#}
-{#                Location:#}
-{#                {{ trail.location }}#}
-{#            </p>#}
-{#            <p>#}
-{#                length:#}
-{#                {{ trail.length }}#}
-{#            </p>#}
-{#            <p>#}
-{#                Elevation Gain:#}
-{#                {{ trail.elevation_gain }}#}
-{#            </p>#}
-{#            <p>#}
-{#                Difficulty:#}
-{#                {{ trail.difficulty }}#}
-{#            </p>#}
-{#            <p>#}
-{#                Route Type:#}
-{#                {{ trail.route_type }}#}
-{#            </p>#}
-{#            <p>#}
-{#                Description:#}
-{#                {{ trail.description }}#}
-{#            </p>#}
-{##}
-{#        </div>#}
-{#    </div>#}
-{#{% endblock %}#}
-{##}

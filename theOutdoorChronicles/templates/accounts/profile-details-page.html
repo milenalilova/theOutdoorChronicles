@@ -6,10 +6,11 @@
 
 {% block main_content %}
     <div class="profile-card">
-        <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture"
-             class="profile-image"
-             style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
-
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture"
+                 class="profile-image"
+                 style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+        {% endif %}
         <h1>Profile Details</h1>
         <div class="profile-info">
             <p>
