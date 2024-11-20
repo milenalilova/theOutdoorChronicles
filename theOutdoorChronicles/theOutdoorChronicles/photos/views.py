@@ -31,6 +31,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
             trail_id = trail_log.trail.pk
 
         #     TODO create a function to avoid repeating
+        #     TODO possibly move the view to common app and rename to UploadPhoto
 
         if trail_id:
             form.fields['trail'].widget = forms.HiddenInput()

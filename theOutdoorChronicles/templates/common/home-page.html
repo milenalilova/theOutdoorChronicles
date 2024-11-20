@@ -7,6 +7,19 @@
 {% block main_content %}
     <h1>This is the Home Page</h1>
 
+    <form class="search">
+        {{ search_form.as_p }}
+        <button>Search</button>
+    </form>
+
+    <div>
+        {% for result in searched_result %}
+            <p>
+                {# TODO display the found object #}
+            </p>
+        {% endfor %}
+    </div>
+
     {% if user.is_authenticated %}
         <h2>Hello, {{ user.profile.get_display_name }}</h2>
     {% else %}
@@ -16,7 +29,7 @@
     {% for trail in random_trails %}
         <p>{{ trail }}</p>
     {% endfor %}
-----------------------------------------------
+    ----------------------------------------------
     {% for animal in random_animals %}
         <p>{{ animal }}</p>
     {% endfor %}

@@ -33,4 +33,6 @@ class AnimalDeleteForm(AnimalBaseForm):
         for _, field in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'
 
+
 # TODO create a search animals form based on animal common name, species, trail found on
+
