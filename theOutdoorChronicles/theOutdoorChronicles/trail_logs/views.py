@@ -20,7 +20,8 @@ class TrailLogCreateView(CreateView):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
 
 
-#     TODO refactor to get user.pk from url. Move the button Log to a Trail page
+#     TODO refactor to get user.pk from url
+#     TODO hide fields trail and photos from the form
 
 
 class TrailLogDetailsView(DetailView):

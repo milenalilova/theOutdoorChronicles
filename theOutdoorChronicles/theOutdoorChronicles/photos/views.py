@@ -30,6 +30,8 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
             trail_id = trail_log.trail.pk
 
+        #     TODO create a function to avoid repeating
+
         if trail_id:
             form.fields['trail'].widget = forms.HiddenInput()
             form.fields['trail'].initial = trail_id
