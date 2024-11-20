@@ -1,6 +1,5 @@
-from django.contrib.auth import get_user_model, logout
-from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import render
+from django.contrib.auth import get_user_model, logout, login
+from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 
@@ -14,10 +13,12 @@ class AppUserRegisterView(CreateView):
     model = UserModel
     form_class = AppUserCreationForm
     template_name = 'accounts/register-page.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('home-page')
 
-
-#     TODO create 'home page' url. Change success_url = reverse_lazy('home page') overriding form.save()
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        login(self.request, self.object)
+        return response
 
 
 class AppUserLoginView(LoginView):
