@@ -19,14 +19,8 @@ class AnimalCreateForm(AnimalBaseForm):
     pass
 
 
-# TODO add multiple choice field for trails
-
-
 class AnimalEditForm(AnimalBaseForm):
     pass
-
-
-# TODO add multiple choice field for trails
 
 
 class AnimalDeleteForm(AnimalBaseForm):
@@ -39,5 +33,4 @@ class AnimalDeleteForm(AnimalBaseForm):
         for _, field in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'
 
-#  TODO fix the form to show only the trails the animal is on
 # TODO create a search animals form based on animal common name, species, trail found on

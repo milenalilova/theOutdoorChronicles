@@ -9,6 +9,16 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+    
+        <h2>Associated Trails:</h2>
+        <ul>
+            {% for trail in trails %}
+                <li>{{ trail.name }}</li>
+            {% empty %}
+                <li>No associated trails.</li>
+            {% endfor %}
+        </ul>
+    
         <button type="submit">Delete Animal</button>
     </form>
 {% endblock %}

@@ -54,5 +54,11 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('animal-list')
     permission_required = 'animals.delete_animal'
 
+    # gets trails the animal os found on, so they can be displayed before deletion
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['trails'] = self.object.trails.all()
+        return context
+
     def get_initial(self):
         return self.object.__dict__
