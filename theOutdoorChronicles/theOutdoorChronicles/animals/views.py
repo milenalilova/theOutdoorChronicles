@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
-from theOutdoorChronicles.animals.forms import AnimalCreateForm, AnimalEditForm, AnimalDeleteForm
+from theOutdoorChronicles.animals.forms import AnimalCreateForm, AnimalEditForm, AnimalDeleteForm, AnimalSearchForm
 from theOutdoorChronicles.animals.models import Animal
 
 
@@ -31,8 +32,23 @@ class AnimalDetailsView(DetailView):
 
 class AnimalListView(ListView):
     model = Animal
-    context_object_name = 'animals'
+    context_object_name = 'animals_found'
     template_name = 'animals/animal-list-page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['animal_search_form'] = AnimalSearchForm(self.request.GET)
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        animal_name = self.request.GET.get('animal_name', '')
+        if animal_name:
+            queryset = queryset.filter(
+                Q(common_name__icontains=animal_name) |
+                Q(species__icontains=animal_name)
+            )
+        return queryset
 
 
 class AnimalEditView(PermissionRequiredMixin, UpdateView):

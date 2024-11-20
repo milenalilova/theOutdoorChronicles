@@ -24,4 +24,14 @@ class TrailDeleteForm(TrailBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
+class TrailSearchForm(forms.Form):
+    trail_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Search trails by name or location',
+            }
+        )
+    )
+
 # TODO create a search trails form based on trail names, location, animals found

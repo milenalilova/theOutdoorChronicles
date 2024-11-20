@@ -34,5 +34,12 @@ class AnimalDeleteForm(AnimalBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
-# TODO create a search animals form based on animal common name, species, trail found on
-
+class AnimalSearchForm(forms.Form):
+    animal_name = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Search animal by common_name or species',
+            }
+        )
+    )

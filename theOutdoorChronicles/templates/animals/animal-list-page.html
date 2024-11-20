@@ -6,9 +6,22 @@
 
 {% block main_content %}
     <h1>This is the List Animal Page</h1>
-    {%  for animal in animals %}
+    <form class="search">
+        {{ animal_search_form }}
+        <button>Search Animal</button>
+    </form>
+
+    <div>
+        {% for found_animal in animals_found %}
+            <p>
+                {{ found_animal }}
+            </p>
+        {% endfor %}
+    </div>
+
+    {% for animal in animals %}
         {{ animal.common_name }}
-        {{ animal.species}}
+        {{ animal.species }}
         <a href="{% url 'animal-details' animal.pk %}">Animal Details</a>
     {% endfor %}
 {% endblock %}
