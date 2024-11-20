@@ -43,3 +43,5 @@ class AnimalSearchForm(forms.Form):
             }
         )
     )
+
+# TODO rename the field or hide from temlpate

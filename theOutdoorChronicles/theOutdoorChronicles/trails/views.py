@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
-from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, TrailDeleteForm
+from theOutdoorChronicles.animals.models import Animal
+from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, TrailDeleteForm, TrailSearchForm
 from theOutdoorChronicles.trails.models import Trail
 
 
@@ -28,9 +30,25 @@ class TrailDetailsView(DetailView):
 
 class TrailListView(ListView):
     model = Trail
-    context_object_name = 'trails'
     paginate_by = 3
     template_name = 'trails/trail-list-page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context['trails'] = Trail.objects.all()
+        context['trails_found'] = self.get_queryset()
+        context['trails_search_form'] = TrailSearchForm(self.request.GET or None)
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        trail_info = self.request.GET.get('trail_info' or None)
+        if trail_info:
+            queryset = queryset.filter(
+                Q(name__icontains=trail_info) |
+                Q(location__icontains=trail_info)
+            )
+        return queryset
 
 
 class TrailEditView(PermissionRequiredMixin, UpdateView):

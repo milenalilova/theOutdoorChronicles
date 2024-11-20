@@ -32,17 +32,20 @@ class AnimalDetailsView(DetailView):
 
 class AnimalListView(ListView):
     model = Animal
-    context_object_name = 'animals_found'
+    paginate_by = 3
     template_name = 'animals/animal-list-page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['animal_search_form'] = AnimalSearchForm(self.request.GET)
+        context['animals'] = Animal.objects.all()
+        context['animals_found'] = self.get_queryset()
+        context['animal_search_form'] = AnimalSearchForm(self.request.GET or None)
         return context
 
+    #
     def get_queryset(self):
         queryset = super().get_queryset()
-        animal_name = self.request.GET.get('animal_name', '')
+        animal_name = self.request.GET.get('animal_name' or None)
         if animal_name:
             queryset = queryset.filter(
                 Q(common_name__icontains=animal_name) |
