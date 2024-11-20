@@ -15,16 +15,19 @@ class IndexView(TemplateView):
         if self.request.user.is_authenticated:
             user_location = Profile.objects.get(user=self.request.user).location
             random_trails = None
+            random_animals = None
 
             if user_location:
                 random_trails = Trail.objects.filter(location__icontains=user_location)
+                random_animals = (t.animals for t in random_trails)
+            #     TODO check what's inside random trails
 
             if not user_location or not random_trails:
                 random_trails = Trail.objects.order_by('?')[:5]
+                random_animals = Animal.objects.order_by('?')[:5]
 
             context['random_trails'] = random_trails
-            context['random_animals'] = None  # Placeholder for future animal logic
-            #     TODO add animals on those trails
+            context['random_animals'] = random_animals
 
         else:
             random_trails = cache.get('daily_trails')
@@ -32,7 +35,7 @@ class IndexView(TemplateView):
 
             if not random_trails:
                 random_trails = list(Trail.objects.order_by('?')[:5])
-                cache.set('daily_trails', random_trails, 86400)
+                cache.set('daily_trails', random_trails, 86400)  # cashes for 24h
 
             if not random_animals:
                 random_animals = list(Animal.objects.order_by('?')[:5])

@@ -11,15 +11,19 @@
              class="img-fluid w-100" style="height: 400px; object-fit: cover;">
 
     </div>
-
-    {{ animal.common_name }}
+    <p>
+      {{ animal.common_name }}
     {{ animal.species }}
-    Found on Trails: {{ animal.trails }}
+    </p>
+    ---------------------------
+    <p>The Animal is: {{ animal }}</p>
+    <p>Found on Trails: {{ trails }}</p>
+    ---------------------------
     {% if perms.animals.change_animal %}
         <a href="{% url 'animal-edit' animal.pk %}">Edit Animal</a>
     {% endif %}
     {% if perms.animals.delete_animal %}
         <a href="{% url 'animal-delete' animal.pk %}">Delete Animal</a>
     {% endif %}
-    <a href="{% url 'animals-photo-upload' animal_id=animal.pk%}">Upload Your Photo</a>
+    <a href="{% url 'animals-photo-upload' animal_id=animal.pk %}">Upload Your Photo</a>
 {% endblock %}
