@@ -48,6 +48,12 @@ class Profile(models.Model):
         primary_key=True
     )
 
+    nickname = models.CharField(
+        max_length=30,
+        null=True,
+        blank=True
+    )
+
     first_name = models.CharField(
         max_length=30,
         null=True,
@@ -87,3 +93,6 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
+
+    def get_display_name(self):
+        return self.nickname or self.first_name or self.user.username
