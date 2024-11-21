@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
@@ -33,6 +34,12 @@ class TrailListView(ListView):
     paginate_by = 3
     template_name = 'trails/trail-list-page.html'
 
+    def get(self, request, *args, **kwargs):
+        if 'clear' in request.GET:
+            return redirect('trail-list')
+
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['trails'] = Trail.objects.all()
@@ -42,6 +49,7 @@ class TrailListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+
         trail_info = self.request.GET.get('trail_info' or None)
         if trail_info:
             queryset = queryset.filter(

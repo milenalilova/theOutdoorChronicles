@@ -1,2 +1,7 @@
-@import "home.css";
-/*@import "styles.css";*/
+@import "./global.css";
+@import "./nav-bar.css";
+@import "./footer.css";
+@import "./forms.css";
+@import "./profile-card.css";
+@import "./trails.css";
+@import "./utilities.css";

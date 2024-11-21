@@ -80,26 +80,3 @@
     </div>
 {% endblock %}
 
-{#{% block main_content %}#}
-{#    <h1>This is the Details Animal Page</h1>#}
-{#    <div>#}
-{#        <img src="{{ animal.image.url }}" alt="{{ animal.species }}'s picture"#}
-{#             class="img-fluid w-100" style="height: 400px; object-fit: cover;">#}
-{##}
-{#    </div>#}
-{#    <p>#}
-{#      {{ animal.common_name }}#}
-{#    {{ animal.species }}#}
-{#    </p>#}
-{#    ---------------------------#}
-{#    <p>The Animal is: {{ animal }}</p>#}
-{#    <p>Found on Trails: {{ trails }}</p>#}
-{#    ---------------------------#}
-{#    {% if perms.animals.change_animal %}#}
-{#        <a href="{% url 'animal-edit' animal.pk %}">Edit Animal</a>#}
-{#    {% endif %}#}
-{#    {% if perms.animals.delete_animal %}#}
-{#        <a href="{% url 'animal-delete' animal.pk %}">Delete Animal</a>#}
-{#    {% endif %}#}
-{#    <a href="{% url 'animals-photo-upload' animal_id=animal.pk %}">Upload Your Photo</a>#}
-{#{% endblock %}#}

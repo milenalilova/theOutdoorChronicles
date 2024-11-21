@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
@@ -35,8 +36,15 @@ class AnimalListView(ListView):
     paginate_by = 3
     template_name = 'animals/animal-list-page.html'
 
+    def get(self, request, *args, **kwargs):
+        if 'clear' in request.GET:
+            return redirect('animal-list')
+
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['animals'] = Animal.objects.all()
         context['animals_found'] = self.get_queryset()
         context['animal_search_form'] = AnimalSearchForm(self.request.GET or None)
@@ -45,6 +53,7 @@ class AnimalListView(ListView):
     #
     def get_queryset(self):
         queryset = super().get_queryset()
+
         animal_name = self.request.GET.get('animal_name' or None)
         if animal_name:
             queryset = queryset.filter(
@@ -81,3 +90,5 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_initial(self):
         return self.object.__dict__
+
+# TODO make one search form for animals and trails to get a qyery parm

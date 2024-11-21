@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block title %}
     Trail List Page
 {% endblock %}
 
 {% block main_content %}
+
     <div class="trails-header">
         <h1>Discover Amazing Trails</h1>
         <p class="trails-subtitle">Explore nature's finest paths</p>
@@ -13,67 +13,74 @@
 
     <form class="search">
         {{ trails_search_form }}
-        <button>Search Trail</button>
+        <button type="submit">Search Trail</button>
+        <button type="submit" name="clear" value="1">Clear Search</button>
     </form>
 
-    {% if trails_found %}
+    {% if request.GET.trail_info %}
 
-        <div class="search-results">
-            <h2>Search Results</h2>
-            <p>{{ trails_found.count }} trail(s) found</p>
-        </div>
+        {% if trails_found %}
 
-        <div class="trails-grid">
-            {% for trail in trails_found %}
-                <div class="trail-card">
-                    <div class="trail-image">
-                        <img src="{{ trail.image.url }}" alt="{{ trail.name }}">
-                        <div class="trail-difficulty {{ trail.difficulty|lower }}">
-                            {{ trail.difficulty }}
+            <div class="search-results">
+                <h2>Search Results</h2>
+                <p>{{ trails_found.count }} trail(s) found</p>
+            </div>
+
+            <div class="trails-grid">
+                {% for trail in trails_found %}
+                    <div class="trail-card">
+                        <div class="trail-image">
+                            <img src="{{ trail.image.url }}" alt="{{ trail.name }}">
+                            <div class="trail-difficulty {{ trail.difficulty|lower }}">
+                                {{ trail.difficulty }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="trail-content">
-                        <h2 class="trail-name">{{ trail.name }}</h2>
-                        <p class="trail-location">
-                            <i class="fas fa-map-marker-alt"></i> {{ trail.location }}
-                        </p>
-                        <div class="trail-stats">
+                        <div class="trail-content">
+                            <h2 class="trail-name">{{ trail.name }}</h2>
+                            <p class="trail-location">
+                                <i class="fas fa-map-marker-alt"></i> {{ trail.location }}
+                            </p>
+                            <div class="trail-stats">
                             <span>
                                 <i class="fas fa-route"></i> {{ trail.length }} km
                             </span>
-                            <span>
+                                <span>
                                 <i class="fas fa-mountain"></i> {{ trail.elevation_gain }}m
                             </span>
-                            <span>
+                                <span>
                                 <i class="fas fa-road"></i> {{ trail.route_type }}
                             </span>
+                            </div>
+                            <a href="{% url 'trail-details' trail.pk %}" class="trail-details-btn">
+                                View Details
+                            </a>
                         </div>
-                        <a href="{% url 'trail-details' trail.pk %}" class="trail-details-btn">
-                            View Details
-                        </a>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        {% if is_paginated %}
-            <div class="pagination">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
-                {% endif %}
-
-                {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <span class="page-link active">{{ num }}</span>
-                    {% else %}
-                        <a href="?page={{ num }}" class="page-link">{{ num }}</a>
-                    {% endif %}
                 {% endfor %}
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
-                {% endif %}
             </div>
+
+            {% if is_paginated %}
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span class="page-link active">{{ num }}</span>
+                        {% else %}
+                            <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+        {% else %}
+            Display "No trails found for: {{ request.GET.trail_info }}
         {% endif %}
 
     {% else %}
@@ -137,5 +144,5 @@
 {% endblock %}
 
 
-{# TODO fix display if not search results #}
-{# TODO make partials for trail cards#}
+{# TODO make custom tag to check for a search query #}
+{# TODO make partials for trail cards #}
