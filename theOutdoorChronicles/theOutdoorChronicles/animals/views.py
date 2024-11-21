@@ -63,6 +63,10 @@ class AnimalListView(ListView):
         return queryset
 
 
+# TODO make one search form for animals and trails to get query parm and queryset.
+#  Possibly mixin for get_queryset()
+
+
 class AnimalEditView(PermissionRequiredMixin, UpdateView):
     model = Animal
     form_class = AnimalEditForm
@@ -82,7 +86,7 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('animal-list')
     permission_required = 'animals.delete_animal'
 
-    # gets trails the animal os found on, so they can be displayed before deletion
+    # gets trails the animal is found on, so they can be displayed before deletion
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['trails'] = self.object.trails.all()
@@ -90,5 +94,3 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_initial(self):
         return self.object.__dict__
-
-# TODO make one search form for animals and trails to get a qyery parm

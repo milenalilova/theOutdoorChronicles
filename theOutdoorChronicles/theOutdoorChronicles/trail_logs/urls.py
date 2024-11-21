@@ -4,7 +4,8 @@ from theOutdoorChronicles.trail_logs import views
 from theOutdoorChronicles.photos import views as photos_views
 
 urlpatterns = [
-    path('create/', views.TrailLogCreateView.as_view(), name='trail-log-create'),
+    path('create/<int:trail_id>/', views.TrailLogCreateView.as_view(), name='trail-log-create'),
+    # create gets a trail_id to log experience on that particular trail
     path('explore/', views.TrailLogListView.as_view(), name='trail-log-list'),
     path('<int:trail_log_id>/', include([
         path('details/', views.TrailLogDetailsView.as_view(), name='trail-log-details'),
@@ -14,3 +15,5 @@ urlpatterns = [
 
     ])),
 ]
+
+# TODO possibly add slugs

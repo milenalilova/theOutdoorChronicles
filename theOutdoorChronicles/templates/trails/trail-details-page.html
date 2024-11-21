@@ -54,8 +54,12 @@
                 <p>{{ trail.description }}</p>
             </div>
 
-            <div>
-                {{ trail.animals.count }}
+            <div class="trail-description-card">
+                {% for animal in animals %}
+                    <p>
+                        <a href="{{ animal.get_absolute_url }}">{{ animal.common_name }} {{ animal.species }}</a>
+                    </p>
+                {% endfor %}
             </div>
 
             <!-- Action Buttons -->
@@ -74,7 +78,7 @@
                 <a href="{% url 'trail-photo-upload' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> Upload Your Photo
                 </a>
-                <a href="{% url 'trail-log-create' %}" class="action-button edit">
+                <a href="{% url 'trail-log-create' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> Log Your Experience
                 </a>
                 {#            TODO fix the buttons look (Photo and Log, class="action-button edit")>#}

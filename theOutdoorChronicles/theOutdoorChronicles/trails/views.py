@@ -25,8 +25,10 @@ class TrailDetailsView(DetailView):
     pk_url_kwarg = 'trail_id'
     template_name = 'trails/trail-details-page.html'
 
-
-#     TODO add a list of animals often found on the trail to the context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['animals'] = self.object.animals.all()
+        return context
 
 
 class TrailListView(ListView):

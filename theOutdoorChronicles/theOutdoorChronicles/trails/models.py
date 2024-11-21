@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator
 from django.db import models
+from django.urls import reverse
 
 UserModel = get_user_model()
 
@@ -35,6 +37,7 @@ class Trail(models.Model):
     length = models.DecimalField(
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(0)],
         null=False,
         blank=False
     )
@@ -63,7 +66,8 @@ class Trail(models.Model):
         blank=False
     )
 
+    def get_absolute_url(self):
+        return reverse('trail-details', kwargs={'trail_id': self.pk})
+
     def __str__(self):
         return f"{self.name}, {self.location}"
-
-#     TODO fix length positive

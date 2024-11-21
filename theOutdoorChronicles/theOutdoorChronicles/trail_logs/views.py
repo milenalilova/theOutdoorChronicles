@@ -1,8 +1,11 @@
+from django import forms
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from theOutdoorChronicles.trail_logs.forms import TrailLogCreateForm, TrailLogEditForm, TrailLogDeleteForm
 from theOutdoorChronicles.trail_logs.models import TrailLog
+from theOutdoorChronicles.trails.models import Trail
 
 
 class TrailLogCreateView(CreateView):
@@ -11,17 +14,32 @@ class TrailLogCreateView(CreateView):
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-create-page.html'
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+
+        trail_id = self.kwargs.get('trail_id')
+        if trail_id:
+            trail = get_object_or_404(Trail, pk=trail_id)
+            form.fields['trail'].widget = forms.HiddenInput()
+            form.fields['trail'].initial = trail_id
+            form.fields['animals_spotted'].queryset = trail.animals.all()
+
+        return form
+
     def form_valid(self, form):
-        log = form.save(commit=False)
-        log.user = self.request.user
+        trail_log = form.save(commit=False)
+        trail_log.user = self.request.user
+        trail_log.save()
+
+        trail_id = self.kwargs.get('trail_id')
+        if trail_id:
+            trail = get_object_or_404(Trail, pk=trail_id)
+            trail.trail_logs.add(trail_log)
+
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
-
-
-#     TODO refactor to get user.pk from url
-#     TODO hide fields trail and photos from the form
 
 
 class TrailLogDetailsView(DetailView):

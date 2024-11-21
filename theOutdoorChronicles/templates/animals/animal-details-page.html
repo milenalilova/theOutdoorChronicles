@@ -54,11 +54,22 @@
                 </div>
             </div>
 
+
             <!-- Description -->
             <div class="trail-description-card">
                 <h2>Animal Description</h2>
                 <p>{{ animal.description }}</p>
             </div>
+
+            {#            <!-- Found on trails -->#}
+            {#            <div class="trail-description-card">#}
+            {#                <h2>Found on Trails</h2>#}
+            {#                {% for trail in trails %}#}
+            {#                    <p>#}
+            {#                        <a href="{{ trail.get_absolute_url }}">{{ trail.name }} {{ trail.location }}</a>#}
+            {#                    </p>#}
+            {#                {% endfor %}#}
+            {#            </div>#}
 
             <!-- Action Buttons -->
             <div class="trail-actions">
@@ -79,4 +90,8 @@
         </div>
     </div>
 {% endblock %}
+
+{# TODO fix conservation status visibility #}
+{# TODO fix links display in found on trails #}
+
 

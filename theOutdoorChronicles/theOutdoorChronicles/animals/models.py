@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from theOutdoorChronicles.trails.models import Trail
 
@@ -49,6 +50,9 @@ class Animal(models.Model):
         Trail,
         related_name='animals'
     )
+
+    def get_absolute_url(self):
+        return reverse('animal-details', kwargs={'animal_id': self.pk})
 
     def __str__(self):
         return f"{self.species}; {self.common_name}"

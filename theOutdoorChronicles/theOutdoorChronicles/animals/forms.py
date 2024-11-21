@@ -34,14 +34,16 @@ class AnimalDeleteForm(AnimalBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
+# TODO check with the form. Maybe del unnecessary
+
+
 class AnimalSearchForm(forms.Form):
     animal_name = forms.CharField(
         required=False,
+        label='',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Search animal by common_name or species',
+                'placeholder': 'Search animal by name or species',
             }
         )
     )
-
-# TODO rename the field or hide from temlpate

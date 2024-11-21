@@ -1,5 +1,6 @@
 from django import forms
 
+from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.trail_logs.models import TrailLog
 
 
@@ -15,15 +16,19 @@ class TrailLogBaseForm(forms.ModelForm):
         help_text='Enter duration as hours:minutes'
     )
 
+    animals_spotted = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Animal.objects.none(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-list'})
+    )
+
     class Meta:
         model = TrailLog
-        exclude = ('user',)
+        exclude = ('user', 'animals', 'photos')
 
 
 class TrailLogCreateForm(TrailLogBaseForm):
     pass
-
-# TODO exclude the trail field. Takes the pk from url
 
 
 class TrailLogEditForm(TrailLogBaseForm):
@@ -32,7 +37,7 @@ class TrailLogEditForm(TrailLogBaseForm):
 
 class TrailLogDeleteForm(TrailLogBaseForm):
     class Meta(TrailLogBaseForm.Meta):
-        exclude = ('trail', 'user')
+        exclude = ('user', 'trail', 'photos')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

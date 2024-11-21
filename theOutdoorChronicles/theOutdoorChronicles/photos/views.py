@@ -30,7 +30,6 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
             trail_id = trail_log.trail.pk
 
-        #     TODO create a function to avoid repeating
         #     TODO possibly move the view to common app and rename to UploadPhoto
 
         if trail_id:
@@ -57,7 +56,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Base on context
+        # Based on context
         if 'trail_id' in self.kwargs:
             return reverse_lazy('trail-details', kwargs={'trail_id': self.kwargs['trail_id']})
 

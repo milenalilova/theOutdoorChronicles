@@ -14,4 +14,4 @@ urlpatterns = [
     ])),
 ]
 
-# TODO check for good practice for using PhotoCreateView
+# TODO possibly add slugs
