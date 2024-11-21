@@ -5,29 +5,90 @@
 {% endblock %}
 
 {% block main_content %}
-    <div class="profile-card">
-        {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture"
-                 class="profile-image"
-                 style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
-        {% endif %}
-        <h1>Profile Details</h1>
-        <div class="profile-info">
-            <p>
-                First Name:
-                {{ profile.first_name }}
-            </p>
-            <p>
-                Last Name:
-                {{ profile.last_name }}
-            </p>
-            <p>
-                Location:
-                {{ profile.location }}
-            </p>
-        </div>
+   <div class="trail-details-container">
+       <!-- Hero Image Section -->
+       <div class="trail-hero">
+           {% if profile.profile_picture %}
+               <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture">
+           {% endif %}
+           <div class="trail-difficulty">
+               {{ profile.location }}
+           </div>
+       </div>
 
-        <a href="{% url 'edit-profile' user.pk %}">Edit Profile</a>
-        <a href="{% url 'delete-profile' user.pk %}">Delete Profile</a>
-    </div>
+       <!-- Profile Information -->
+       <div class="trail-info-container">
+           <div class="trail-header">
+               <h1>{{ profile.user.username }}</h1>
+               <p class="trail-location">
+                   <i class="fas fa-map-marker-alt"></i> {{ profile.location }}
+               </p>
+           </div>
+
+           <!-- Key Statistics -->
+           <div class="trail-stats-card">
+               <div class="stat-item">
+                   <i class="fas fa-user"></i>
+                   <div class="stat-content">
+                       <span class="stat-label">First Name</span>
+                       <span class="stat-value">{{ profile.first_name }}</span>
+                   </div>
+               </div>
+               <div class="stat-item">
+                   <i class="fas fa-user"></i>
+                   <div class="stat-content">
+                       <span class="stat-label">Last Name</span>
+                       <span class="stat-value">{{ profile.last_name }}</span>
+                   </div>
+               </div>
+               <div class="stat-item">
+                   <i class="fas fa-location-dot"></i>
+                   <div class="stat-content">
+                       <span class="stat-label">Location</span>
+                       <span class="stat-value">{{ profile.location }}</span>
+                   </div>
+               </div>
+           </div>
+
+           <!-- Action Buttons -->
+           <div class="trail-actions">
+               <a href="{% url 'edit-profile' user.pk %}" class="action-button edit">
+                   <i class="fas fa-edit"></i> Edit Profile
+               </a>
+               <a href="{% url 'delete-profile' user.pk %}" class="action-button delete">
+                   <i class="fas fa-trash-alt"></i> Delete Profile
+               </a>
+           </div>
+       </div>
+   </div>
 {% endblock %}
+
+
+
+{#{% block main_content %}#}
+{#    <div class="profile-card">#}
+{#        {% if profile.profile_picture %}#}
+{#            <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture"#}
+{#                 class="profile-image"#}
+{#                 style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">#}
+{#        {% endif %}#}
+{#        <h1>Profile Details</h1>#}
+{#        <div class="profile-info">#}
+{#            <p>#}
+{#                First Name:#}
+{#                {{ profile.first_name }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Last Name:#}
+{#                {{ profile.last_name }}#}
+{#            </p>#}
+{#            <p>#}
+{#                Location:#}
+{#                {{ profile.location }}#}
+{#            </p>#}
+{#        </div>#}
+{##}
+{#        <a href="{% url 'edit-profile' user.pk %}">Edit Profile</a>#}
+{#        <a href="{% url 'delete-profile' user.pk %}">Delete Profile</a>#}
+{#    </div>#}
+{#{% endblock %}#}

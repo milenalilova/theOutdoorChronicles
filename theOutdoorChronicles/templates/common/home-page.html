@@ -1,3 +1,29 @@
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    Home Page#}
+{#{% endblock %}#}
+{##}
+{#{% block main_content %}#}
+{#    <h1>This is the Home Page</h1>#}
+{#    #}
+{#    {% if user.is_authenticated %}#}
+{#        <h2>Hello, {{ user.profile.get_display_name }}</h2>#}
+{#    {% else %}#}
+{#        <h2>Explore Trails and Species</h2>#}
+{#    {% endif %}#}
+{##}
+{#    {% for trail in random_trails %}#}
+{#        <p>{{ trail }}</p>#}
+{#    {% endfor %}#}
+{#    ----------------------------------------------#}
+{#    {% for animal in random_animals %}#}
+{#        <p>{{ animal }}</p>#}
+{#    {% endfor %}#}
+{##}
+{#{% endblock %}#}
+{##}
+
 {% extends 'base.html' %}
 
 {% block title %}
@@ -5,21 +31,77 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Home Page</h1>
-    
-    {% if user.is_authenticated %}
-        <h2>Hello, {{ user.profile.get_display_name }}</h2>
-    {% else %}
-        <h2>Explore Trails and Species</h2>
-    {% endif %}
+    <main>
+        <div class="trails-header">
+            <h1>Explore Our Trails</h1>
+            <p class="trails-subtitle">Discover amazing trails and wildlife</p>
+        </div>
 
-    {% for trail in random_trails %}
-        <p>{{ trail }}</p>
-    {% endfor %}
-    ----------------------------------------------
-    {% for animal in random_animals %}
-        <p>{{ animal }}</p>
-    {% endfor %}
+        <div class="trails-grid">
+            {% for trail in random_trails %}
+                <div class="trail-card">
+                    <div class="trail-image">
+                        <img src="{{ trail.image.url }}" alt="{{ trail.name }}">
+                        <div class="trail-difficulty {{ trail.difficulty|lower }}">
+                            {{ trail.difficulty }}
+                        </div>
+                    </div>
+                    <div class="trail-content">
+                        <h2 class="trail-name">{{ trail.name }}</h2>
+                        <p class="trail-location">
+                            <i class="fas fa-map-marker-alt"></i> {{ trail.location }}
+                        </p>
+                        <div class="trail-stats">
+                            <span>
+                                <i class="fas fa-route"></i> {{ trail.length }} km
+                            </span>
+                            <span>
+                                <i class="fas fa-mountain"></i> {{ trail.elevation_gain }}m
+                            </span>
+                            <span>
+                                <i class="fas fa-road"></i> {{ trail.route_type }}
+                            </span>
+                        </div>
+                        <a href="{% url 'trail-details' trail.pk %}" class="trail-details-btn">
+                            View Trail Details
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
+        {% if random_animals %}
+            <div class="trails-header">
+                <h1>Wildlife Encounters</h1>
+                <p class="trails-subtitle">Discover local wildlife</p>
+            </div>
+
+            <div class="trails-grid">
+                {% for animal in random_animals %}
+                    <div class="trail-card">
+                        <div class="trail-image">
+                            <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
+                        </div>
+                        <div class="trail-content">
+                            <h2 class="trail-name">{{ animal.name }}</h2>
+                            <p class="trail-location">
+                                <i class="fas fa-map-marker-alt"></i> {{ animal.habitat }}
+                            </p>
+                            <div class="trail-stats">
+                                <span>
+                                    <i class="fas fa-paw"></i> {{ animal.species }}
+                                </span>
+                                <span>
+                                    <i class="fas fa-dna"></i> {{ animal.conservation_status }}
+                                </span>
+                            </div>
+                            <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
+                                View Animal Details
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </main>
 {% endblock %}
-

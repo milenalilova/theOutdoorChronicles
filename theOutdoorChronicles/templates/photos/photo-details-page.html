@@ -5,18 +5,77 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Details Photo Page</h1>
-    <div>
-        <img src="{{ photo.image.url }}" alt="{{ photo.common_name }}'s picture"
-             class="img-fluid w-100" style="height: 400px; object-fit: cover;">
-    </div>
-    <div>
-        <p>
-            Photo taken by: {{ photo.user.username }}
-        </p>
-        <p>
-            {{ photo.description }}
-        </p>
+   <div class="trail-details-container">
+       <!-- Hero Image Section -->
+       <div class="trail-hero">
+           <img src="{{ photo.image.url }}" alt="{{ photo.trail.name }}'s picture">
+           <div class="trail-difficulty">
+               {{ photo.date_uploaded|date:"d M Y" }}
+           </div>
+       </div>
 
-    </div>
+       <!-- Photo Information -->
+       <div class="trail-info-container">
+           <div class="trail-header">
+               <h1>{{ photo.trail.name }}</h1>
+               <p class="trail-location">
+                   <i class="fas fa-user"></i> Photo by {{ photo.user.username }}
+               </p>
+           </div>
+
+           <!-- Key Statistics -->
+           <div class="trail-stats-card">
+               <div class="stat-item">
+                   <i class="fas fa-mountain"></i>
+                   <div class="stat-content">
+                       <span class="stat-label">Trail</span>
+                       <span class="stat-value">{{ photo.trail.name }}</span>
+                   </div>
+               </div>
+               {% if photo.animal %}
+                   <div class="stat-item">
+                       <i class="fas fa-paw"></i>
+                       <div class="stat-content">
+                           <span class="stat-label">Featured Animal</span>
+                           <span class="stat-value">{{ photo.animal.common_name }}</span>
+                       </div>
+                   </div>
+               {% endif %}
+               <div class="stat-item">
+                   <i class="fas fa-calendar"></i>
+                   <div class="stat-content">
+                       <span class="stat-label">Upload Date</span>
+                       <span class="stat-value">{{ photo.date_uploaded|date:"d M Y" }}</span>
+                   </div>
+               </div>
+           </div>
+
+           <!-- Description -->
+           {% if photo.description %}
+               <div class="trail-description-card">
+                   <h2>Photo Description</h2>
+                   <p>{{ photo.description }}</p>
+               </div>
+           {% endif %}
+       </div>
+   </div>
 {% endblock %}
+
+
+
+{#{% block main_content %}#}
+{#    <h1>This is the Details Photo Page</h1>#}
+{#    <div>#}
+{#        <img src="{{ photo.image.url }}" alt="{{ photo.common_name }}'s picture"#}
+{#             class="img-fluid w-100" style="height: 400px; object-fit: cover;">#}
+{#    </div>#}
+{#    <div>#}
+{#        <p>#}
+{#            Photo taken by: {{ photo.user.username }}#}
+{#        </p>#}
+{#        <p>#}
+{#            {{ photo.description }}#}
+{#        </p>#}
+{##}
+{#    </div>#}
+{#{% endblock %}#}
