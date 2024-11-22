@@ -18,6 +18,17 @@
                 {{ log.notes }}
             </p>
         </div>
---------------------------------------------------------        
+        --------------------------------------------------------
     {% endfor %}
+    <div>
+        <p>
+            Total trails: {{ total_trails }}
+        </p>
+        <p>
+            Total length: {{ total_length }} km
+        </p>
+        <p>
+            Total species seen: {{ total_species_seen }}
+        </p>
+    </div>
 {% endblock %}
