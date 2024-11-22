@@ -45,39 +45,41 @@
         </div>
 
         {% if random_animals %}
-            <div class="trails-header">
-                <h1>Wildlife Encounters</h1>
-                <p class="trails-subtitle">Discover local wildlife</p>
-            </div>
+            {% if animal.pk %}
+                <div class="trails-header">
+                    <h1>Wildlife Encounters</h1>
+                    <p class="trails-subtitle">Discover local wildlife</p>
+                </div>
 
-            <div class="trails-grid">
-                {% for animal in random_animals %}
-                    <div class="trail-card">
-                        <div class="trail-image">
-                            <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
-                        </div>
-                        <div class="trail-content">
-                            <h2 class="trail-name">{{ animal.name }}</h2>
-                            <p class="trail-location">
-                                <i class="fas fa-map-marker-alt"></i> {{ animal.habitat }}
-                            </p>
-                            <div class="trail-stats">
+                <div class="trails-grid">
+                    {% for animal in random_animals %}
+                        <div class="trail-card">
+                            <div class="trail-image">
+                                <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
+                            </div>
+                            <div class="trail-content">
+                                <h2 class="trail-name">{{ animal.name }}</h2>
+                                <p class="trail-location">
+                                    <i class="fas fa-map-marker-alt"></i> {{ animal.habitat }}
+                                </p>
+                                <div class="trail-stats">
                                 <span>
                                     <i class="fas fa-paw"></i> {{ animal.species }}
                                 </span>
-                                <span>
+                                    <span>
                                     <i class="fas fa-dna"></i> {{ animal.conservation_status }}
                                 </span>
+                                </div>
+                                <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
+                                    View Animal Details
+                                </a>
+
                             </div>
-                            <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
-                                View Animal Details
-                            </a>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
     </main>
 {% endblock %}
 
-
+{# TODO display details button only to user.is_authenticated #}

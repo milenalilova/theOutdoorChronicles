@@ -19,7 +19,7 @@ class IndexView(TemplateView):
 
             if user_location:
                 random_trails = Trail.objects.filter(location__icontains=user_location)
-                random_animals = (t.animals for t in random_trails)
+                random_animals = (t.animals for t in random_trails if t.animals.exists())
 
             if not user_location or not random_trails:
                 random_trails = Trail.objects.order_by('?')[:5]
@@ -45,4 +45,6 @@ class IndexView(TemplateView):
 
         return context
 
-# TODO display details only to logged in users
+
+class AboutView(TemplateView):
+    template_name = 'common/about-page.html'
