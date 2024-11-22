@@ -77,6 +77,8 @@ class TrailLogDetailsView(DetailView):
 class TrailSpecificLogView(ListView):  # every time the user hiked this trail
     pass
 
+# TODO finish this view
+
 
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
@@ -101,6 +103,7 @@ class TrailLogListView(ListView):  # all hiking user experience
         # uses reverse relation from Trail
         total_length = Trail.objects.filter(trail_logs__user=self.request.user) \
                            .aggregate(total_length=Sum('length'))['total_length'] or 0
+
         # reverse relation from Animal
         total_species_seen = Animal.objects.filter(trail_logs__user=self.request.user) \
             .distinct() \
@@ -112,6 +115,7 @@ class TrailLogListView(ListView):  # all hiking user experience
 
         return context
 
+
 #  TODO use animals and photos from get_queryset
 
 
@@ -121,14 +125,12 @@ class TrailLogEditView(UpdateView):
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-edit-page.html'
 
-    # def get_queryset(self):
-    #     pass
+    def get_queryset(self):
+        return TrailLog.objects.filter(user=self.request.user) \
+            .select_related('trail')
 
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
-
-
-#  TODO users can only edit their own logs
 
 
 class TrailLogDeleteView(DeleteView):
@@ -138,11 +140,11 @@ class TrailLogDeleteView(DeleteView):
     template_name = 'trail_logs/trail-log-delete-page.html'
     success_url = reverse_lazy('trail-log-list')
 
-    # def get_queryset(self):
-    #     pass
+    def get_queryset(self):
+        return TrailLog.objects.filter(user=self.request.user) \
+            .select_related('trail')
 
     def get_initial(self):
         return self.object.__dict__
 
 #  TODO remove animals field from delete form or display as a readonly list
-#  TODO users can only delete their own logs
