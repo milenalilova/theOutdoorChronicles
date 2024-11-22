@@ -5,10 +5,22 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Create Trail Log Page</h1>
+
+    <div class="trails-header">
+        <h1>Log your experience at {{ trail.name }}, {{ trail.location }}</h1>
+        {% if not previous_logs_count %}
+            <p class="trails-subtitle">You have not been here before </p>
+        {% elif previous_logs_count == 1 %}
+            <p class="trails-subtitle">You have been here once before </p>
+        {% else %}
+            <p class="trails-subtitle">You have been here {{ previous_logs_count }} times before </p>
+        {% endif %}
+    </div>
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit"> Create Log</button>
     </form>
+
 {% endblock %}

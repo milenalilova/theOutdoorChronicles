@@ -15,8 +15,19 @@ class TrailLogCreateView(LoginRequiredMixin, CreateView):
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-create-page.html'
 
-    # def get_context_data(self, **kwargs):  # TODO for the template header
-    #     pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        trail_id = self.kwargs.get('trail_id')
+        if trail_id:
+            trail = get_object_or_404(Trail, pk=trail_id)
+            context['trail'] = trail
+            context['previous_logs_count'] = TrailLog.objects.filter(
+                user=self.request.user,
+                trail=trail
+            ).count()
+
+        return context
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
