@@ -44,3 +44,5 @@ class IndexView(TemplateView):
             context['random_animals'] = random_animals
 
         return context
+
+# TODO display details only to logged in users

@@ -8,12 +8,12 @@
     <div class="trail-details-container">
         <!-- Hero Image Section -->
         {% if trail_log.photos.first %}
-        <div class="trail-hero">
-            <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log photo">
-            <div class="trail-difficulty">
-                {{ trail_log.trail.difficulty }}
+            <div class="trail-hero">
+                <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log photo">
+                <div class="trail-difficulty">
+                    {{ trail_log.trail.difficulty }}
+                </div>
             </div>
-        </div>
         {% endif %}
 
         <!-- Trail Log Information -->
@@ -37,8 +37,8 @@
                 <div class="stat-item">
                     <i class="fas fa-star"></i>
                     <div class="stat-content">
-                        <span class="stat-label">Rating</span>
-                        <span class="stat-value">{{ trail_log.rating }}/5</span>
+                        <span class="stat-label">Personal Rating</span>
+                        <span class="stat-value">{{ trail_log.difficulty_rating }}</span>
                     </div>
                 </div>
                 <div class="stat-item">
@@ -58,14 +58,14 @@
 
             <!-- Photos Gallery -->
             {% if trail_log.photos.all %}
-            <div class="trail-description-card">
-                <h2>Photos</h2>
-                <div class="photos-gallery">
-                    {% for photo in trail_log.photos.all %}
-                        <img src="{{ photo.image.url }}" alt="Trail log photo">
-                    {% endfor %}
+                <div class="trail-description-card">
+                    <h2>Photos</h2>
+                    <div class="photos-gallery">
+                        {% for photo in trail_log.photos.all %}
+                            <img src="{{ photo.image.url }}" alt="Trail log photo">
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
             {% endif %}
 
             <!-- Action Buttons -->
@@ -82,6 +82,18 @@
             </div>
         </div>
     </div>
+
+    <div>
+    {{ trail_log }}
+        {{ animals_spotted_count }}
+        {{ photos_uploaded_count }}
+        {% for animal in animals %}
+            {{ trail_log.animals.name }}
+        {% endfor %}
+
+        {{ trail_log.photos.count }}
+    </div>
+
 {% endblock %}
 
 {#{% block main_content %}#}

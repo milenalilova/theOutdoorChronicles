@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
@@ -8,11 +9,14 @@ from theOutdoorChronicles.trail_logs.models import TrailLog
 from theOutdoorChronicles.trails.models import Trail
 
 
-class TrailLogCreateView(CreateView):
+class TrailLogCreateView(LoginRequiredMixin, CreateView):
     model = TrailLog
     form_class = TrailLogCreateForm
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-create-page.html'
+
+    # def get_context_data(self, **kwargs):  # TODO for the template header
+    #     pass
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -48,12 +52,27 @@ class TrailLogDetailsView(DetailView):
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-details-page.html'
 
+    def get_queryset(self):
+        return TrailLog.objects.filter(user=self.request.user) \
+            .select_related('trail') \
+            .order_by('-date_completed')
 
-class TrailLogListView(ListView):
+
+class TrailSpecificLogView(ListView):  # every time the user hiked this trail
+    pass
+
+
+class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 5
     template_name = 'trail_logs/trail-log-list-page.html'
+
+    # def get_queryset(self):
+    #     pass
+
+    # def get_context_data(self, **kwargs):
+    #     pass
 
 
 class TrailLogEditView(UpdateView):
@@ -62,8 +81,14 @@ class TrailLogEditView(UpdateView):
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-edit-page.html'
 
+    # def get_queryset(self):
+    #     pass
+
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
+
+
+#  TODO users can only edit their own logs
 
 
 class TrailLogDeleteView(DeleteView):
@@ -73,5 +98,11 @@ class TrailLogDeleteView(DeleteView):
     template_name = 'trail_logs/trail-log-delete-page.html'
     success_url = reverse_lazy('trail-log-list')
 
+    # def get_queryset(self):
+    #     pass
+
     def get_initial(self):
         return self.object.__dict__
+
+#  TODO remove animals field from delete form or display as a readonly list
+#  TODO users can only delete their own logs
