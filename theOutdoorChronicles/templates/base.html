@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-{#    <link rel="stylesheet" href="{% static 'css/styles-new.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {#    <link rel="stylesheet" href="{% static 'css/styles-new.css' %}">#}
 
     <title>
         {% block title %}
@@ -14,7 +14,8 @@
 </head>
 
 <body>
-{% include 'partials/nav-bar.html' %}
+{% include 'partials/common-nav-bar.html' %}
+{% include 'partials/profiles-nav-bar.html' %}
 
 {% block main_content %}
 

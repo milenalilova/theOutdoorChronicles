@@ -69,9 +69,10 @@ class TrailLogDetailsView(DetailView):
         return TrailLog.objects.filter(user=self.request.user) \
             .select_related('trail')
 
-    # TODO add next and previous log, or go back to all logs
-    # TODO check the queryset
 
+# TODO add next and previous log, or go back to all logs
+# TODO check the queryset
+# TODO after photo upload,after redirect, option to go back to photo uploads
 
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog

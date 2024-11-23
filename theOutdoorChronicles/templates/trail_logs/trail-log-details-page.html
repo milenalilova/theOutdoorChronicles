@@ -12,15 +12,15 @@
         </div>
 
         <!-- Main Log Card -->
-        <div class="log-card log-details-card">
-            {% if trail_log.photos.first %}
-                <div class="log-hero">
-                    <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log hero photo" class="hero-image">
-                    <div class="difficulty-badge {{ trail_log.trail.difficulty|lower }}">
-                        {{ trail_log.trail.difficulty }}
-                    </div>
-                </div>
-            {% endif %}
+{#        <div class="log-card log-details-card">#}
+{#            {% if trail_log.photos.first %}#}
+{#                <div class="log-hero">#}
+{#                    <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log hero photo" class="hero-image">#}
+{#                    <div class="difficulty-badge {{ trail_log.trail.difficulty|lower }}">#}
+{#                        {{ trail_log.trail.difficulty }}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
 
             <div class="log-header">
                 <div class="log-meta">
@@ -93,7 +93,7 @@
 
             {% if trail_log.photos.all %}
                 <div class="log-section">
-                    <h2><i class="fas fa-camera"></i> Photos ({{ photos_uploaded_count }})</h2>
+                    <h2><i class="fas fa-camera"></i> Photos ({{ trail_log.photos.count }})</h2>
                     <div class="photos-grid">
                         {% for photo in trail_log.photos.all %}
                             <div class="photo-item">
@@ -118,6 +118,8 @@
         </div>
     </div>
 {% endblock %}
+
+{# TODO check wildlife spotted #}
 
 {#{% extends 'base.html' %}#}
 {##}
