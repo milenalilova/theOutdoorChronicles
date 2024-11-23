@@ -25,7 +25,7 @@
             </div>
             <div class="trails-grid">
                 {% for trail in trails_found %}
-                    {% include 'partials/trail-details.html' %}
+                    {% include 'partials/trail-details-card.html' %}
                 {% endfor %}
             </div>
             {% if is_paginated %}
@@ -37,7 +37,7 @@
     {% else %}
         <div class="trails-grid">
             {% for trail in trails %}
-                {% include 'partials/trail-details.html' %}
+                {% include 'partials/trail-details-card.html' %}
             {% endfor %}
         </div>
         {% if is_paginated %}

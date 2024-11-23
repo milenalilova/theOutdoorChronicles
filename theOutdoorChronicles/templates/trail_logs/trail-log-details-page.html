@@ -1,103 +1,227 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Details Trail Log Page
+    {{ trail_log.title }} - Trail Log Details
 {% endblock %}
 
 {% block main_content %}
-    <div class="trail-details-container">
-        <!-- Hero Image Section -->
-        {% if trail_log.photos.first %}
-            <div class="trail-hero">
-                <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log photo">
-                <div class="trail-difficulty">
-                    {{ trail_log.trail.difficulty }}
-                </div>
-            </div>
-        {% endif %}
+    <div class="feed-container">
+        <!-- Associated Trail Card -->
+        <div class="log-context-trail">
+            {% include 'partials/trail-details-card.html' with trail=trail_log.trail %}
+        </div>
 
-        <!-- Trail Log Information -->
-        <div class="trail-info-container">
-            <div class="trail-header">
-                <h1>{{ trail_log.title }}</h1>
-                <p class="trail-location">
-                    <i class="fas fa-calendar"></i> {{ trail_log.date_completed }}
-                </p>
-            </div>
-
-            <!-- Key Statistics -->
-            <div class="trail-stats-card">
-                <div class="stat-item">
-                    <i class="fas fa-clock"></i>
-                    <div class="stat-content">
-                        <span class="stat-label">Duration</span>
-                        <span class="stat-value">{{ trail_log.duration }}</span>
+        <!-- Main Log Card -->
+        <div class="log-card log-details-card">
+            {% if trail_log.photos.first %}
+                <div class="log-hero">
+                    <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log hero photo" class="hero-image">
+                    <div class="difficulty-badge {{ trail_log.trail.difficulty|lower }}">
+                        {{ trail_log.trail.difficulty }}
                     </div>
                 </div>
-                <div class="stat-item">
-                    <i class="fas fa-star"></i>
-                    <div class="stat-content">
-                        <span class="stat-label">Personal Rating</span>
-                        <span class="stat-value">{{ trail_log.difficulty_rating }}</span>
-                    </div>
+            {% endif %}
+
+            <div class="log-header">
+                <div class="log-meta">
+                    <h1>{{ trail_log.title }}</h1>
+                    <span class="log-date">
+                        <i class="fas fa-calendar"></i> {{ trail_log.date_completed|date:"F j, Y" }}
+                    </span>
                 </div>
-                <div class="stat-item">
-                    <i class="fas fa-hiking"></i>
-                    <div class="stat-content">
-                        <span class="stat-label">Trail</span>
-                        <span class="stat-value">{{ trail_log.trail.name }}</span>
-                    </div>
-                </div>
+                {% if trail_log.private %}
+                    <span class="privacy-badge">
+                        <i class="fas fa-lock"></i> Private
+                    </span>
+                {% endif %}
             </div>
 
-            <!-- Notes -->
-            <div class="trail-description-card">
-                <h2>Trail Experience</h2>
-                <p>{{ trail_log.notes }}</p>
+            <div class="stats-grid">
+                {% if trail_log.duration %}
+                    <div class="stat-box">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Duration</span>
+                            <span class="stat-value">{{ trail_log.duration }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if trail_log.difficulty_rating %}
+                    <div class="stat-box">
+                        <i class="fas fa-star"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Difficulty Rating</span>
+                            <span class="stat-value">{{ trail_log.difficulty_rating }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if trail_log.weather_conditions %}
+                    <div class="stat-box">
+                        <i class="fas fa-cloud"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Weather</span>
+                            <span class="stat-value">{{ trail_log.weather_conditions }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if trail_log.trail_conditions %}
+                    <div class="stat-box">
+                        <i class="fas fa-hiking"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Trail Conditions</span>
+                            <span class="stat-value">{{ trail_log.trail_conditions }}</span>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
-            <!-- Photos Gallery -->
-            {% if trail_log.photos.all %}
-                <div class="trail-description-card">
-                    <h2>Photos</h2>
-                    <div class="photos-gallery">
-                        {% for photo in trail_log.photos.all %}
-                            <img src="{{ photo.image.url }}" alt="Trail log photo">
+            <div class="log-section">
+                <h2><i class="fas fa-book"></i> Trail Experience</h2>
+                <p class="log-notes">{{ trail_log.notes }}</p>
+            </div>
+
+            {% if trail_log.animals.all %}
+                <div class="log-section">
+                    <h2><i class="fas fa-paw"></i> Wildlife Spotted ({{ animals_spotted_count }})</h2>
+                    <div class="animal-tags">
+                        {% for animal in trail_log.animals.all %}
+                            <span class="animal-tag">{{ animal.name }}</span>
                         {% endfor %}
                     </div>
                 </div>
             {% endif %}
 
-            <!-- Action Buttons -->
-            <div class="trail-actions">
-                <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-button edit">
-                    <i class="fas fa-edit"></i> Edit Trail Log
+            {% if trail_log.photos.all %}
+                <div class="log-section">
+                    <h2><i class="fas fa-camera"></i> Photos ({{ photos_uploaded_count }})</h2>
+                    <div class="photos-grid">
+                        {% for photo in trail_log.photos.all %}
+                            <div class="photo-item">
+                                <img src="{{ photo.image.url }}" alt="Trail photo" class="gallery-image">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="action-buttons">
+                <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-btn edit">
+                    <i class="fas fa-edit"></i> Edit Log
                 </a>
-                <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-button delete">
-                    <i class="fas fa-trash-alt"></i> Delete Trail Log
+                <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" class="action-btn photo">
+                    <i class="fas fa-camera"></i> Add Photos
                 </a>
-                <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" class="action-button edit">
-                    <i class="fas fa-camera"></i> Upload Photos
+                <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-btn delete">
+                    <i class="fas fa-trash-alt"></i> Delete Log
                 </a>
             </div>
         </div>
     </div>
-
-    <div>
-        {{ trail_log }}
-        {{ animals_spotted_count }}
-        {{ photos_uploaded_count }}
-        {% for animal in animals %}
-            {{ trail_log.animals.name }}
-        {% endfor %}
-
-        {{ trail_log.photos.count }}
-    </div>
-
 {% endblock %}
 
-{# TODO fix the display style #}
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    Details Trail Log Page#}
+{#{% endblock %}#}
+{##}
+{#{% block main_content %}#}
+{#    <div>#}
+{#        {% include 'partials/trail-details.html' with trail=trail_log.trail %}#}
+{#    </div>#}
+{##}
+{#    <div class="trail-details-container">#}
+{#        <!-- Hero Image Section -->#}
+{#        {% if trail_log.photos.first %}#}
+{#            <div class="trail-hero">#}
+{#                <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log photo">#}
+{#                <div class="trail-difficulty">#}
+{#                    {{ trail_log.trail.difficulty }}#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endif %}#}
+{##}
+{#        <!-- Trail Log Information -->#}
+{#        <div class="trail-info-container">#}
+{#            <div class="trail-header">#}
+{#                <h1>{{ trail_log.title }}</h1>#}
+{#                <p class="trail-location">#}
+{#                    <i class="fas fa-calendar"></i> {{ trail_log.date_completed }}#}
+{#                </p>#}
+{#            </div>#}
+{##}
+{#            <!-- Key Statistics -->#}
+{#            <div class="trail-stats-card">#}
+{#                <div class="stat-item">#}
+{#                    <i class="fas fa-clock"></i>#}
+{#                    <div class="stat-content">#}
+{#                        <span class="stat-label">Duration</span>#}
+{#                        <span class="stat-value">{{ trail_log.duration }}</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="stat-item">#}
+{#                    <i class="fas fa-star"></i>#}
+{#                    <div class="stat-content">#}
+{#                        <span class="stat-label">Personal Rating</span>#}
+{#                        <span class="stat-value">{{ trail_log.difficulty_rating }}</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="stat-item">#}
+{#                    <i class="fas fa-hiking"></i>#}
+{#                    <div class="stat-content">#}
+{#                        <span class="stat-label">Trail</span>#}
+{#                        <span class="stat-value">{{ trail_log.trail.name }}</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <!-- Notes -->#}
+{#            <div class="trail-description-card">#}
+{#                <h2>Trail Experience</h2>#}
+{#                <p>{{ trail_log.notes }}</p>#}
+{#            </div>#}
+{##}
+{#            <!-- Photos Gallery -->#}
+{#            {% if trail_log.photos.all %}#}
+{#                <div class="trail-description-card">#}
+{#                    <h2>Photos</h2>#}
+{#                    <div class="photos-gallery">#}
+{#                        {% for photo in trail_log.photos.all %}#}
+{#                            <img src="{{ photo.image.url }}" alt="Trail log photo">#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endif %}#}
+{##}
+{#            <!-- Action Buttons -->#}
+{#            <div class="trail-actions">#}
+{#                <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-button edit">#}
+{#                    <i class="fas fa-edit"></i> Edit Trail Log#}
+{#                </a>#}
+{#                <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-button delete">#}
+{#                    <i class="fas fa-trash-alt"></i> Delete Trail Log#}
+{#                </a>#}
+{#                <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" class="action-button edit">#}
+{#                    <i class="fas fa-camera"></i> Upload Photos#}
+{#                </a>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div>#}
+{#        {{ trail_log }}#}
+{#        {{ animals_spotted_count }}#}
+{#        {{ photos_uploaded_count }}#}
+{#        {% for animal in animals %}#}
+{#            {{ trail_log.animals.name }}#}
+{#        {% endfor %}#}
+{##}
+{#        {{ trail_log.photos.count }}#}
+{#    </div>#}
+{##}
+{#{% endblock %}#}
 
+{# TODO fix the display style #}
 
 
 {#{% block main_content %}#}

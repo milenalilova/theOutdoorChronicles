@@ -1,40 +1,153 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    List Trail Log Page
+    Trail Log Feed
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the List Trail Log Page</h1>
-    {% for log in trail_logs %}
-        <div>
-            <p>
-                {{ log.title }}
-            </p>
-            <p>
-                {{ log.date_completed }}
-            </p>
-            <p>
-                {{ log.notes }}
-            </p>
-            <p>
-                <a href="{% url 'trail-log-details' log.pk %}">Details</a>
-            </p>
-        </div>
-        --------------------------------------------------------
-    {% endfor %}
-    <div>
-        <p>
-            Total trails: {{ total_trails }}
-        </p>
-        <p>
-            Total length: {{ total_length }} km
-        </p>
-        <p>
-            Total species seen: {{ total_species_seen }}
-        </p>
+    <div class="feed-header">
+        <h1>Trail Journey Log</h1>
+        <p class="feed-subtitle">Your hiking adventures</p>
     </div>
+
+    <div class="feed-stats">
+        <div class="stat-item">
+            <i class="fas fa-hiking"></i>
+            <span>{{ total_trails }} trails</span>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-route"></i>
+            <span>{{ total_length }} km</span>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-paw"></i>
+            <span>{{ total_species_seen }} species</span>
+        </div>
+    </div>
+
+    <div class="feed-container">
+        {% for log in trail_logs %}
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-meta">
+                        <h2>{{ log.title }}</h2>
+                        <span class="log-date">
+                            <i class="fas fa-calendar"></i> {{ log.date_completed|date:"F j, Y" }}
+                        </span>
+                    </div>
+                    {% if log.private %}
+                        <span class="privacy-badge">
+                            <i class="fas fa-lock"></i> Private
+                        </span>
+                    {% endif %}
+                </div>
+
+                <div class="log-trail-info">
+                    <a href="{% url 'trail-details' log.trail.pk %}" class="trail-link">
+                        <i class="fas fa-map-marker-alt"></i> {{ log.trail.name }}
+                    </a>
+                    {% if log.duration %}
+                        <span class="duration">
+                            <i class="fas fa-clock"></i> {{ log.duration }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                {% if log.photos.all %}
+                    <div class="log-photos">
+                        {% for photo in log.photos.all|slice:":4" %}
+                            <img src="{{ photo.image.url }}" alt="Trail photo" class="log-photo">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="log-content">
+                    <p>{{ log.notes }}</p>
+                </div>
+
+                <div class="log-details">
+                    {% if log.weather_conditions %}
+                        <span class="condition-tag">
+                            <i class="fas fa-cloud"></i> {{ log.weather_conditions }}
+                        </span>
+                    {% endif %}
+                    {% if log.trail_conditions %}
+                        <span class="condition-tag">
+                            <i class="fas fa-hiking"></i> {{ log.trail_conditions }}
+                        </span>
+                    {% endif %}
+                    {% if log.difficulty_rating %}
+                        <span class="condition-tag">
+                            <i class="fas fa-mountain"></i> {{ log.difficulty_rating }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                {% if log.animals.all %}
+                    <div class="animals-spotted">
+                        <h3><i class="fas fa-paw"></i> Wildlife Spotted</h3>
+                        <div class="animal-tags">
+                            {% for animal in log.animals.all %}
+                                <span class="animal-tag">{{ animal.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <a href="{% url 'trail-log-details' log.pk %}" class="view-details-btn">
+                    View Full Log
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        {% include 'partials/pagination.html' %}
+    {% endif %}
 {% endblock %}
+
+
+
+
+
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    List Trail Log Page#}
+{#{% endblock %}#}
+{##}
+{#{% block main_content %}#}
+{#    <h1>This is the List Trail Log Page</h1>#}
+{#    {% for log in trail_logs %}#}
+{#        <div>#}
+{#            <p>#}
+{#                {{ log.title }}#}
+{#            </p>#}
+{#            <p>#}
+{#                {{ log.date_completed }}#}
+{#            </p>#}
+{#            <p>#}
+{#                {{ log.notes }}#}
+{#            </p>#}
+{#            <p>#}
+{#                <a href="{% url 'trail-log-details' log.pk %}">Details</a>#}
+{#            </p>#}
+{#        </div>#}
+{#        --------------------------------------------------------#}
+{#    {% endfor %}#}
+{#    <div>#}
+{#        <p>#}
+{#            Total trails: {{ total_trails }}#}
+{#        </p>#}
+{#        <p>#}
+{#            Total length: {{ total_length }} km#}
+{#        </p>#}
+{#        <p>#}
+{#            Total species seen: {{ total_species_seen }}#}
+{#        </p>#}
+{#    </div>#}
+{#{% endblock %}#}
 
 
 {# TODO fix the styles #}
