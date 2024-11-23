@@ -19,7 +19,8 @@ class IndexView(TemplateView):
 
             if user_location:
                 random_trails = Trail.objects.filter(location__icontains=user_location)
-                random_animals = (t.animals for t in random_trails if t.animals.exists())
+                random_animals = Animal.objects.filter(trails__in=random_trails).distinct()
+                # some trails have no animals
 
             if not user_location or not random_trails:
                 random_trails = Trail.objects.order_by('?')[:5]

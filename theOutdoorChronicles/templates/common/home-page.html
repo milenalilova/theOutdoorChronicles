@@ -36,23 +36,29 @@
                                 <i class="fas fa-road"></i> {{ trail.route_type }}
                             </span>
                         </div>
-                        <a href="{% url 'trail-details' trail.pk %}" class="trail-details-btn">
-                            View Trail Details
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'trail-details' trail.pk %}" class="trail-details-btn">
+                                View Trail Details
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="trail-details-btn">
+                                Login to View Trail Details
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
         </div>
 
         {% if random_animals %}
-            {% if animal.pk %}
-                <div class="trails-header">
-                    <h1>Wildlife Encounters</h1>
-                    <p class="trails-subtitle">Discover local wildlife</p>
-                </div>
+            <div class="trails-header">
+                <h1>Wildlife Encounters</h1>
+                <p class="trails-subtitle">Discover local wildlife</p>
+            </div>
 
-                <div class="trails-grid">
-                    {% for animal in random_animals %}
+            <div class="trails-grid">
+                {% for animal in random_animals %}
+                    {% if animal.pk %}
                         <div class="trail-card">
                             <div class="trail-image">
                                 <img src="{{ animal.image.url }}" alt="{{ animal.name }}">
@@ -70,16 +76,20 @@
                                     <i class="fas fa-dna"></i> {{ animal.conservation_status }}
                                 </span>
                                 </div>
-                                <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
-                                    View Animal Details
-                                </a>
-
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
+                                        View Animal Details
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'login' %}" class="trail-details-btn">
+                                        Login to View Animal Details
+                                    </a>
+                                {% endif %}
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
     </main>
 {% endblock %}
-
-{# TODO display details button only to user.is_authenticated #}
