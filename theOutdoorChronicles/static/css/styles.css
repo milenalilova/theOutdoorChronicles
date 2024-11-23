@@ -230,7 +230,6 @@ button[type="submit"]:not(.navbar button[type="submit"]):hover {
 }
 
 
-
 .trail-difficulty.easy {
     background-color: #4CAF50;
 }
@@ -518,5 +517,9 @@ button[type="submit"]:not(.navbar button[type="submit"]):hover {
     .action-button {
         padding: 0.6rem 1rem;
     }
+}
+
+.text-center {
+    text-align: center;
 }
 

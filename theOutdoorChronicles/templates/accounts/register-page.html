@@ -6,15 +6,17 @@
 
 {% block main_content %}
     <h1>This is the Register Page</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
-    
-    Already have an account? 
-    <a href="{% url 'login' %}"> Log in</a>
-    
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Register</button>
+        </form>
+
+        <p class="text-center">
+            Already have an account?
+            <a href="{% url 'login' %}">Log in</a>
+        </p>
+    </div>
 {% endblock %}
 
-{# TODO fix the button Log in style #}

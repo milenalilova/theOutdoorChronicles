@@ -6,15 +6,17 @@
 
 {% block main_content %}
     <h1>This is the Login Page</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-    
-    Don't have an account?
-    <a href="{% url 'register' %}">Register</a>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
 
+        <p class="text-center">
+            Don't have an account?
+            <a href="{% url 'register' %}">Register</a>
+        </p>
+    </div>
 {% endblock %}
 
-{# TODO fix the button Register style #}
