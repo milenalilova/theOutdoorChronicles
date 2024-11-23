@@ -70,7 +70,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
 
 #     TODO do I really need LoginRequiredMixin
-#     TODO make sure uploads happen only from own trail logs
+#     TODO make sure uploads happen only from own trail logs (get_queryset())
 #     TODO rename to PhotoUploadView
 
 

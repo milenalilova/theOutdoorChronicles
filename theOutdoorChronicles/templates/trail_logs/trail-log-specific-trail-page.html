@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    List Trail Log Page
+    Specific Trail Log Page
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the List Trail Log Page</h1>
+    <h1>This is the Specific Trail Log Page</h1>
+    -------------------------------------
+    <p>
+        {{ trail }}
+    </p>
+    --------------------------------------
     {% for log in trail_logs %}
         <div>
             <p>
@@ -35,6 +40,3 @@
         </p>
     </div>
 {% endblock %}
-
-
-{# TODO fix the styles #}

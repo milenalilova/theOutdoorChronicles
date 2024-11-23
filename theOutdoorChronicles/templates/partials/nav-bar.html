@@ -10,6 +10,7 @@
                 <a href="{% url 'trail-list' %}">Explore Trails</a>
                 <a href="{% url 'animal-list' %}">Explore Animals</a>
                 <a href="{% url 'photo-list' %}">Explore Photos</a>
+                <a href="{% url 'trail-log-list' %}">View Trail Logs</a>
 
                 {% if perms.trails.add_trail %}
                     <a href="{% url 'trail-create' %}">Create Trail</a>

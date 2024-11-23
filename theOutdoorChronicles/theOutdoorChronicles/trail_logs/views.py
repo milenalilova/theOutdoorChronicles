@@ -70,14 +70,7 @@ class TrailLogDetailsView(DetailView):
             .select_related('trail')
 
     # TODO add next and previous log, or go back to all logs
-
     # TODO check the queryset
-
-
-class TrailSpecificLogView(ListView):  # every time the user hiked this trail
-    pass
-
-# TODO finish this view
 
 
 class TrailLogListView(ListView):  # all hiking user experience
@@ -104,7 +97,7 @@ class TrailLogListView(ListView):  # all hiking user experience
         total_length = Trail.objects.filter(trail_logs__user=self.request.user) \
                            .aggregate(total_length=Sum('length'))['total_length'] or 0
 
-        # reverse relation from Animal
+        # uses reverse relation from Animal
         total_species_seen = Animal.objects.filter(trail_logs__user=self.request.user) \
             .distinct() \
             .count()
@@ -117,6 +110,30 @@ class TrailLogListView(ListView):  # all hiking user experience
 
 
 #  TODO use animals and photos from get_queryset
+
+class TrailLogSpecificTrailView(ListView):  # every time the user hiked this trail
+    model = TrailLog
+    context_object_name = 'trail_logs'
+    template_name = 'trail_logs/trail-log-specific-trail-page.html'
+
+    def get_queryset(self):
+        trail_id = self.kwargs.get('trail_id')
+
+        return TrailLog.objects.filter(
+            user=self.request.user,
+            trail_id=trail_id,
+        ).select_related('trail').order_by('-date_completed')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        trail_id = self.kwargs.get('trail_id')
+        trail = get_object_or_404(Trail, pk=trail_id)
+        context['trail'] = trail
+
+        return context
+
+
+# TODO create the same for Trail. Think about one view for both.
 
 
 class TrailLogEditView(UpdateView):
