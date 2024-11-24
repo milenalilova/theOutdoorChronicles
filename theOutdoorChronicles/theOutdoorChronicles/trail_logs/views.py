@@ -115,6 +115,7 @@ class TrailLogListView(ListView):  # all hiking user experience
 class TrailLogSpecificTrailView(ListView):  # every time the user hiked this trail
     model = TrailLog
     context_object_name = 'trail_logs'
+    paginate_by = 5
     template_name = 'trail_logs/trail-log-specific-trail-page.html'
 
     def get_queryset(self):

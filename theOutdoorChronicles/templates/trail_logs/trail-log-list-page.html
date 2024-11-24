@@ -27,6 +27,12 @@
 
     <div class="feed-container">
         {% for log in trail_logs %}
+{#            <div class="log-context-trail">#}
+{#                {% include 'partials/trail-details-card.html' with trail=log.trail %}#}
+{#            </div>#}
+            
+{# TODO change this element to a little summary of the trail #}
+            
             <div class="log-card">
                 <div class="log-header">
                     <div class="log-meta">
@@ -106,9 +112,7 @@
     {% endif %}
 {% endblock %}
 
-
-
-
+{# TODO display trail summary on op of each log #}
 
 
 {#{% extends 'base.html' %}#}

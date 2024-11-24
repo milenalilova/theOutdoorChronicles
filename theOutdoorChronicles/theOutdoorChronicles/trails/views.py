@@ -1,10 +1,11 @@
+from datetime import timedelta
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Count, Avg
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
-from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, TrailDeleteForm, TrailSearchForm
 from theOutdoorChronicles.trails.models import Trail
 
@@ -27,8 +28,30 @@ class TrailDetailsView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Get public statistics
+        public_stats = self.object.trail_logs.aggregate(
+            total_hikers=Count('user', distinct=True),
+            total_logs=Count('id'),
+            avg_duration=Avg('duration') or timedelta(0),
+            animals_spotted=Count('animals', distinct=True)
+        )
+        context['public_stats'] = public_stats
         context['animals'] = self.object.animals.all()
+        context['photos'] = self.object.photos.all()
+        context['trail_logs'] = self.object.trail_logs.all()
+
         return context
+
+    def get_template_names(self):
+        if 'animals' in self.request.path:
+            return 'trails/trail-animals-page.html'
+        elif 'photos' in self.request.path:
+            return 'trails/trail-photos-page.html'
+        elif 'trail_logs' in self.request.path:
+            return 'trails/trail-trail-logs-page.html'
+        else:
+            return self.template_name
 
 
 class TrailListView(ListView):
