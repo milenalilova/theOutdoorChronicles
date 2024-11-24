@@ -27,18 +27,18 @@
 
     <div class="feed-container">
         {% for log in trail_logs %}
-{#            <div class="log-context-trail">#}
-{#                {% include 'partials/trail-details-card.html' with trail=log.trail %}#}
-{#            </div>#}
-            
-{# TODO change this element to a little summary of the trail #}
-            
+            {#            <div class="log-context-trail">#}
+            {#                {% include 'partials/trail-details-card.html' with trail=log.trail %}#}
+            {#            </div>#}
+
+            {# TODO change this element to a little summary of the trail #}
+
             <div class="log-card">
                 <div class="log-header">
                     <div class="log-meta">
                         <h2>{{ log.title }}</h2>
                         <span class="log-date">
-                            <i class="fas fa-calendar"></i> {{ log.date_completed|date:"F j, Y" }}
+                            <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
                         </span>
                     </div>
                     {% if log.private %}
@@ -94,7 +94,7 @@
                         <h3><i class="fas fa-paw"></i> Wildlife Spotted</h3>
                         <div class="animal-tags">
                             {% for animal in log.animals.all %}
-                                <span class="animal-tag">{{ animal.name }}</span>
+                                <span class="animal-tag">{{ animal.species }}, {{ animal.common_name }}</span>
                             {% endfor %}
                         </div>
                     </div>

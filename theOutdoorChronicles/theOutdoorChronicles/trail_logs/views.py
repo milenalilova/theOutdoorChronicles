@@ -148,8 +148,16 @@ class TrailLogEditView(UpdateView):
         return TrailLog.objects.filter(user=self.request.user) \
             .select_related('trail')
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        form.instance.animals.set(form.cleaned_data['animals_spotted'])
+        return response
+
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
+
+
+#     TODO fix edit form, add animals to be selected
 
 
 class TrailLogDeleteView(DeleteView):

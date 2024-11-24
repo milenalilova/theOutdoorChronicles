@@ -26,6 +26,13 @@ class TrailLogBaseForm(forms.ModelForm):
         model = TrailLog
         exclude = ('user', 'animals', 'photos')
 
+    def __init__(self, *args, **kwargs):
+        trail_log = kwargs.get('instance', None)
+        super().__init__(*args, **kwargs)
+        if trail_log:
+            self.fields['animals_spotted'].queryset = Animal.objects.all()
+            self.fields['animals_spotted'].initial = trail_log.animals.all()
+
 
 class TrailLogCreateForm(TrailLogBaseForm):
     pass
@@ -37,7 +44,7 @@ class TrailLogEditForm(TrailLogBaseForm):
 
 class TrailLogDeleteForm(TrailLogBaseForm):
     class Meta(TrailLogBaseForm.Meta):
-        exclude = ('user', 'trail', 'photos')
+        exclude = ('user', 'trail', 'animals', 'photos')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
