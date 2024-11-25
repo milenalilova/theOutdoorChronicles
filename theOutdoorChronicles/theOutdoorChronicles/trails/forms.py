@@ -24,9 +24,6 @@ class TrailDeleteForm(TrailBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
-# TODO display the 'animals_spotted field'
-
-
 class TrailSearchForm(forms.Form):
     trail_info = forms.CharField(
         required=False,

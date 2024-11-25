@@ -34,9 +34,6 @@ class AnimalDeleteForm(AnimalBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
-# TODO check with the form. Maybe del unnecessary
-
-
 class AnimalSearchForm(forms.Form):
     animal_name = forms.CharField(
         required=False,

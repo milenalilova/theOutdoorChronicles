@@ -117,151 +117,18 @@
         </div>
     </div>
     ----------------------------------------
-{#  TODO delete. Only for debugging #}
-    <div>  
-        Trail log: <p>{{ trail_log }}</p>
-        Animals Count: <p>{{ trail_log.animals.count }}</p>
-        Photos Count <p>{{ photos_uploaded_count }}</p>
+    {#  TODO delete. Only for debugging #}
+    <div>
+        <p> Trail log: {{ trail_log }}</p>
+        <p> Animals Count: {{ trail_log.animals.count }}</p>
+        <p> Photos Count: {{ trail_log.photos.count }}</p>
+        <p> Previous Logs Count: {{ trail_log.photos.count }}</p>
         <div>
             {% for animal in trail_log.animals.all|slice:":3" %}
                 <p>{{ animal.species }}: {{ animal.common_name }}</p>
             {% endfor %}
         </div>
-        {{ trail_log.photos.count }}
     </div>
     ----------------------------
 
 {% endblock %}
-
-{# TODO check wildlife spotted #}
-{# TODO missing details from context #}
-
-{#{% extends 'base.html' %}#}
-{##}
-{#{% block title %}#}
-{#    Details Trail Log Page#}
-{#{% endblock %}#}
-{##}
-{#{% block main_content %}#}
-{#    <div>#}
-{#        {% include 'partials/trail-details.html' with trail=trail_log.trail %}#}
-{#    </div>#}
-{##}
-{#    <div class="trail-details-container">#}
-{#        <!-- Hero Image Section -->#}
-{#        {% if trail_log.photos.first %}#}
-{#            <div class="trail-hero">#}
-{#                <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log photo">#}
-{#                <div class="trail-difficulty">#}
-{#                    {{ trail_log.trail.difficulty }}#}
-{#                </div>#}
-{#            </div>#}
-{#        {% endif %}#}
-{##}
-{#        <!-- Trail Log Information -->#}
-{#        <div class="trail-info-container">#}
-{#            <div class="trail-header">#}
-{#                <h1>{{ trail_log.title }}</h1>#}
-{#                <p class="trail-location">#}
-{#                    <i class="fas fa-calendar"></i> {{ trail_log.date_completed }}#}
-{#                </p>#}
-{#            </div>#}
-{##}
-{#            <!-- Key Statistics -->#}
-{#            <div class="trail-stats-card">#}
-{#                <div class="stat-item">#}
-{#                    <i class="fas fa-clock"></i>#}
-{#                    <div class="stat-content">#}
-{#                        <span class="stat-label">Duration</span>#}
-{#                        <span class="stat-value">{{ trail_log.duration }}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="stat-item">#}
-{#                    <i class="fas fa-star"></i>#}
-{#                    <div class="stat-content">#}
-{#                        <span class="stat-label">Personal Rating</span>#}
-{#                        <span class="stat-value">{{ trail_log.difficulty_rating }}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="stat-item">#}
-{#                    <i class="fas fa-hiking"></i>#}
-{#                    <div class="stat-content">#}
-{#                        <span class="stat-label">Trail</span>#}
-{#                        <span class="stat-value">{{ trail_log.trail.name }}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{##}
-{#            <!-- Notes -->#}
-{#            <div class="trail-description-card">#}
-{#                <h2>Trail Experience</h2>#}
-{#                <p>{{ trail_log.notes }}</p>#}
-{#            </div>#}
-{##}
-{#            <!-- Photos Gallery -->#}
-{#            {% if trail_log.photos.all %}#}
-{#                <div class="trail-description-card">#}
-{#                    <h2>Photos</h2>#}
-{#                    <div class="photos-gallery">#}
-{#                        {% for photo in trail_log.photos.all %}#}
-{#                            <img src="{{ photo.image.url }}" alt="Trail log photo">#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                </div>#}
-{#            {% endif %}#}
-{##}
-{#            <!-- Action Buttons -->#}
-{#            <div class="trail-actions">#}
-{#                <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-button edit">#}
-{#                    <i class="fas fa-edit"></i> Edit Trail Log#}
-{#                </a>#}
-{#                <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-button delete">#}
-{#                    <i class="fas fa-trash-alt"></i> Delete Trail Log#}
-{#                </a>#}
-{#                <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" class="action-button edit">#}
-{#                    <i class="fas fa-camera"></i> Upload Photos#}
-{#                </a>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <div>#}
-{#        {{ trail_log }}#}
-{#        {{ animals_spotted_count }}#}
-{#        {{ photos_uploaded_count }}#}
-{#        {% for animal in animals %}#}
-{#            {{ trail_log.animals.name }}#}
-{#        {% endfor %}#}
-{##}
-{#        {{ trail_log.photos.count }}#}
-{#    </div>#}
-{##}
-{#{% endblock %}#}
-
-{# TODO fix the display style #}
-
-
-{#{% block main_content %}#}
-{#    <h1>This is the Details Trail Log Page</h1>#}
-{#    <p>#}
-{#        {{ trail_log.title }}#}
-{#    </p>#}
-{#    <p>#}
-{#        {{ trail_log.date_completed }}#}
-{#    </p>#}
-{#    <p>#}
-{#        {{ trail_log.notes }}#}
-{#    </p>#}
-{##}
-{#    <div class="trail-actions">#}
-{#        <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-button edit">#}
-{#            <i class="fas fa-edit"></i> Edit Trail Log#}
-{#        </a>#}
-{#        <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-button delete">#}
-{#            <i class="fas fa-trash-alt"></i> Delete Trail Log#}
-{#        </a>#}
-{#        <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" class="action-button create">#}
-{#            <i class="fas fa-edit"></i> Upload a Photo#}
-{#        </a>#}
-{#    </div>#}
-{#{% endblock %}#}

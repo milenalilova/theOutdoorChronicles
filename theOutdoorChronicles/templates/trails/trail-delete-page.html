@@ -5,10 +5,55 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Delete Trail Page</h1>
+    <h1>Delete Trail: {{ form.instance.name }}</h1>
+
+    <p>Are you sure you want to delete this trail? This action cannot be undone.</p>
+
+    <h3>Related Data to be Deleted:</h3>
+    <ul>
+        <li>
+            <strong>Photos:</strong> {{ photos }} 
+            <a href="{% url 'trail-photos' trail.pk %}">(View {{ photos }})</a>
+        </li>
+        <li>
+            <strong>Trail Logs:</strong> {{ trail_logs }} 
+            <a href="{% url 'trail-trail-logs' trail.pk %}">(View {{ trail_logs }})</a>
+        </li>
+
+    </ul>
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Delete Trail</button>
+
+        <h2>Associated Animals:</h2>
+        <ul>
+            {% for animal in animals %}
+                <li>{{ animal.species }}; {{ animal.common_name }}</li>
+            {% empty %}
+                <li>No animals are associated with this trail.</li>
+            {% endfor %}
+        </ul>
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'trail-list' %}" class="btn btn-secondary">Cancel</a>
     </form>
 {% endblock %}
+
+
+
+
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    Delete Trail Page#}
+{#{% endblock %}#}
+{##}
+{#{% block main_content %}#}
+{#    <h1>This is the Delete Trail Page</h1>#}
+{#    <form method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit">Delete Trail</button>#}
+{#    </form>#}
+{#{% endblock %}#}
