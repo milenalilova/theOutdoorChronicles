@@ -72,7 +72,7 @@ class TrailLogDetailsView(DetailView):
 
 
 # TODO add next and previous log, or go back to all logs
-# TODO after photo upload,after redirect, option to go back to photo uploads
+# TODO after photo upload, after redirect, option to go back to photo uploads
 
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
@@ -110,7 +110,6 @@ class TrailLogListView(ListView):  # all hiking user experience
         return context
 
 
-# TODO currently only log's users can see details. Needs fixing so all users can see details
 # TODO use animals and photos from get_queryset
 
 class TrailLogSpecificTrailView(ListView):  # every time the user hiked this trail
@@ -158,7 +157,6 @@ class TrailLogEditView(UpdateView):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
 
 
-#     TODO fix edit form, add animals to be selected
 
 
 class TrailLogDeleteView(DeleteView):
@@ -174,5 +172,3 @@ class TrailLogDeleteView(DeleteView):
 
     def get_initial(self):
         return self.object.__dict__
-
-#  TODO remove animals field from delete form or display as a readonly list

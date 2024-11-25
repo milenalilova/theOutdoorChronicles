@@ -27,9 +27,9 @@
 
     <div class="feed-container">
         {% for log in trail_logs %}
-            {#            <div class="log-context-trail">#}
-            {#                {% include 'partials/trail-details-card.html' with trail=log.trail %}#}
-            {#            </div>#}
+                        <div class="log-context-trail">
+                            {% include 'partials/trail-excerpt.html' with trail=log.trail %}
+                        </div>
 
             {# TODO change this element to a little summary of the trail #}
 

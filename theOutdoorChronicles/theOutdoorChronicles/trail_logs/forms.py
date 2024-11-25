@@ -34,6 +34,9 @@ class TrailLogBaseForm(forms.ModelForm):
             self.fields['animals_spotted'].initial = trail_log.animals.all()
 
 
+#             TODO why animals are highlighted yellow
+
+
 class TrailLogCreateForm(TrailLogBaseForm):
     pass
 
