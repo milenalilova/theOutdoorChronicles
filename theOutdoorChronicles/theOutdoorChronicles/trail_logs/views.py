@@ -66,12 +66,12 @@ class TrailLogDetailsView(DetailView):
     template_name = 'trail_logs/trail-log-details-page.html'
 
     def get_queryset(self):
-        return TrailLog.objects.filter(user=self.request.user) \
-            .select_related('trail')
+        return TrailLog.objects.select_related('trail').prefetch_related('animals', 'photos')
+
+        # filter(user=self.request.user)  # only log's users can see details
 
 
 # TODO add next and previous log, or go back to all logs
-# TODO check the queryset
 # TODO after photo upload,after redirect, option to go back to photo uploads
 
 class TrailLogListView(ListView):  # all hiking user experience
@@ -110,7 +110,8 @@ class TrailLogListView(ListView):  # all hiking user experience
         return context
 
 
-#  TODO use animals and photos from get_queryset
+# TODO currently only log's users can see details. Needs fixing so all users can see details
+# TODO use animals and photos from get_queryset
 
 class TrailLogSpecificTrailView(ListView):  # every time the user hiked this trail
     model = TrailLog
