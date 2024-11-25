@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
@@ -51,7 +52,10 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
         if trail_log_id:
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
-            trail_log.photos.add(photo)
+            if trail_log.user == self.request.user:   # only owners of the trail_log can upload photos
+                trail_log.photos.add(photo)
+            else:
+                raise PermissionDenied("You do not own this TrailLog.")
 
         return super().form_valid(form)
 

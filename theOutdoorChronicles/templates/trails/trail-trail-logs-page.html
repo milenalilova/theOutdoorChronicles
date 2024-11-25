@@ -9,7 +9,8 @@
 
     {% for log in trail_logs %}
         <p>
-            {{ log }}
+            {{ log.user }}
+            <a href="{% url 'trail-log-details' log.pk %}">See Details</a>
         </p>
     {% endfor %}
 
