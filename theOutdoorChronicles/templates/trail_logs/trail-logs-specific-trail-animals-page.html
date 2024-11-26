@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Specific Trail Animals Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Specific Trail Animals Page</h1>
+    -------------------------------------
+    <p>
+        {{ trail }}
+    </p>
+    --------------------------------------
+    {% for animal in animals %}
+        <div>
+            <p>
+                {{ animal.species }}
+            </p>
+            <p>
+                {{ animal.common_name }}
+            </p>
+            <p>
+                <a href="{% url 'animal-details' animal.pk %}">Details</a>
+            </p>
+        </div>
+        --------------------------------------------------------
+    {% endfor %}
+    <div>
+        <p>
+            Total trails: {{ total_trails }}
+        </p>
+        <p>
+            Total length: {{ total_length }} km
+        </p>
+        <p>
+            Total species seen: {{ total_species_seen }}
+        </p>
+    </div>
+{% endblock %}

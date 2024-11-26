@@ -105,9 +105,16 @@
         {% endif %}
 
         <div class="action-buttons">
-            <a href="{% url 'trail-log-specific-trail' trail_id=trail_log.trail.pk %}" class="action-button edit">
+            <a href="{% url 'trail-logs-specific-trail-list' trail_id=trail_log.trail.pk %}" class="action-button edit">
                 <i class="fas fa-edit"></i> My Logs on This Trail
             </a>
+            <a href="{% url 'trail-logs-specific-trail-animals' trail_id=trail_log.trail.pk %}" class="action-button edit">
+                <i class="fas fa-edit"></i> My Animals on This Trail
+            </a>
+            <a href="{% url 'trail-logs-specific-trail-photos' trail_id=trail_log.trail.pk %}" class="action-button edit">
+                <i class="fas fa-edit"></i> My Photos on This Trail
+            </a>
+            
             <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-btn edit">
                 <i class="fas fa-edit"></i> Edit Log
             </a>
@@ -147,7 +154,7 @@
         {% endif %}
 
         {% if trail_log.trail %}
-            <a href="{% url 'trail-log-specific-trail' trail_id=trail_log.trail.pk %}">My Logs on This Trail</a>
+            <a href="{% url 'trail-logs-specific-trail-list' trail_id=trail_log.trail.pk %}">My Logs on This Trail</a>
         {% else %}
             <p>No trail linked to this log.</p>
         {% endif %}

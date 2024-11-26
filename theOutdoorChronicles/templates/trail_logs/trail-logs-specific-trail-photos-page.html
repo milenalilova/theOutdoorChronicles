@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Specific Trail Photos Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Specific Trail Photos Page</h1>
+    -------------------------------------
+    <p>
+        {{ trail }}
+    </p>
+    --------------------------------------
+    {% if photos %}
+        {% for photo in photos %}
+            <div>
+                <img src="{{ photo.image.url }}" alt="{{ photo.description }}"/>
+                
+{#                TODO the image does not display #}
+                
+                <p>
+                    {{ photo.description }}
+                </p>
+                <p>
+                    <a href="{% url 'photo-details' photo.pk %}">Details</a>
+                </p>
+            </div>
+        {% endfor %}
+    {% else %}
+        No Photos!
+    {% endif %}
+    ---------------------------------------------------
+    <p>Image URL: {{ photo.image.url }}</p>
+<img src="{{ photo.image.url }}" alt="{{ photo.description }}" />
+--------------------------------------------------------------------
+    <div>
+        <p>
+            Total trails: {{ total_trails }}
+        </p>
+        <p>
+            Total length: {{ total_length }} km
+        </p>
+        <p>
+            Total species seen: {{ total_species_seen }}
+        </p>
+    </div>
+{% endblock %}

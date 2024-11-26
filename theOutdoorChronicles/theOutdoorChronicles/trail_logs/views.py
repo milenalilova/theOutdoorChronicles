@@ -1,11 +1,12 @@
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, Sum
+from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from theOutdoorChronicles.animals.models import Animal
+from theOutdoorChronicles.photos.models import Photo
 from theOutdoorChronicles.trail_logs.forms import TrailLogCreateForm, TrailLogEditForm, TrailLogDeleteForm
 from theOutdoorChronicles.trail_logs.models import TrailLog
 from theOutdoorChronicles.trails.models import Trail
@@ -130,7 +131,7 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 5
-    template_name = 'trail_logs/trail-log-specific-trail-page.html'
+    template_name = 'trail_logs/trail-logs-specific-trail-list-page.html'
 
     def get_queryset(self):
         trail_id = self.kwargs.get('trail_id')
@@ -138,7 +139,9 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
         return TrailLog.objects.filter(
             user=self.request.user,
             trail_id=trail_id,
-        ).select_related('trail').order_by('-date_completed')
+        ).select_related('trail') \
+            .prefetch_related('animals', 'photos') \
+            .order_by('-date_completed')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -146,7 +149,25 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
         trail = get_object_or_404(Trail, pk=trail_id)
         context['trail'] = trail
 
+        trail_logs = context['trail_logs']
+
+        # using m2m relation to fetch all instances of animals in trail_logs already filtered in get_queryset
+        animals = Animal.objects.filter(trail_logs__in=trail_logs).distinct()
+        context['animals'] = animals
+
+        # using m2m relation to fetch all instances of photos in trail_logs already filtered in get_queryset
+        photos = Photo.objects.filter(trail_logs__in=trail_logs).distinct()
+        context['photos'] = photos
+
         return context
+
+    def get_template_names(self):
+        if 'animals' in self.request.path:
+            return 'trail_logs/trail-logs-specific-trail-animals-page.html'
+        elif 'photos' in self.request.path:
+            return 'trail_logs/trail-logs-specific-trail-photos-page.html'
+        else:
+            return self.template_name
 
 
 # TODO create the same for Trail. Think about one view for both.
