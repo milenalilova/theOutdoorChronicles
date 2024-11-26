@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Trail Log Details Animals Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Trail Log Details Animals Page</h1>
+
+    {% if animals %}
+
+        {% for animal in animals %}
+            <p>
+                {{ animal.species }}, {{ animal.common_name }}
+            </p>
+        {% endfor %}
+    {% else %}
+        No animals sighting recorded for this log!
+    {% endif %}
+
+{% endblock %}

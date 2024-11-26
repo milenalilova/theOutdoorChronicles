@@ -65,10 +65,24 @@ class TrailLogDetailsView(DetailView):
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-details-page.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['animals'] = self.object.animals.all()
+        context['photos'] = self.object.photos.all()
+        return context
+
     def get_queryset(self):
         return TrailLog.objects.select_related('trail').prefetch_related('animals', 'photos')
 
         # filter(user=self.request.user)  # only log's users can see details
+
+    def get_template_names(self):
+        if 'animals' in self.request.path:
+            return 'trail_logs/trail-log-details-animals-page.html'
+        elif 'photos' in self.request.path:
+            return 'trail_logs/trail-log-details-photos-page.html'
+        else:
+            return self.template_name
 
 
 # TODO add next and previous log, or go back to all logs
@@ -155,8 +169,6 @@ class TrailLogEditView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
-
-
 
 
 class TrailLogDeleteView(DeleteView):

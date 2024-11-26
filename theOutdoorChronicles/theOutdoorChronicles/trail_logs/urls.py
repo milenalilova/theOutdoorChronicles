@@ -9,7 +9,11 @@ urlpatterns = [
     path('explore/', views.TrailLogListView.as_view(), name='trail-log-list'),
     path('explore/<int:trail_id>', views.TrailLogSpecificTrailView.as_view(), name='trail-log-specific-trail'),
     path('<int:trail_log_id>/', include([
-        path('details/', views.TrailLogDetailsView.as_view(), name='trail-log-details'),
+        path('details/', include([
+            path('', views.TrailLogDetailsView.as_view(), name='trail-log-details'),
+            path('animals/', views.TrailLogDetailsView.as_view(), name='trail-log-details-animals'),
+            path('photos/', views.TrailLogDetailsView.as_view(), name='trail-log-details-photos'),
+        ])),
         path('edit/', views.TrailLogEditView.as_view(), name='trail-log-edit'),
         path('delete/', views.TrailLogDeleteView.as_view(), name='trail-log-delete'),
         path('upload-photo/', photos_views.PhotoCreateView.as_view(), name='trail-log-photo-upload')

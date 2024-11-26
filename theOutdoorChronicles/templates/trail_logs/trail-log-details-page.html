@@ -7,20 +7,20 @@
 {% block main_content %}
     <div class="feed-container">
         <!-- Associated Trail Card -->
-        <div class="log-context-trail">
-            {% include 'partials/trail-details-card.html' with trail=trail_log.trail %}
-        </div>
+                <div class="log-context-trail">
+                    {% include 'partials/trail-details-card.html' with trail=trail_log.trail %}
+                </div>
 
-        <!-- Main Log Card -->
-        {#        <div class="log-card log-details-card">#}
-        {#            {% if trail_log.photos.first %}#}
-        {#                <div class="log-hero">#}
-        {#                    <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log hero photo" class="hero-image">#}
-        {#                    <div class="difficulty-badge {{ trail_log.trail.difficulty|lower }}">#}
-        {#                        {{ trail_log.trail.difficulty }}#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#            {% endif %}#}
+{#                <!-- Main Log Card -->#}
+{#                <div class="log-card log-details-card">#}
+{#                    {% if trail_log.photos.first %}#}
+{#                        <div class="log-hero">#}
+{#                            <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log hero photo" class="hero-image">#}
+{#                            <div class="difficulty-badge {{ trail_log.trail.difficulty|lower }}">#}
+{#                                {{ trail_log.trail.difficulty }}#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endif %}#}
 
         <div class="log-header">
             <div class="log-meta">
@@ -105,6 +105,9 @@
         {% endif %}
 
         <div class="action-buttons">
+            <a href="{% url 'trail-log-specific-trail' trail_id=trail_log.trail.pk %}" class="action-button edit">
+                <i class="fas fa-edit"></i> My Logs on This Trail
+            </a>
             <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-btn edit">
                 <i class="fas fa-edit"></i> Edit Log
             </a>
@@ -129,6 +132,28 @@
             {% endfor %}
         </div>
     </div>
-    ----------------------------
+    ------------------------------------------------------------------------
+    <p>Debug Trail Log PK: {{ trail_log.pk }}</p>
+    <p>Debug Trail PK: {{ trail_log.trail.pk|default:"No trail associated" }}</p>
+
+    --------------------------------------------------------------------
+    <div>
+        {% if trail_log.pk %}
+            <a href="{% url 'trail-log-edit' trail_log.pk %}">Edit Log</a>
+            <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}">Add Photos</a>
+            <a href="{% url 'trail-log-delete' trail_log.pk %}">Delete Log</a>
+        {% else %}
+            <p>No trail log ID available.</p>
+        {% endif %}
+
+        {% if trail_log.trail %}
+            <a href="{% url 'trail-log-specific-trail' trail_id=trail_log.trail.pk %}">My Logs on This Trail</a>
+        {% else %}
+            <p>No trail linked to this log.</p>
+        {% endif %}
+    </div>
+    -------------------------------------------------------------------------
+    <pre>{{ trail_log|default:"Trail log not found" }}</pre>
+    ------------------------------------------------------------------------
 
 {% endblock %}

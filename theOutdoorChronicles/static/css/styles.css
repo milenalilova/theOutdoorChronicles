@@ -10,14 +10,9 @@ body {
     display: flex;
     flex-direction: column;
     font-family: Pacifico, cursive;
-    line-height: 1.6;
-    /*background-image: url('/static/images/waterfall_background.jpg'); !* Path to your image *!*/
-    /*background-size: cover;*/
-    /*background-position: center;*/
-    /*background-attachment: fixed;*/
+    line-height: 1.6
 }
 
-/*TODO the image is just for testing*/
 
 /* Navbar styles - updated to ensure consistency */
 .navbar {
