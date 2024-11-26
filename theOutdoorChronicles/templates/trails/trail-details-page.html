@@ -105,14 +105,14 @@
                 <a href="{% url 'trail-log-specific-trail' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> My Logs on This Trail
                 </a>
-                <a href="{% url 'trail-animals' trail_id=trail.pk %}" class="action-button edit">
+                <a href="{% url 'trail-details-animals' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> All Animals on This Trail
                 </a>
-                <a href="{% url 'trail-photos' trail_id=trail.pk %}" class="action-button edit">
+                <a href="{% url 'trail-details-photos' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> All Photos on This Trail
                 </a>
 
-                <a href="{% url 'trail-trail-logs' trail_id=trail.pk %}" class="action-button edit">
+                <a href="{% url 'trail-details-trail-logs' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> All Logs on This Trail
                 </a>
                 {#                            TODO fix the buttons name/look (Photo and Log, class="action-button edit")>#}

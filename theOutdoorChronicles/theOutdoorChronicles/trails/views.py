@@ -45,11 +45,11 @@ class TrailDetailsView(DetailView):
 
     def get_template_names(self):
         if 'animals' in self.request.path:
-            return 'trails/trail-animals-page.html'
+            return 'trails/trail-details-animals-page.html'
         elif 'photos' in self.request.path:
-            return 'trails/trail-photos-page.html'
+            return 'trails/trail-details-photos-page.html'
         elif 'trail_logs' in self.request.path:
-            return 'trails/trail-trail-logs-page.html'
+            return 'trails/trail-details-trail-logs-page.html'
         else:
             return self.template_name
 
