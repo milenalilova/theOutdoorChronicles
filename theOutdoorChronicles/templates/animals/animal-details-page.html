@@ -83,7 +83,8 @@
                         <i class="fas fa-trash-alt"></i> Delete Animal
                     </a>
                 {% endif %}
-                <a href="{% url 'animals-photo-upload' animal_id=animal.pk %}" class="action-button edit">
+                <a href="{% url 'animals-photo-upload' animal_id=animal.pk %}" id="photo-upload-section"
+                   class="action-button edit">
                     <i class="fas fa-camera"></i> Upload Your Photo
                 </a>
             </div>

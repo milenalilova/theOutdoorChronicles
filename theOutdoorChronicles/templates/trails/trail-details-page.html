@@ -89,14 +89,15 @@
                         <i class="fas fa-edit"></i> Edit Trail
                     </a>
                 {% endif %}
-            
+
                 {% if perms.trails.delete_trail %}
                     <a href="{% url 'trail-delete' trail.pk %}" class="action-button delete">
                         <i class="fas fa-trash-alt"></i> Delete Trail
                     </a>
                 {% endif %}
-            
-                <a href="{% url 'trail-photo-upload' trail_id=trail.pk %}" class="action-button edit">
+
+                <a href="{% url 'trail-photo-upload' trail_id=trail.pk %}" id="photo-upload-section"
+                   class="action-button edit">
                     <i class="fas fa-edit"></i> Upload Your Photo
                 </a>
                 <a href="{% url 'trail-log-create' trail_id=trail.pk %}" class="action-button edit">

@@ -87,7 +87,6 @@ class TrailLogDetailsView(DetailView):
 
 
 # TODO add next and previous log, or go back to all logs
-# TODO after photo upload, after redirect, option to go back to photo uploads
 
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog

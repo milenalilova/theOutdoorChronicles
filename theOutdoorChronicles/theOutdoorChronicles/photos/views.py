@@ -62,18 +62,23 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         # Based on context
         if 'trail_id' in self.kwargs:
-            return reverse_lazy('trail-details', kwargs={'trail_id': self.kwargs['trail_id']})
+            return reverse_lazy('trail-details',
+                                kwargs={'trail_id': self.kwargs['trail_id']}) + '#photo-upload-section'
 
         elif 'animal_id' in self.kwargs:
-            return reverse_lazy('animal-details', kwargs={'animal_id': self.kwargs['animal_id']})
+            return reverse_lazy('animal-details',
+                                kwargs={'animal_id': self.kwargs['animal_id']}) + '#photo-upload-section'
 
         elif 'trail_log_id' in self.kwargs:
-            return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.kwargs['trail_log_id']})
+            return reverse_lazy('trail-log-details',
+                                kwargs={'trail_log_id': self.kwargs['trail_log_id']}) + '#photo-upload-section'
 
-        return reverse_lazy('photo-details', kwargs={'photo_id': self.object.pk})
+        return reverse_lazy('photo-details',
+                            kwargs={'photo_id': self.object.pk}) + '#photo-upload-section'
 
 
 #     TODO rename to PhotoUploadView
+#     TODO add options to delete photo after upload
 
 
 class PhotoDetailView(DetailView):
