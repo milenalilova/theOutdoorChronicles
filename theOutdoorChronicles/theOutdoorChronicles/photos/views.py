@@ -31,8 +31,6 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
             trail_id = trail_log.trail.pk
 
-        #     TODO possibly move the view to common app and rename to UploadPhoto
-
         if trail_id:
             form.fields['trail'].widget = forms.HiddenInput()
             form.fields['trail'].initial = trail_id
@@ -77,7 +75,6 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
                             kwargs={'photo_id': self.object.pk}) + '#photo-upload-section'
 
 
-#     TODO rename to PhotoUploadView
 #     TODO add options to delete photo after upload
 
 
@@ -102,6 +99,9 @@ class PhotoEditView(UpdateView):
     form_class = PhotoEditForm
     template_name = 'photos/photo-edit-page.html'
 
+    def get_queryset(self):
+        return Photo.objects.filter(user=self.request.user)
+
     def get_success_url(self):
         return reverse_lazy('photo-details', kwargs={'photo_id': self.object.pk})
 
@@ -113,5 +113,10 @@ class PhotoDeleteView(DeleteView):
     template_name = 'photos/photo-delete-page.html'
     success_url = reverse_lazy('photo-list')
 
+    def get_queryset(self):
+        return Photo.objects.filter(user=self.request.user)
+
     def get_initial(self):
         return self.object.__dict__
+
+# TODO possibly add get_success_url to Photo model or a Mixin and reuse it in the views

@@ -52,3 +52,6 @@ class Photo(models.Model):
 #             models.Index(fields=['trail', 'trail_log']),  # Index 1
 #             models.Index(fields=['trail', 'animal']),  # Index 2
 #         ]
+
+
+# TODO maybe add a field private

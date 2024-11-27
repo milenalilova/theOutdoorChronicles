@@ -13,11 +13,11 @@
     <ul>
         <li>
             <strong>Photos:</strong> {{ photos }} 
-            <a href="{% url 'trail-photos' trail.pk %}">(View {{ photos }})</a>
+            <a href="{% url 'trail-details-photos' trail.pk %}">(View {{ photos }})</a>
         </li>
         <li>
             <strong>Trail Logs:</strong> {{ trail_logs }} 
-            <a href="{% url 'trail-trail-logs' trail.pk %}">(View {{ trail_logs }})</a>
+            <a href="{% url 'trail-details-trail-logs' trail.pk %}">(View {{ trail_logs }})</a>
         </li>
 
     </ul>

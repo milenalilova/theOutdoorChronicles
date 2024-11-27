@@ -48,7 +48,7 @@ class TrailDetailsView(DetailView):
             return 'trails/trail-details-animals-page.html'
         elif 'photos' in self.request.path:
             return 'trails/trail-details-photos-page.html'
-        elif 'trail_logs' in self.request.path:
+        elif 'trail-logs' in self.request.path:
             return 'trails/trail-details-trail-logs-page.html'
         else:
             return self.template_name
