@@ -90,6 +90,7 @@ class PhotoDetailView(DetailView):
 class PhotoListView(ListView):
     model = Photo
     context_object_name = 'photos'
+    paginate_by = 9
     template_name = 'photos/photo-list-page.html'
 
 

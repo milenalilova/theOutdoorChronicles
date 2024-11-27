@@ -12,27 +12,34 @@
                     <img src="{{ photo.image.url }}" alt="Photo of {{ photo.trail.name }}">
                 </div>
                 <div class="trail-content">
-                    <h2 class="trail-name">{{ photo.trail.name }}</h2>
+                    <!-- Minimal text display -->
                     <p class="trail-location">
                         <i class="fas fa-user"></i> {{ photo.user.username }}
                     </p>
-                    <div class="trail-stats">
-                        {% if photo.animal %}
-                            <span>
-                           <i class="fas fa-paw"></i> {{ photo.animal.common_name }}
-                       </span>
-                        {% endif %}
-                        {% if photo.description %}
-                            <span>
-                           <i class="fas fa-comment"></i> {{ photo.description|truncatechars:50 }}
-                       </span>
-                        {% endif %}
-                        <span>
-                       <i class="fas fa-mountain"></i> {{ photo.trail.name }}
-                   </span>
-                    </div>
-                    <a href="{{ photo.image.url }}" class="trail-details-btn" target="_blank">
-                        View Full Image
+                    <p class="trail-name">
+                        <i class="fas fa-mountain"></i>
+                        <a href="{% url 'trail-details' photo.trail.pk %}">{{ photo.trail.name }}</a>
+                    </p>
+
+{#                    <p class="trail-name">#}
+{#                        <i class="fas fa-mountain"></i> {{ photo.trail.name }}#}
+{#                    </p>#}
+
+                    <!-- Display animal name if it exists -->
+                    {% if photo.animal %}
+                        <p class="trail-animal">
+                            <i class="fas fa-paw"></i>
+                            <a href="{% url 'animal-details' photo.animal.pk %}">{{ photo.animal.species }}</a>
+                        </p>
+{##}
+{#                        <p class="trail-animal">#}
+{#                            <i class="fas fa-paw"></i> {{ photo.animal.species }}#}
+{#                        </p>#}
+                    {% endif %}
+
+                    <!-- Link to photo details page -->
+                    <a href="{% url 'photo-details' photo_id=photo.pk %}" class="trail-details-btn">
+                        View Details
                     </a>
                 </div>
             </div>
@@ -60,13 +67,67 @@
     {% endif %}
 {% endblock %}
 
-{# TODO display just the image #}
+
+
+
 
 {#{% block main_content %}#}
-{#    <h1>This is the List Photo Page</h1>#}
-{#    {% for photo in photos %}#}
-{#        <img src="{{ photo.image.url }}" alt="{{ photo.trail.name }}'s picture"#}
-{#             class="img-fluid w-100" style="height: 400px; object-fit: cover;">#}
-{#    {% endfor %}#}
+{#    <div class="trails-grid">#}
+{#        {% for photo in photos %}#}
+{#            <div class="trail-card">#}
+{#                <div class="trail-image">#}
+{#                    <img src="{{ photo.image.url }}" alt="Photo of {{ photo.trail.name }}">#}
+{#                </div>#}
+{#                <div class="trail-content">#}
+{#                    <h2 class="trail-name">{{ photo.trail.name }}</h2>#}
+{#                    <p class="trail-location">#}
+{#                        <i class="fas fa-user"></i> {{ photo.user.username }}#}
+{#                    </p>#}
+{#                    <div class="trail-stats">#}
+{#                        {% if photo.animal %}#}
+{#                            <span>#}
+{#                           <i class="fas fa-paw"></i> {{ photo.animal.common_name }}#}
+{#                       </span>#}
+{#                        {% endif %}#}
+{#                        {% if photo.description %}#}
+{#                            <span>#}
+{#                           <i class="fas fa-comment"></i> {{ photo.description|truncatechars:50 }}#}
+{#                       </span>#}
+{#                        {% endif %}#}
+{#                        <span>#}
+{#                       <i class="fas fa-mountain"></i> {{ photo.trail.name }}#}
+{#                   </span>#}
+{#                    </div>#}
+{#                    <a href="{{ photo.image.url }}" class="trail-details-btn" target="_blank">#}
+{#                        View Full Image#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{##}
+{#    {% if is_paginated %}#}
+{#        <div class="pagination">#}
+{#            {% if page_obj.has_previous %}#}
+{#                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>#}
+{#            {% endif %}#}
+{##}
+{#            {% for num in page_obj.paginator.page_range %}#}
+{#                {% if page_obj.number == num %}#}
+{#                    <span class="page-link active">{{ num }}</span>#}
+{#                {% else %}#}
+{#                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{##}
+{#            {% if page_obj.has_next %}#}
+{#                <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#    {% endif %}#}
 {#{% endblock %}#}
+
+{# TODO display just the image #}
+
+
 

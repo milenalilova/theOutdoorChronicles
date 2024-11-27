@@ -56,7 +56,7 @@ class TrailDetailsView(DetailView):
 
 class TrailListView(ListView):
     model = Trail
-    paginate_by = 3
+    paginate_by = 2
     template_name = 'trails/trail-list-page.html'
 
     def get(self, request, *args, **kwargs):
