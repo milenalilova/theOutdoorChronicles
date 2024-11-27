@@ -125,8 +125,6 @@ class TrailLogListView(ListView):  # all hiking user experience
         return context
 
 
-# TODO use animals and photos from get_queryset
-
 class TrailLogSpecificTrailView(ListView):  # every time the user hiked this trail
     model = TrailLog
     context_object_name = 'trail_logs'
@@ -168,9 +166,6 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
             return 'trail_logs/trail-logs-specific-trail-photos-page.html'
         else:
             return self.template_name
-
-
-# TODO create the same for Trail. Think about one view for both.
 
 
 class TrailLogEditView(UpdateView):

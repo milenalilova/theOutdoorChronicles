@@ -29,12 +29,9 @@ class TrailLogBaseForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         trail_log = kwargs.get('instance', None)
         super().__init__(*args, **kwargs)
-        if trail_log:
+        if isinstance(trail_log, TrailLog):
             self.fields['animals_spotted'].queryset = Animal.objects.all()
             self.fields['animals_spotted'].initial = trail_log.animals.all()
-
-
-#             TODO why animals are highlighted yellow
 
 
 class TrailLogCreateForm(TrailLogBaseForm):
