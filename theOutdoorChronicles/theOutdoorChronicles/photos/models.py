@@ -23,6 +23,10 @@ class Photo(models.Model):
         auto_now_add=True
     )
 
+    private = models.BooleanField(
+        default=False
+    )
+
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
@@ -54,4 +58,3 @@ class Photo(models.Model):
 #         ]
 
 
-# TODO maybe add a field private
