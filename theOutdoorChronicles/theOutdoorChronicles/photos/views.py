@@ -52,7 +52,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
         if trail_log_id:
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
-            if trail_log.user == self.request.user:   # only owners of the trail_log can upload photos
+            if trail_log.user == self.request.user:  # only owners of the trail_log can upload photos
                 trail_log.photos.add(photo)
             else:
                 raise PermissionDenied("You do not own this TrailLog.")
@@ -65,16 +65,14 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
             return reverse_lazy('trail-details', kwargs={'trail_id': self.kwargs['trail_id']})
 
         elif 'animal_id' in self.kwargs:
-            reverse_lazy('animal-details', kwargs={'animal_id': self.kwargs['animal_id']})
+            return reverse_lazy('animal-details', kwargs={'animal_id': self.kwargs['animal_id']})
 
         elif 'trail_log_id' in self.kwargs:
-            reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.kwargs['trail_log_id']})
+            return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.kwargs['trail_log_id']})
 
         return reverse_lazy('photo-details', kwargs={'photo_id': self.object.pk})
 
 
-#     TODO do I really need LoginRequiredMixin
-#     TODO make sure uploads happen only from own trail logs (get_queryset())
 #     TODO rename to PhotoUploadView
 
 
