@@ -76,6 +76,13 @@
                 </ul>
             </div>
         {% endif %}
-    </div>
+        <div class="trail-actions">
+            <a href="{% url 'photo-edit' photo.pk %}" class="action-button edit">
+                <i class="fas fa-edit"></i> Edit Photo
+            </a>
+            <a href="{% url 'photo-delete' photo.pk %}" class="action-button delete">
+                <i class="fas fa-trash-alt"></i> Delete Photo
+            </a>
+        </div>
     </div>
 {% endblock %}

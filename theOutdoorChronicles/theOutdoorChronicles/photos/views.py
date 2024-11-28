@@ -1,7 +1,11 @@
+import os
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
@@ -75,9 +79,6 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
                             kwargs={'photo_id': self.object.pk}) + '#photo-upload-section'
 
 
-#     TODO add options to delete photo after upload
-
-
 class PhotoDetailView(DetailView):
     model = Photo
     pk_url_kwarg = 'photo_id'
@@ -113,6 +114,7 @@ class PhotoEditView(UpdateView):
 class PhotoDeleteView(DeleteView):
     model = Photo
     pk_url_kwarg = 'photo_id'
+    context_object_name = 'photo'
     form_class = PhotoDeleteForm
     template_name = 'photos/photo-delete-page.html'
     success_url = reverse_lazy('photo-list')
@@ -123,7 +125,44 @@ class PhotoDeleteView(DeleteView):
     def get_initial(self):
         return self.object.__dict__
 
-# TODO add def delete() to also delete files from the storage
+    def post(self, request, *args, **kwargs):
+        # Get the photo before deletion
+        photo = self.get_object()
 
-# TODO possibly add get_success_url to Photo model or a Mixin and reuse it in the views
-# TODO add if condition for private photos
+        # Store the image path before deletion
+        image_path = None
+        if photo.image:
+            # Construct the full path to the image
+            image_path = os.path.join(settings.MEDIA_ROOT, str(photo.image))
+
+        # Use the parent class's delete method
+        response = super().post(request, *args, **kwargs)
+
+        # Delete the image file from the filesystem
+        if image_path and os.path.exists(image_path):
+            os.remove(image_path)
+
+        return response
+
+    # Option 2 also works
+    # def post(self, request, *args, **kwargs):
+    #     # Use get_object() to fetch the object
+    #     photo = self.get_object()
+    #
+    #     # Delete the image file from the filesystem
+    #     if photo.image:
+    #         # Construct the full path to the image
+    #         image_path = os.path.join(settings.MEDIA_ROOT, str(photo.image))
+    #
+    #         # Check if the file exists and delete it
+    #         if os.path.exists(image_path):
+    #             os.remove(image_path)
+    #
+    #     # Delete the database record
+    #     photo.delete()
+    #
+    #     # Redirect to success URL
+    #     return HttpResponseRedirect(reverse_lazy('photo-list'))
+
+
+# TODO add if condition for private photos in all templates
