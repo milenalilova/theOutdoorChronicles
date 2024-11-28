@@ -114,13 +114,19 @@ class PhotoEditView(UpdateView):
 class PhotoDeleteView(DeleteView):
     model = Photo
     pk_url_kwarg = 'photo_id'
-    context_object_name = 'photo'
     form_class = PhotoDeleteForm
     template_name = 'photos/photo-delete-page.html'
     success_url = reverse_lazy('photo-list')
 
     def get_queryset(self):
         return Photo.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['trail'] = self.object.trail
+        context['animal'] = self.object.animal
+        context['trail_logs'] = self.object.trail_logs.all()
+        return context
 
     def get_initial(self):
         return self.object.__dict__
@@ -163,6 +169,5 @@ class PhotoDeleteView(DeleteView):
     #
     #     # Redirect to success URL
     #     return HttpResponseRedirect(reverse_lazy('photo-list'))
-
 
 # TODO add if condition for private photos in all templates

@@ -11,9 +11,24 @@
 
         <p>Image:</p>
         <p><img src="{{ photo.image.url }}" alt="Photo" style="max-width: 300px;"></p>
-
         {{ form.as_p }}
 
+        {% if photo.animal %}
+            <p>Associated Animal:</p>
+            <ul>
+                {{ photo.animal }}
+            </ul>
+        {% endif %}
+    
+        {% if photo.trail_logs.all %}
+            <p>Associated Trail Logs:</p>
+            <ul>
+                {% for trail_log in trail_logs.all %}
+                    <li>{{ trail_log.title }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    
         <button type="submit">Delete Photo</button>
     </form>
 {% endblock %}
