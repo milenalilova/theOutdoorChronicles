@@ -8,8 +8,10 @@
     <h1>This is the Trail Photos Page</h1>
 
     {% for photo in photos %}
-        <p>
-            {{ photo }}
+         <p>
+            <a href="{% url 'photo-details' photo.id %}">
+                <img src="{{ photo.image.url }}" alt="Photo" style="max-width: 300px;">
+            </a>
         </p>
     {% endfor %}
 

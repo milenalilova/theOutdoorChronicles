@@ -1,5 +1,3 @@
-import os
-
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -85,8 +83,8 @@ class PhotoDetailView(DetailView):
     pk_url_kwarg = 'photo_id'
     template_name = 'photos/photo-details-page.html'
 
-
-#     TODO add extra context with photo details - trails, animals, logs
+    def get_queryset(self):
+        return Photo.objects.select_related('user', 'trail', 'animal').prefetch_related('trail_logs')
 
 
 class PhotoListView(ListView):
