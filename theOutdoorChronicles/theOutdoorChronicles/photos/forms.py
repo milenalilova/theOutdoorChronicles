@@ -19,7 +19,7 @@ class PhotoEditForm(PhotoBaseForm):
 
 class PhotoDeleteForm(PhotoBaseForm):
     class Meta(PhotoBaseForm.Meta):
-        fields = ('image', 'description')
+        fields = ('description',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

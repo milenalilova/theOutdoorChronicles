@@ -8,7 +8,22 @@
     <h1>This is the Delete Photo Page</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
+        <p>Image:</p>
+        <p><img src="{{ photo.image.url }}" alt="Photo" style="max-width: 300px;"></p>
+
         {{ form.as_p }}
+
         <button type="submit">Delete Photo</button>
     </form>
 {% endblock %}
+
+
+{#{% block main_content %}#}
+{#    <h1>This is the Delete Photo Page</h1>#}
+{#    <form method="post" enctype="multipart/form-data">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit">Delete Photo</button>#}
+{#    </form>#}
+{#{% endblock %}#}

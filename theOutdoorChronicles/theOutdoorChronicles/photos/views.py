@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -94,6 +96,9 @@ class PhotoListView(ListView):
     template_name = 'photos/photo-list-page.html'
 
 
+#     TODO this view maybe unnecessary
+
+
 class PhotoEditView(UpdateView):
     model = Photo
     pk_url_kwarg = 'photo_id'
@@ -120,4 +125,7 @@ class PhotoDeleteView(DeleteView):
     def get_initial(self):
         return self.object.__dict__
 
+# TODO add def delete() to also delete files from the storage
+
 # TODO possibly add get_success_url to Photo model or a Mixin and reuse it in the views
+# TODO add if condition for private photos
