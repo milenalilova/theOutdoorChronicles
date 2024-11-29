@@ -59,6 +59,8 @@ class TrailLogCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
 
+# TODO check if animals not related to trail can be logged as spotted
+
 
 class TrailLogDetailsView(DetailView):
     model = TrailLog

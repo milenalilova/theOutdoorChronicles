@@ -26,4 +26,3 @@ class PhotoDeleteForm(PhotoBaseForm):
         for _, field in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'
 
-#  TODO fix the form to display photos trails and animals as a list and display delete message
