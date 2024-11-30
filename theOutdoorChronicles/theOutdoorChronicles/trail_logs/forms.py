@@ -33,15 +33,15 @@ class TrailLogBaseForm(forms.ModelForm):
             self.fields['animals_spotted'].queryset = trail_log.trail.animals.all()
             self.fields['animals_spotted'].initial = trail_log.animals.all()
 
-#   TODO refactor animals_spotted queryset to only include animals related to the trail
-
 
 class TrailLogCreateForm(TrailLogBaseForm):
     pass
 
 
 class TrailLogEditForm(TrailLogBaseForm):
-    pass
+    class Meta(TrailLogBaseForm.Meta):
+        model = TrailLog
+        exclude = ('user', 'trail', 'animals', 'photos')
 
 
 class TrailLogDeleteForm(TrailLogBaseForm):
