@@ -23,10 +23,6 @@ class Photo(models.Model):
         auto_now_add=True
     )
 
-    private = models.BooleanField(
-        default=False
-    )
-
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
@@ -56,5 +52,3 @@ class Photo(models.Model):
 #             models.Index(fields=['trail', 'trail_log']),  # Index 1
 #             models.Index(fields=['trail', 'animal']),  # Index 2
 #         ]
-
-

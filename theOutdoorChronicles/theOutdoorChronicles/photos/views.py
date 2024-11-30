@@ -169,6 +169,3 @@ class PhotoDeleteView(DeleteView):
     #
     #     # Redirect to success URL
     #     return HttpResponseRedirect(reverse_lazy('photo-list'))
-
-# TODO add if condition for private photos in all templates
-# TODO maybe remove private

@@ -49,10 +49,6 @@ class TrailLog(TimeStampMixin, models.Model):
         blank=False
     )
 
-    private = models.BooleanField(
-        default=False
-    )
-
     user = models.ForeignKey(
         UserModel,
         on_delete=models.CASCADE,
