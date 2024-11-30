@@ -48,41 +48,79 @@
                 </div>
             </div>
 
+            <!-- New stat-card style sections for Public Stats, User Logs, and Photos -->
+            <!-- Public Stats Card -->
+            <div class="trail-stats-card">
+                {% if public_stats.total_hikers > 0 %}
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Hikers</span>
+                            <span class="stat-value">{{ public_stats.total_hikers }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if photos.count > 0 %}
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Photos</span>
+                            <span class="stat-value">
+                <a href="{% url 'trail-details-photos' trail_id=trail.pk %}">
+                    {{ photos.count }}
+                </a>
+            </span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if animals.count > 0 %}
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Animal Species</span>
+                            <span class="stat-value">
+                <a href="{% url 'trail-details-animals' trail_id=trail.pk %}">
+                    {{ animals.count }}
+                </a>
+            </span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if public_stats.total_logs > 0 %}
+                    <div class="stat-item">
+                        <i class="fas fa-book-open"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Total Logs</span>
+                            <span class="stat-value">
+                <a href="{% url 'trail-details-trail-logs' trail_id=trail.pk %}">
+                  {{ public_stats.total_logs }}
+                </a>
+            </span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if public_stats.avg_duration > 0 %}
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="stat-content">
+                            <span class="stat-label">Average Duration</span>
+                            <span class="stat-value">{{ public_stats.avg_duration }} hrs</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
             <!-- Description -->
             <div class="trail-description-card">
                 <h2>Trail Description</h2>
                 <p>{{ trail.description }}</p>
             </div>
 
-            <div class="trail-description-card">
-                {% for animal in animals %}
-                    <p>
-                        <a href="{{ animal.get_absolute_url }}">{{ animal.common_name }} {{ animal.species }}</a>
-                    </p>
-                {% endfor %}
-            </div>
-            ----------------------------------------------------------
-            <div class="trail-description-card">
-                <p>
-                    Public stats: {{ public_stats }}
-                </p>
-            </div>
-            -------------------------------------------------------------------
-            <div class="trail-description-card">
-                <p>
-                    All user logs: {{ trail_logs }}
-                </p>
-            </div>
-            -----------------------------------------------------------------------
-            <div class="trail-description-card">
-                <p>
-                    All photos: {{ photos }}
-                </p>
-            </div>
-            {# TODO fix the look here #}
-
             <!-- Action Buttons -->
-
             <div class="trail-actions">
                 {% if perms.trails.change_trail %}
                     <a href="{% url 'trail-edit' trail.pk %}" class="action-button edit">
@@ -105,16 +143,6 @@
                 </a>
                 <a href="{% url 'trail-logs-specific-trail-list' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> My Logs on This Trail
-                </a>
-                <a href="{% url 'trail-details-animals' trail_id=trail.pk %}" class="action-button edit">
-                    <i class="fas fa-edit"></i> All Animals on This Trail
-                </a>
-                <a href="{% url 'trail-details-photos' trail_id=trail.pk %}" class="action-button edit">
-                    <i class="fas fa-edit"></i> All Photos on This Trail
-                </a>
-
-                <a href="{% url 'trail-details-trail-logs' trail_id=trail.pk %}" class="action-button edit">
-                    <i class="fas fa-edit"></i> All Logs on This Trail
                 </a>
                 {#       TODO fix the buttons name/look (Photo and Log, class="action-button edit")>#}
             </div>

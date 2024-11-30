@@ -34,7 +34,7 @@ class TrailDetailsView(DetailView):
             total_hikers=Count('user', distinct=True),
             total_logs=Count('id'),
             avg_duration=Avg('duration') or timedelta(0),
-            animals_spotted=Count('animals', distinct=True)
+            # animals_spotted=Count('animals', distinct=True)
         )
         context['public_stats'] = public_stats
         context['animals'] = self.object.animals.all()
