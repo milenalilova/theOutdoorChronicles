@@ -8,40 +8,25 @@
     <h1>This is the Specific Trail Photos Page</h1>
     -------------------------------------
     <p>
-        {{ trail }}
+        {{ trail.name }}
     </p>
     --------------------------------------
     {% if photos %}
-        {% for photo in photos %}
-            <div>
-                <img src="{{ photo.image.url }}" alt="{{ photo.description }}"/>
-                
-{#                TODO the image does not display #}
-                
-                <p>
-                    {{ photo.description }}
-                </p>
-                <p>
-                    <a href="{% url 'photo-details' photo.pk %}">Details</a>
-                </p>
-            </div>
-        {% endfor %}
+        <div class="trails-grid">
+            {% for photo in photos %}
+                <div class="trail-card">
+                    <div class="trail-image">
+                        <a href="{% url 'photo-details' photo.pk %}">
+                            <img src="{{ photo.image.url }}" alt="Photo of {{ photo.trail.name }}">
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            {#  TODO create partials #}
+        </div>
     {% else %}
-        No Photos!
+        <div>
+            No Photos!
+        </div>
     {% endif %}
-    ---------------------------------------------------
-    <p>Image URL: {{ photo.image.url }}</p>
-<img src="{{ photo.image.url }}" alt="{{ photo.description }}" />
---------------------------------------------------------------------
-    <div>
-        <p>
-            Total trails: {{ total_trails }}
-        </p>
-        <p>
-            Total length: {{ total_length }} km
-        </p>
-        <p>
-            Total species seen: {{ total_species_seen }}
-        </p>
-    </div>
 {% endblock %}
