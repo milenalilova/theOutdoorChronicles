@@ -5,6 +5,25 @@
 {% endblock %}
 
 {% block main_content %}
+
+    <div class="action-buttons">
+        <a href="" class="action-button edit">
+            <i class="fas fa-edit"></i> All My Logs
+        </a>
+        <a href=""
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All My Animals
+        </a>
+        <a href=""
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All My Photos
+        </a>
+    </div>
+
+    {#    TODO make this partial #}
+    {#    TODO make buttons work #}
+    {#    TODO make templates to display info from buttons - user related logs info #}
+
     <div class="feed-header">
         <h1>Trail Journey Log</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
@@ -27,10 +46,10 @@
 
     <div class="feed-container">
         {% for log in trail_logs %}
-                        <div class="log-context-trail">
-                            {% include 'partials/trail-excerpt.html' with trail=log.trail %}
-                        </div>
-            
+            <div class="log-context-trail">
+                {% include 'partials/trail-excerpt.html' with trail=log.trail %}
+            </div>
+
             <div class="log-card">
                 <div class="log-header">
                     <div class="log-meta">
@@ -64,7 +83,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            
+
                 <div class="log-content">
                     <p>{{ log.notes }}</p>
                 </div>

@@ -6,17 +6,35 @@
 
 {% block main_content %}
     <h1>This is the Trail's Trail Logs Page</h1>
+
+    <div class="action-buttons">
+        <a href="{% url 'trail-details-trail-logs' trail.pk %}" class="action-button edit">
+            <i class="fas fa-edit"></i> All Logs on This Trail
+        </a>
+        <a href="{% url 'trail-details-animals' trail.pk %}"
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All Animals on This Trail
+        </a>
+        <a href="{% url 'trail-details-photos' trail.pk %}"
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All Photos on This Trail
+        </a>
+    </div>
+
+    {#    TODO make this partial #}
+
     <div class="feed-header">
         <h1>All Users Logs</h1>
         <p class="feed-subtitle">All Users Logs</p>
     </div>
 
-{#    <div class="log-context-trail">#}
-{#        {% include 'partials/trail-excerpt.html' with trail=trail_logs.first.trail %}#}
-{#    </div>#}
-    
-{# TODO how to add partials #}
-    
+
+    {#    <div class="log-context-trail">#}
+    {#        {% include 'partials/trail-excerpt.html' with trail=trail_logs.first.trail %}#}
+    {#    </div>#}
+
+    {# TODO how to add partials #}
+
     <div class="feed-stats">
         <div class="stat-item">
             <i class="fas fa-hiking"></i>
@@ -63,7 +81,7 @@
                         {% endfor %}
                     </div>
                 {% endif %}
-            
+
                 <div class="log-content">
                     <p>{{ log.notes }}</p>
                 </div>

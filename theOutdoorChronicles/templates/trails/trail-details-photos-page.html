@@ -5,6 +5,24 @@
 {% endblock %}
 
 {% block main_content %}
+     <h1>This is the Trail Photos Page</h1>
+
+    <div class="action-buttons">
+        <a href="{% url 'trail-details-trail-logs' trail.pk %}" class="action-button edit">
+            <i class="fas fa-edit"></i> All Logs on This Trail
+        </a>
+        <a href="{% url 'trail-details-animals' trail.pk %}"
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All Animals on This Trail
+        </a>
+        <a href="{% url 'trail-details-photos' trail.pk %}"
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All Photos on This Trail
+        </a>
+    </div>
+
+    {#    TODO make this partial #}
+
     <div class="trails-grid">
         {% for photo in photos %}
             <div class="trail-card">
@@ -17,8 +35,8 @@
         {% endfor %}
     </div>
 
-{# TODO make partial #}
-    
+    {# TODO make partial #}
+
     {% if is_paginated %}
         <div class="pagination">
             {% if page_obj.has_previous %}

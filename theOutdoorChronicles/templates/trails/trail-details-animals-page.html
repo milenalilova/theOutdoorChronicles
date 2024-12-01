@@ -7,66 +7,83 @@
 {% block main_content %}
     <h1>This is the Trail Animals Page</h1>
 
-            <div class="trails-grid">
-            {% for animal in animals %}
-                <div class="trail-card">
-                    <div class="trail-image">
-                        <img src="{{ animal.image.url }}" alt="{{ animal.common_name }}">
-                        
-{#                                            <div class="trail-difficulty {{ animal.conservation_status|lower }}">#}
-{#                                                {{ animal.conservation_status }}#}
-{#                                            </div>#}
-                        
-{# TODO display conservation status properly. Fix colour #}
-                        
-                    </div>
-                    <div class="trail-content">
-                        <h2 class="trail-name">{{ animal.common_name }}</h2>
-                        <p class="trail-location">
-                            <i class="fas fa-microscope"></i> {{ animal.species }}
-                        </p>
-                        <div class="trail-stats">
+    <div class="action-buttons">
+        <a href="{% url 'trail-details-trail-logs' trail.pk %}" class="action-button edit">
+            <i class="fas fa-edit"></i> All Logs on This Trail
+        </a>
+        <a href="{% url 'trail-details-animals' trail.pk %}"
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All Animals on This Trail
+        </a>
+        <a href="{% url 'trail-details-photos' trail.pk %}"
+           class="action-button edit">
+            <i class="fas fa-edit"></i> All Photos on This Trail
+        </a>
+    </div>
+
+    {#    TODO make this partial #}
+
+
+    <div class="trails-grid">
+        {% for animal in animals %}
+            <div class="trail-card">
+                <div class="trail-image">
+                    <img src="{{ animal.image.url }}" alt="{{ animal.common_name }}">
+
+                    {#                                            <div class="trail-difficulty {{ animal.conservation_status|lower }}">#}
+                    {#                                                {{ animal.conservation_status }}#}
+                    {#                                            </div>#}
+
+                    {# TODO display conservation status properly. Fix colour #}
+
+                </div>
+                <div class="trail-content">
+                    <h2 class="trail-name">{{ animal.common_name }}</h2>
+                    <p class="trail-location">
+                        <i class="fas fa-microscope"></i> {{ animal.species }}
+                    </p>
+                    <div class="trail-stats">
                     <span>
                         <i class="fas fa-book"></i> 
                         <a href="{{ animal.wikipedia_page }}" target="_blank">Wikipedia</a>
                     </span>
-                            {% if animal.additional_info %}
-                                <span>
+                        {% if animal.additional_info %}
+                            <span>
                             <i class="fas fa-info-circle"></i>
                             <a href="{{ animal.additional_info }}" target="_blank">More Info</a>
                         </span>
-                            {% endif %}
-                            <span>
+                        {% endif %}
+                        <span>
                         <i class="fas fa-tree"></i> {{ animal.trails.count }} Trails
                     </span>
-                        </div>
-                        <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
-                            View Details
-                        </a>
                     </div>
+                    <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
+                        View Details
+                    </a>
                 </div>
-            {% endfor %}
-        </div>
-
-        {% if is_paginated %}
-            <div class="pagination">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
-                {% endif %}
-
-                {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <span class="page-link active">{{ num }}</span>
-                    {% else %}
-                        <a href="?page={{ num }}" class="page-link">{{ num }}</a>
-                    {% endif %}
-                {% endfor %}
-
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
-                {% endif %}
             </div>
-        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <span class="page-link active">{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
+            {% endif %}
+        </div>
+    {% endif %}
 
 {% endblock %}
 

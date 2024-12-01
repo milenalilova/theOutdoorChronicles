@@ -42,6 +42,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
         if animal_id:
             form.fields['animal'].widget = forms.HiddenInput()
             form.fields['animal'].initial = animal_id
+        #     TODO Display just animals existing on trail or raise error
 
         return form
 
@@ -169,3 +170,4 @@ class PhotoDeleteView(DeleteView):
     #
     #     # Redirect to success URL
     #     return HttpResponseRedirect(reverse_lazy('photo-list'))
+1
