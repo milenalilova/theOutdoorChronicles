@@ -26,6 +26,8 @@ class TrailDetailsView(DetailView):
     pk_url_kwarg = 'trail_id'
     template_name = 'trails/trail-details-page.html'
 
+    # TODO optimize queries, prefetch, select related
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -69,9 +71,11 @@ class TrailListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context['trails'] = Trail.objects.all()
+
+        context['trails'] = Trail.objects.all()  # TODO change that with more optimal
         context['trails_found'] = self.get_queryset()
         context['trails_search_form'] = TrailSearchForm(self.request.GET or None)
+
         return context
 
     def get_queryset(self):

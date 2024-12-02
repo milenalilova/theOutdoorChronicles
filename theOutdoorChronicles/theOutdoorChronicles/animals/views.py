@@ -24,6 +24,8 @@ class AnimalDetailsView(DetailView):
     pk_url_kwarg = 'animal_id'
     template_name = 'animals/animal-details-page.html'
 
+    # TODO optimize queries, prefetch, select related
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -64,9 +66,10 @@ class AnimalListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['animals'] = Animal.objects.all()
+        context['animals'] = Animal.objects.all()  # TODO change that with more optimal
         context['animals_found'] = self.get_queryset()
         context['animal_search_form'] = AnimalSearchForm(self.request.GET or None)
+
         return context
 
     #
