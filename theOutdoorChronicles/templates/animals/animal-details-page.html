@@ -147,10 +147,10 @@
                 <a href="{% url 'trail-list' %}" class="action-button edit">
                     <i class="fas fa-edit"></i> Find a Trail and Log Your Experience
                 </a>
-                <a href="" class="action-button edit">
+                <a href="{% url 'trail-logs-specific-animal-logs' animal.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> My Logs of This Animal
                 </a>
-{#                TODO add the link when ready #}
+                {#                TODO add the link when ready #}
             </div>
         </div>
     </div>

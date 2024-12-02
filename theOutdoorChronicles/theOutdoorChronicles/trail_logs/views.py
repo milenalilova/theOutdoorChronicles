@@ -128,7 +128,7 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 5
-    template_name = 'trail_logs/trail-logs-specific-trail-list-page.html'
+    template_name = 'trail_logs/trail-logs-specific-trail-logs-page.html'
 
     def get_queryset(self):
         trail_id = self.kwargs.get('trail_id')
@@ -163,6 +163,35 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
             return 'trail_logs/trail-logs-specific-trail-animals-page.html'
         elif 'photos' in self.request.path:
             return 'trail_logs/trail-logs-specific-trail-photos-page.html'
+        else:
+            return self.template_name
+
+
+class TrailLogSpecificAnimalView(ListView):  # every time the user logged this animal
+    model = TrailLog
+    context_object_name = 'trail_logs'
+    paginate_by = 5
+    template_name = 'trail_logs/trail-logs-specific-animal-logs-page.html'
+
+    def get_queryset(self):
+        animal_id = self.kwargs['animal_id']
+        return TrailLog.objects.filter(
+            animals__id=animal_id,
+            user=self.request.user
+        ).select_related('trail').prefetch_related('photos', 'animals')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        animal = get_object_or_404(Animal, id=self.kwargs['animal_id'])
+        context['animal'] = animal
+        context['trails'] = animal.trails.all()
+        return context
+
+    def get_template_names(self):
+        if 'trails' in self.request.path:
+            return 'trail_logs/trail-logs-specific-animal-trails-page.html'
+        elif 'photos' in self.request.path:
+            return 'trail_logs/trail-logs-specific-animal-photos-page.html'
         else:
             return self.template_name
 

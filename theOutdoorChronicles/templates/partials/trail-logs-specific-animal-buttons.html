@@ -1,0 +1,13 @@
+<div class="action-buttons">
+    <a href="{% url 'trail-logs-specific-animal-logs' animal.pk %}" class="action-button edit">
+        <i class="fas fa-edit"></i> My Logs of This Animal
+    </a>
+    <a href="{% url 'trail-logs-specific-animal-trails' animal.pk %}"
+       class="action-button edit">
+        <i class="fas fa-edit"></i> My Trails of This Animal
+    </a>
+    <a href="{% url 'trail-logs-specific-animal-photos' animal.pk %}"
+       class="action-button edit">
+        <i class="fas fa-edit"></i> My Photos of This Animal
+    </a>
+</div>

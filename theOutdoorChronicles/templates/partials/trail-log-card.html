@@ -1,52 +1,4 @@
-{% extends 'base.html' %}
-
-{% block title %}
-    Specific Trail Log Page
-{% endblock %}
-
-{% block main_content %}
-    <h1>This is the Specific Trail Log Page</h1>
-
-    -------------------------------------
-    <p>
-        {{ trail }}
-    </p>
-    -------------------------------------
-     <div class="action-buttons">
-            <a href="{% url 'trail-logs-specific-trail-list' trail.pk %}" class="action-button edit">
-                <i class="fas fa-edit"></i> My Logs on This Trail
-            </a>
-            <a href="{% url 'trail-logs-specific-trail-animals' trail.pk %}"
-               class="action-button edit">
-                <i class="fas fa-edit"></i> My Animals on This Trail
-            </a>
-            <a href="{% url 'trail-logs-specific-trail-photos' trail.pk %}"
-               class="action-button edit">
-                <i class="fas fa-edit"></i> My Photos on This Trail
-            </a>
-     </div>
-    
-{#    TODO make this partial #}
-    
-    <div class="feed-header">
-        <h1>My Logs</h1>
-        <p class="feed-subtitle">My Logs</p>
-    </div>
-    
-    <div class="feed-stats">
-        <div class="stat-item">
-            <i class="fas fa-hiking"></i>
-            <span>{{ trail_logs.count }} logs </span>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-route"></i>
-            <span>{{ public_stats.total_hikers }} hikers</span>
-        </div>
-    </div>
-   
-    <div class="feed-container">
-        {% for log in trail_logs %}
-            <div class="log-card">
+<div class="log-card">
                 <div class="log-header">
                     <div class="log-meta">
                         <h2>{{ log.title }}</h2>
@@ -54,11 +6,6 @@
                             <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
                         </span>
                     </div>
-                    {% if log.private %}
-                        <span class="privacy-badge">
-                            <i class="fas fa-lock"></i> Private
-                        </span>
-                    {% endif %}
                 </div>
 
                 <div class="log-trail-info">
@@ -117,21 +64,3 @@
                     View Full Log
                 </a>
             </div>
-        {% endfor %}
-    </div>
-
-    {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
-    {% endif %}
-    <div>
-        <p>
-            Total trails: {{ total_trails }}
-        </p>
-        <p>
-            Total length: {{ total_length }} km
-        </p>
-        <p>
-            Total species seen: {{ total_species_seen }}
-        </p>
-    </div>
-{% endblock %}

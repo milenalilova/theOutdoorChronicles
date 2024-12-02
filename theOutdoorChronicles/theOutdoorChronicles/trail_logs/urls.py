@@ -10,9 +10,14 @@ urlpatterns = [
         path('', views.TrailLogListView.as_view(), name='trail-log-list'),
 
         path('trail/<int:trail_id>/', include([
-            path('', views.TrailLogSpecificTrailView.as_view(), name='trail-logs-specific-trail-list'),
+            path('logs/', views.TrailLogSpecificTrailView.as_view(), name='trail-logs-specific-trail-logs'),
             path('animals/', views.TrailLogSpecificTrailView.as_view(), name='trail-logs-specific-trail-animals'),
             path('photos/', views.TrailLogSpecificTrailView.as_view(), name='trail-logs-specific-trail-photos'),
+        ])),
+        path('animal/<int:animal_id>/', include([
+            path('logs/',views.TrailLogSpecificAnimalView.as_view(), name='trail-logs-specific-animal-logs' ),
+            path('trails/',views.TrailLogSpecificAnimalView.as_view(), name='trail-logs-specific-animal-trails' ),
+            path('photos/',views.TrailLogSpecificAnimalView.as_view(), name='trail-logs-specific-animal-photos' )
         ])),
         path('<int:trail_log_id>/', include([
             path('details/', include([

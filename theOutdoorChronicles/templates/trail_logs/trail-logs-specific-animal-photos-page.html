@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Specific Animal Photos Page
+{% endblock %}
+
+{% block main_content %}
+    <h1>This is the Specific Animal Photos Page</h1>
+
+    {% include 'partials/trail-logs-specific-animal-buttons.html' %}
+
+    {% if photos %}
+        <div class="trails-grid">
+            {% for photo in photos %}
+                {% include 'partials/photo-details-card.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            No Photos!
+        </div>
+    {% endif %}
+
+    {% if is_paginated %}
+        {% include 'partials/pagination.html' %}
+    {% endif %}
+    
+{% endblock %}

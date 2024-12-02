@@ -12,7 +12,7 @@
     </p>
     --------------------------------------
     <div class="action-buttons">
-        <a href="{% url 'trail-logs-specific-trail-list' trail.pk %}" class="action-button edit">
+        <a href="{% url 'trail-logs-specific-trail-logs' trail.pk %}" class="action-button edit">
             <i class="fas fa-edit"></i> My Logs on This Trail
         </a>
         <a href="{% url 'trail-logs-specific-trail-animals' trail.pk %}"
@@ -30,19 +30,17 @@
     {% if photos %}
         <div class="trails-grid">
             {% for photo in photos %}
-                <div class="trail-card">
-                    <div class="trail-image">
-                        <a href="{% url 'photo-details' photo.pk %}">
-                            <img src="{{ photo.image.url }}" alt="Photo of {{ photo.trail.name }}">
-                        </a>
-                    </div>
-                </div>
+                {% include 'partials/photo-details-card.html' %}
             {% endfor %}
-            {#  TODO create partials #}
         </div>
     {% else %}
         <div>
             No Photos!
         </div>
     {% endif %}
+
+    {% if is_paginated %}
+        {% include 'partials/pagination.html' %}
+    {% endif %}
+    
 {% endblock %}
