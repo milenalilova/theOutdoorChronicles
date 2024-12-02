@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
@@ -26,9 +26,28 @@ class AnimalDetailsView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['animal'] = self.object
+
+        public_stats = self.object.trail_logs.aggregate(
+            total_observers=Count('user', distinct=True),
+            total_logs=Count('id')
+        )
+
+        context['public_stats'] = public_stats
         context['trails'] = self.object.trails.all()
+        context['photos'] = self.object.photos.all()
+        context['trail_logs'] = self.object.trail_logs.all()
+
         return context
+
+    def get_template_names(self):
+        if 'trails' in self.request.path:
+            return 'animals/animal-details-trails-page.html'
+        elif 'photos' in self.request.path:
+            return 'animals/animal-details-photos-page.html'
+        elif 'trail-logs' in self.request.path:
+            return 'animals/animal-details-trail-logs-page.html'
+        else:
+            return self.template_name
 
 
 class AnimalListView(ListView):
