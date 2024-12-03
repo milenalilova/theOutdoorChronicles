@@ -46,9 +46,3 @@ class Photo(models.Model):
     def __str__(self):
         return f"{self.trail.name}_{self.pk}"
 
-# TODO potentially add indexing for better performance
-#     class Meta:
-#         indexes = [
-#             models.Index(fields=['trail', 'trail_log']),  # Index 1
-#             models.Index(fields=['trail', 'animal']),  # Index 2
-#         ]

@@ -28,9 +28,9 @@
 {#            <i class="fas fa-route"></i>#}
 {#            <span>{{ public_stats.total_hikers }} hikers</span>#}
 {#        </div>#}
-        
+
 {#    TODO add more stats like animals and photos #}
-    
+
     </div>
    
     <div class="feed-container">
@@ -43,11 +43,6 @@
                             <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
                         </span>
                     </div>
-                    {% if log.private %}
-                        <span class="privacy-badge">
-                            <i class="fas fa-lock"></i> Private
-                        </span>
-                    {% endif %}
                 </div>
 
                 <div class="log-trail-info">

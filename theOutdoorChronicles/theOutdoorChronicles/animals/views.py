@@ -66,7 +66,7 @@ class AnimalListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['animals'] = Animal.objects.all()  # TODO change that with more optimal
+        context['animals'] = Animal.objects.all()
         context['animals_found'] = self.get_queryset()
         context['animal_search_form'] = AnimalSearchForm(self.request.GET or None)
 
@@ -116,3 +116,5 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_initial(self):
         return self.object.__dict__
+
+# TODO add LoginRequiredMixin to all views

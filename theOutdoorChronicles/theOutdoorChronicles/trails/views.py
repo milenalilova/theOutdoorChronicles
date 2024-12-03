@@ -55,8 +55,6 @@ class TrailDetailsView(DetailView):
         else:
             return self.template_name
 
-#  TODO do this dictionary maybe
-
 
 class TrailListView(ListView):
     model = Trail
@@ -72,7 +70,7 @@ class TrailListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
 
-        context['trails'] = Trail.objects.all()  # TODO change that with more optimal
+        context['trails'] = Trail.objects.all()
         context['trails_found'] = self.get_queryset()
         context['trails_search_form'] = TrailSearchForm(self.request.GET or None)
 

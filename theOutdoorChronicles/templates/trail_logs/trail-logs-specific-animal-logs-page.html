@@ -12,6 +12,8 @@
     <div class="feed-container">
         {% if trail_logs %}
             {% for log in trail_logs %}
+                {% include 'partials/trail-excerpt.html' with trail=log.trail %}
+                {#                TODO fix partial width #}
                 {% include 'partials/trail-log-card.html' %}
             {% endfor %}
         {% else %}

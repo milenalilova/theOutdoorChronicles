@@ -10,18 +10,7 @@
         <div class="log-context-trail">
             {% include 'partials/trail-details-card.html' with trail=trail_log.trail %}
         </div>
-
-        {#                <!-- Main Log Card -->#}
-        {#                <div class="log-card log-details-card">#}
-        {#                    {% if trail_log.photos.first %}#}
-        {#                        <div class="log-hero">#}
-        {#                            <img src="{{ trail_log.photos.first.image.url }}" alt="Trail log hero photo" class="hero-image">#}
-        {#                            <div class="difficulty-badge {{ trail_log.trail.difficulty|lower }}">#}
-        {#                                {{ trail_log.trail.difficulty }}#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                    {% endif %}#}
-
+    
         <div class="log-header">
             <div class="log-meta">
                 <h1>{{ trail_log.title }}</h1>
@@ -29,11 +18,6 @@
                         <i class="fas fa-calendar"></i> {{ trail_log.date_completed|date:"j F Y" }}
                     </span>
             </div>
-            {% if trail_log.private %}
-                <span class="privacy-badge">
-                        <i class="fas fa-lock"></i> Private
-                    </span>
-            {% endif %}
         </div>
 
         <div class="stats-grid">
@@ -129,41 +113,5 @@
             </a>
         </div>
     </div>
-    ----------------------------------------
-    {#  TODO delete. Only for debugging #}
-    <div>
-        <p> Trail log: {{ trail_log }}</p>
-        <p> Animals Count: {{ trail_log.animals.count }}</p>
-        <p> Photos Count: {{ trail_log.photos.count }}</p>
-        <p> Previous Logs Count: {{ trail_log.photos.count }}</p>
-        <div>
-            {% for animal in trail_log.animals.all|slice:":3" %}
-                <p>{{ animal.species }}: {{ animal.common_name }}</p>
-            {% endfor %}
-        </div>
-    </div>
-    ------------------------------------------------------------------------
-    <p>Debug Trail Log PK: {{ trail_log.pk }}</p>
-    <p>Debug Trail PK: {{ trail_log.trail.pk|default:"No trail associated" }}</p>
-
-    --------------------------------------------------------------------
-    <div>
-        {% if trail_log.pk %}
-            <a href="{% url 'trail-log-edit' trail_log.pk %}">Edit Log</a>
-            <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}">Add Photos</a>
-            <a href="{% url 'trail-log-delete' trail_log.pk %}">Delete Log</a>
-        {% else %}
-            <p>No trail log ID available.</p>
-        {% endif %}
-
-        {% if trail_log.trail %}
-            <a href="{% url 'trail-logs-specific-trail-logs' trail_id=trail_log.trail.pk %}">My Logs on This Trail</a>
-        {% else %}
-            <p>No trail linked to this log.</p>
-        {% endif %}
-    </div>
-    -------------------------------------------------------------------------
-    <pre>{{ trail_log|default:"Trail log not found" }}</pre>
-    ------------------------------------------------------------------------
-
+    
 {% endblock %}

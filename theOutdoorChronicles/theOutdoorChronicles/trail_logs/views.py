@@ -86,8 +86,6 @@ class TrailLogDetailsView(DetailView):
             return self.template_name
 
 
-# TODO add next and previous log, or go back to all logs
-
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
@@ -117,26 +115,21 @@ class TrailLogListView(ListView):  # all hiking user experience
             .distinct() \
             .count()
 
+        trail_logs_count = self.get_queryset().count()
         trails = Trail.objects.filter(trail_logs__user=self.request.user).distinct()
         animals = Animal.objects.filter(trail_logs__user=self.request.user).distinct()
-        photos = Photo.objects.filter(trail_logs__user=self.request.user)
-
-        # Option 2 TODO check which option more efficient
-        # queryset = self.get_queryset()
-        # trails = {log.trail for log in queryset}
-        # animals = {animal for log in queryset for animal in log.animals.all()}
-        # photos = {photo for log in queryset for photo in log.photos.all()}
+        # photos are not always related to a trail_log
+        photos = Photo.objects.filter(user=self.request.user)
 
         context['total_trails'] = total_trails
         context['total_length'] = total_length
         context['total_species_seen'] = total_species_seen
+        context['trail_logs_count'] = trail_logs_count
         context['trails'] = trails
         context['animals'] = animals
         context['photos'] = photos
 
         return context
-
-    # TODO check this for efficiency
 
     def get_template_names(self):
         if 'trails' in self.request.path:
@@ -177,8 +170,11 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
         animals = Animal.objects.filter(trail_logs__in=trail_logs).distinct()
         context['animals'] = animals
 
-        # using m2m relation to fetch all instances of photos in trail_logs already filtered in get_queryset
-        photos = Photo.objects.filter(trail_logs__in=trail_logs).distinct()
+        # all photos for this trail by this user, including trail logs photos
+        photos = Photo.objects.filter(
+            trail_id=trail_id,
+            user=self.request.user
+        ).distinct()
         context['photos'] = photos
 
         return context
@@ -210,6 +206,7 @@ class TrailLogSpecificAnimalView(ListView):  # every time the user logged this a
         animal = get_object_or_404(Animal, id=self.kwargs['animal_id'])
         context['animal'] = animal
         context['trails'] = animal.trails.all()
+        context['photos'] = animal.photos.all()
         return context
 
     def get_template_names(self):
