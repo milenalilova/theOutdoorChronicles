@@ -117,11 +117,26 @@ class TrailLogListView(ListView):  # all hiking user experience
             .distinct() \
             .count()
 
+        trails = Trail.objects.filter(trail_logs__user=self.request.user).distinct()
+        animals = Animal.objects.filter(trail_logs__user=self.request.user).distinct()
+        photos = Photo.objects.filter(trail_logs__user=self.request.user)
+
+        # Option 2 TODO check which option more efficient
+        # queryset = self.get_queryset()
+        # trails = {log.trail for log in queryset}
+        # animals = {animal for log in queryset for animal in log.animals.all()}
+        # photos = {photo for log in queryset for photo in log.photos.all()}
+
         context['total_trails'] = total_trails
         context['total_length'] = total_length
         context['total_species_seen'] = total_species_seen
+        context['trails'] = trails
+        context['animals'] = animals
+        context['photos'] = photos
 
         return context
+
+    # TODO check this for efficiency
 
     def get_template_names(self):
         if 'trails' in self.request.path:

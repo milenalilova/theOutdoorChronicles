@@ -5,55 +5,18 @@
 {% endblock %}
 
 {% block main_content %}
-     <h1>This is the Trail Photos Page</h1>
+    <h1>This is the Trail Photos Page</h1>
 
-    <div class="action-buttons">
-        <a href="{% url 'trail-details-trail-logs' trail.pk %}" class="action-button edit">
-            <i class="fas fa-edit"></i> All Logs on This Trail
-        </a>
-        <a href="{% url 'trail-details-animals' trail.pk %}"
-           class="action-button edit">
-            <i class="fas fa-edit"></i> All Animals on This Trail
-        </a>
-        <a href="{% url 'trail-details-photos' trail.pk %}"
-           class="action-button edit">
-            <i class="fas fa-edit"></i> All Photos on This Trail
-        </a>
-    </div>
-
-    {#    TODO make this partial #}
+    {% include 'partials/trail-details-buttons.html' %}
 
     <div class="trails-grid">
         {% for photo in photos %}
-            <div class="trail-card">
-                <div class="trail-image">
-                    <a href="{% url 'photo-details' photo.pk %}">
-                        <img src="{{ photo.image.url }}" alt="Photo of {{ photo.trail.name }}">
-                    </a>
-                </div>
-            </div>
+            {% include 'partials/photo-card.html' %}
         {% endfor %}
     </div>
 
-    {# TODO make partial #}
-
     {% if is_paginated %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <span class="page-link active">{{ num }}</span>
-                {% else %}
-                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
-            {% endif %}
-        </div>
+        {% include 'partials/pagination.html' %}
     {% endif %}
+    
 {% endblock %}

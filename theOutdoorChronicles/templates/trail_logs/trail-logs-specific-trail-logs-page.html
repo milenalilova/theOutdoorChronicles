@@ -12,21 +12,7 @@
         {{ trail }}
     </p>
     -------------------------------------
-     <div class="action-buttons">
-            <a href="{% url 'trail-logs-specific-trail-logs' trail.pk %}" class="action-button edit">
-                <i class="fas fa-edit"></i> My Logs on This Trail
-            </a>
-            <a href="{% url 'trail-logs-specific-trail-animals' trail.pk %}"
-               class="action-button edit">
-                <i class="fas fa-edit"></i> My Animals on This Trail
-            </a>
-            <a href="{% url 'trail-logs-specific-trail-photos' trail.pk %}"
-               class="action-button edit">
-                <i class="fas fa-edit"></i> My Photos on This Trail
-            </a>
-     </div>
-    
-{#    TODO make this partial #}
+         {% include 'partials/trail-logs-specific-trail-buttons.html' %}
     
     <div class="feed-header">
         <h1>My Logs</h1>
@@ -38,10 +24,13 @@
             <i class="fas fa-hiking"></i>
             <span>{{ trail_logs.count }} logs </span>
         </div>
-        <div class="stat-item">
-            <i class="fas fa-route"></i>
-            <span>{{ public_stats.total_hikers }} hikers</span>
-        </div>
+{#        <div class="stat-item">#}
+{#            <i class="fas fa-route"></i>#}
+{#            <span>{{ public_stats.total_hikers }} hikers</span>#}
+{#        </div>#}
+        
+{#    TODO add more stats like animals and photos #}
+    
     </div>
    
     <div class="feed-container">

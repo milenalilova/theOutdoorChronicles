@@ -7,7 +7,6 @@
 {% block main_content %}
     
     {% include 'partials/my-logs-details-buttons.html' %}
-    {#    TODO make templates to display info from buttons - user related logs info #}
 
     <div class="feed-header">
         <h1>Trail Journey Log</h1>
@@ -27,6 +26,10 @@
             <i class="fas fa-paw"></i>
             <span>{{ total_species_seen }} species</span>
         </div>
+     <div class="stat-item">
+            <i class="fas fa-paw"></i>
+            <span>{{ photos.count }} photos</span>
+        </div>
     </div>
 
     <div class="feed-container">
@@ -43,11 +46,6 @@
                             <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
                         </span>
                     </div>
-                    {% if log.private %}
-                        <span class="privacy-badge">
-                            <i class="fas fa-lock"></i> Private
-                        </span>
-                    {% endif %}
                 </div>
 
                 <div class="log-trail-info">

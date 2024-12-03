@@ -11,15 +11,15 @@
             <i class="fas fa-map-marker-alt"></i> {{ trail.location }}
         </p>
         <div class="trail-stats">
-                            <span>
-                                <i class="fas fa-route"></i> {{ trail.length }} km
-                            </span>
             <span>
-                                <i class="fas fa-mountain"></i> {{ trail.elevation_gain }}m
-                            </span>
+                <i class="fas fa-route"></i> {{ trail.length }} km
+            </span>
             <span>
-                                <i class="fas fa-road"></i> {{ trail.route_type }}
-                            </span>
+                <i class="fas fa-mountain"></i> {{ trail.elevation_gain }}m
+            </span>
+            <span>
+                <i class="fas fa-road"></i> {{ trail.route_type }}
+            </span>
         </div>
         <a href="{% url 'trail-details' trail.pk %}" class="trail-details-btn">
             View Details

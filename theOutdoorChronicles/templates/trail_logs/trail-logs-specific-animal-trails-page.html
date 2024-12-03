@@ -10,13 +10,11 @@
     {% include 'partials/trail-logs-specific-animal-buttons.html' %}
     <div class="feed-container">
         {% if trails %}
+             <div class="trails-grid">
             {% for trail in trails %}
-                {{ trail.name }}
-
-                {#  {% include 'partials/trail-excerpt.html' %} #}
-
-                {# TODO include partial. Fix trail-card partial#}
+                {% include 'partials/trail-details-card.html' %}
             {% endfor %}
+        </div>
         {% else %}
             <div>
                 You have no trails with that animal!
