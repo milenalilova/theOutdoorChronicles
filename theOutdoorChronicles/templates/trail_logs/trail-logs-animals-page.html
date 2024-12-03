@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Trail Logs Animals
+{% endblock %}
+
+{% block main_content %}
+
+    {% include 'partials/my-logs-details-buttons.html' %}
+    
+    {% for trail_log in trail_logs %}
+    <h2>{{ trail_log.title }}</h2>
+
+    <h3>Animals:</h3>
+    <ul>
+        {% for animal in trail_log.animals.all %}
+            <li>{{ animal.name }}</li>
+        {% endfor %}
+    </ul>
+        
+{% endfor %}
+
+
+{% endblock %}

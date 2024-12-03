@@ -7,7 +7,10 @@ urlpatterns = [
     path('create/<int:trail_id>/', views.TrailLogCreateView.as_view(), name='trail-log-create'),
     # create gets a trail_id to log experience on that particular trail
     path('explore/', include([
-        path('', views.TrailLogListView.as_view(), name='trail-log-list'),
+        path('my-logs/', views.TrailLogListView.as_view(), name='trail-logs-list'),
+        path('my-trails/', views.TrailLogListView.as_view(), name='trail-logs-trails'),
+        path('my-animals/', views.TrailLogListView.as_view(), name='trail-logs-animals'),
+        path('my-photos/', views.TrailLogListView.as_view(), name='trail-logs-photos'),
 
         path('trail/<int:trail_id>/', include([
             path('logs/', views.TrailLogSpecificTrailView.as_view(), name='trail-logs-specific-trail-logs'),
@@ -38,7 +41,7 @@ urlpatterns = [
 # urlpatterns = [
 #     path('create/<int:trail_id>/', views.TrailLogCreateView.as_view(), name='trail-log-create'),
 #     # create gets a trail_id to log experience on that particular trail
-#     path('explore/', views.TrailLogListView.as_view(), name='trail-log-list'),
+#     path('explore/', views.TrailLogListView.as_view(), name='trail-logs-list'),
 #     path('explore/<int:trail_id>/', include([
 #         path('', views.TrailLogSpecificTrailView.as_view(), name='trail-log-specific-trail-list'),
 #         path('animals/', views.TrailLogSpecificTrailView.as_view(), name='trail-log-specific-trail-animals'),

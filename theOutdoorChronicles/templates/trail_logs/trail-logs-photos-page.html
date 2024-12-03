@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Trail Logs Photos
+{% endblock %}
+
+{% block main_content %}
+
+    {% include 'partials/my-logs-details-buttons.html' %}
+    {% for trail_log in trail_logs %}
+    <h2>{{ trail_log.title }}</h2>
+
+    <h3>Photos:</h3>
+    <ul>
+        {% for photo in trail_log.photos.all %}
+            <li><img src="{{ photo.image_url }}" alt="Photo"></li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+    
+{% endblock %}

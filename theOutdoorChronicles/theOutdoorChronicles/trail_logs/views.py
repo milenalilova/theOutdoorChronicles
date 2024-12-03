@@ -92,7 +92,7 @@ class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 5
-    template_name = 'trail_logs/trail-log-list-page.html'
+    template_name = 'trail_logs/trail-logs-list-page.html'
 
     def get_queryset(self):
         return TrailLog.objects.filter(user=self.request.user) \
@@ -122,6 +122,16 @@ class TrailLogListView(ListView):  # all hiking user experience
         context['total_species_seen'] = total_species_seen
 
         return context
+
+    def get_template_names(self):
+        if 'trails' in self.request.path:
+            return 'trail_logs/trail-logs-trails-page.html'
+        elif 'animals' in self.request.path:
+            return 'trail_logs/trail-logs-animals-page.html'
+        elif 'photos' in self.request.path:
+            return 'trail_logs/trail-logs-photos-page.html'
+        else:
+            return self.template_name
 
 
 class TrailLogSpecificTrailView(ListView):  # every time the user hiked this trail
@@ -220,7 +230,7 @@ class TrailLogDeleteView(DeleteView):
     form_class = TrailLogDeleteForm
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-delete-page.html'
-    success_url = reverse_lazy('trail-log-list')
+    success_url = reverse_lazy('trail-logs-list')
 
     def get_queryset(self):
         return TrailLog.objects.filter(user=self.request.user) \

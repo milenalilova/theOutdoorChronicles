@@ -1,27 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Trail Log Feed
+    Trail Logs List
 {% endblock %}
 
 {% block main_content %}
-
-    <div class="action-buttons">
-        <a href="" class="action-button edit">
-            <i class="fas fa-edit"></i> All My Logs
-        </a>
-        <a href=""
-           class="action-button edit">
-            <i class="fas fa-edit"></i> All My Animals
-        </a>
-        <a href=""
-           class="action-button edit">
-            <i class="fas fa-edit"></i> All My Photos
-        </a>
-    </div>
-
-    {#    TODO make this partial #}
-    {#    TODO make buttons work #}
+    
+    {% include 'partials/my-logs-details-buttons.html' %}
     {#    TODO make templates to display info from buttons - user related logs info #}
 
     <div class="feed-header">

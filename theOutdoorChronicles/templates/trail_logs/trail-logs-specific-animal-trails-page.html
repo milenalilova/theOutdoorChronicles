@@ -9,13 +9,19 @@
 
     {% include 'partials/trail-logs-specific-animal-buttons.html' %}
     <div class="feed-container">
-        {% for trail in trails %}
-            {{ trail.name }}
+        {% if trails %}
+            {% for trail in trails %}
+                {{ trail.name }}
 
-            {#  {% include 'partials/trail-excerpt.html' %} #}
+                {#  {% include 'partials/trail-excerpt.html' %} #}
 
-            {# TODO include partial. Fix trail-card partial#}
-        {% endfor %}
+                {# TODO include partial. Fix trail-card partial#}
+            {% endfor %}
+        {% else %}
+            <div>
+                You have no trails with that animal!
+            </div>
+        {% endif %}
     </div>
 
     {% if is_paginated %}

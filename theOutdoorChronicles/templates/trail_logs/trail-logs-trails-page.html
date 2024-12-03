@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Trail Logs Trails
+{% endblock %}
+
+{% block main_content %}
+
+    {% include 'partials/my-logs-details-buttons.html' %}
+
+    {% if trail_logs %}
+        {% for log in trail_logs %}
+            <p>
+            {{ log.trail }}
+            </p>
+        {% endfor %}
+    {% else %}
+        <div>
+            No Logs Yet!
+        </div>
+    {% endif %}
+
+{% endblock %}

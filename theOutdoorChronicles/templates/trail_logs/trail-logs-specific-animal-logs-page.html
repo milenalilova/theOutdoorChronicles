@@ -8,13 +8,19 @@
     <h1>This is the Specific Animal Logs Page</h1>
 
     {% include 'partials/trail-logs-specific-animal-buttons.html' %}
-    
+
     <div class="feed-container">
-        {% for log in trail_logs %}
-            {% include 'partials/trail-log-card.html' %}
-        {% endfor %}
+        {% if trail_logs %}
+            {% for log in trail_logs %}
+                {% include 'partials/trail-log-card.html' %}
+            {% endfor %}
+        {% else %}
+            <div>
+                You have no logs with that animal!
+            </div>
+        {% endif %}
     </div>
-    
+
     {% if is_paginated %}
         {% include 'partials/pagination.html' %}
     {% endif %}
