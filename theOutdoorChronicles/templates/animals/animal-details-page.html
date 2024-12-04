@@ -45,13 +45,6 @@
                         </div>
                     </div>
                 {% endif %}
-{#                <div class="stat-item">#}
-{#                    <i class="fas fa-tree"></i>#}
-{#                    <div class="stat-content">#}
-{#                        <span class="stat-label">Found on Trails</span>#}
-{#                        <span class="stat-value">{{ trails }}</span>#}
-{#                    </div>#}
-{#                </div>#}
             </div>
 
             <!-- New stat-card style sections for Public Stats, User Logs, and Photos -->
@@ -85,7 +78,7 @@
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <div class="stat-content">
-                            <span class="stat-label">Trails</span>
+                            <span class="stat-label">Found on Trails</span>
                             <span class="stat-value">
                 <a href="{% url 'animal-details-trails' animal_id=animal.pk %}">
                     {{ trails.count }}
@@ -117,16 +110,6 @@
                 <p>{{ animal.description }}</p>
             </div>
 
-            {#            <!-- Found on trails -->#}
-            {#            <div class="trail-description-card">#}
-            {#                <h2>Found on Trails</h2>#}
-            {#                {% for trail in trails %}#}
-            {#                    <p>#}
-            {#                        <a href="{{ trail.get_absolute_url }}">{{ trail.name }} {{ trail.location }}</a>#}
-            {#                    </p>#}
-            {#                {% endfor %}#}
-            {#            </div>#}
-
             <!-- Action Buttons -->
             <div class="trail-actions">
                 {% if perms.animals.change_animal %}
@@ -150,25 +133,7 @@
                 <a href="{% url 'trail-logs-specific-animal-logs' animal.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> My Logs of This Animal
                 </a>
-                {#                TODO add the link when ready #}
             </div>
         </div>
     </div>
-
-    ----------------------------------------------
-    <p>
-        {{ animal.photos.all }}
-    </p>
-    <p>
-        {{ public_stats }}
-    </p>
-    ----------------------------------------------
-    {#    TODO delete. Just for debugging #}
 {% endblock %}
-
-
-
-{# TODO fix conservation status visibility #}
-{# TODO fix links display in found on trails #}
-
-

@@ -26,8 +26,19 @@
         </div>
     {% endif %}
 
+{#        {% if is_paginated %}#}
+{#            {% include 'partials/pagination.html' %}#}
+{#        {% endif %}#}
     {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+        <p>Pagination is active!</p>
+        <p>Current page: {{ page_obj.number }}</p>
+        <p>Total pages: {{ page_obj.paginator.num_pages }}</p>
+    {% else %}
+        <p>No pagination is applied.</p>
     {% endif %}
-    
+    ----------------------------------
+    Debugging
+    ---------------------------------------
 {% endblock %}
+
+{# TODO fix pagination #}

@@ -160,6 +160,7 @@ class TrailLogSpecificTrailView(ListView):  # every time the user hiked this tra
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         trail_id = self.kwargs.get('trail_id')
         trail = get_object_or_404(Trail, pk=trail_id)
         context['trail'] = trail
