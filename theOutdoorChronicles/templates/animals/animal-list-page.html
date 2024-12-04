@@ -17,7 +17,7 @@
         <button type="submit" name="clear" value="1">Clear Search</button>
     </form>
 
-    {% if request.GET.animal_name %}
+    {% if request.GET.search_query %}
 
         {% if animals_found %}
             <div class="search-results">
@@ -86,7 +86,7 @@
             {% endif %}
 
         {% else %}
-            Display "No species found for: {{ request.GET.animal_name }}
+            Display "No species found for: {{ request.GET.search_query }}
         {% endif %}
 
     {% else %}

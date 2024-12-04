@@ -77,17 +77,13 @@ class AnimalListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        animal_name = self.request.GET.get('animal_name' or None)
-        if animal_name:
+        search_query = self.request.GET.get('search_query' or None)
+        if search_query:
             queryset = queryset.filter(
-                Q(common_name__icontains=animal_name) |
-                Q(species__icontains=animal_name)
+                Q(common_name__icontains=search_query) |
+                Q(species__icontains=search_query)
             )
         return queryset
-
-
-#  TODO make one search form for animals and trails to get query parm and queryset.
-#  Possibly mixin for get_queryset()
 
 
 class AnimalEditView(PermissionRequiredMixin, UpdateView):

@@ -17,7 +17,7 @@
         <button type="submit" name="clear" value="1">Clear Search</button>
     </form>
 
-    {% if request.GET.trail_info %}
+    {% if request.GET.search_query %}
         {% if trails_found %}
             <div class="search-results">
                 <h2>Search Results</h2>
@@ -32,7 +32,7 @@
                 {% include 'partials/pagination.html' %}
             {% endif %}
         {% else %}
-            Display "No trails found for: {{ request.GET.trail_info }}
+            Display "No trails found for: {{ request.GET.search_query }}
         {% endif %}
     {% else %}
         <div class="trails-grid">

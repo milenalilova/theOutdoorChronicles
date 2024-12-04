@@ -1,5 +1,6 @@
 from django import forms
 
+from theOutdoorChronicles.common.forms import BaseSearchForm
 from theOutdoorChronicles.trails.models import Trail
 
 
@@ -24,13 +25,6 @@ class TrailDeleteForm(TrailBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
-class TrailSearchForm(forms.Form):
-    trail_info = forms.CharField(
-        required=False,
-        label='',
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Search trails by name or location',
-            }
-        )
-    )
+class TrailSearchForm(BaseSearchForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, placeholder='Search trails by name or location', **kwargs)

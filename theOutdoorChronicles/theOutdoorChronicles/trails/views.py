@@ -80,11 +80,11 @@ class TrailListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
 
-        trail_info = self.request.GET.get('trail_info' or None)
-        if trail_info:
+        search_query = self.request.GET.get('search_query' or None)
+        if search_query:
             queryset = queryset.filter(
-                Q(name__icontains=trail_info) |
-                Q(location__icontains=trail_info)
+                Q(name__icontains=search_query) |
+                Q(location__icontains=search_query)
             )
         return queryset
 

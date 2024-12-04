@@ -1,6 +1,7 @@
 from django import forms
 
 from theOutdoorChronicles.animals.models import Animal
+from theOutdoorChronicles.common.forms import BaseSearchForm
 from theOutdoorChronicles.trails.models import Trail
 
 
@@ -34,13 +35,6 @@ class AnimalDeleteForm(AnimalBaseForm):
             field.widget.attrs['readonly'] = 'readonly'
 
 
-class AnimalSearchForm(forms.Form):
-    animal_name = forms.CharField(
-        required=False,
-        label='',
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Search animal by name or species',
-            }
-        )
-    )
+class AnimalSearchForm(BaseSearchForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, placeholder='Search animal by name or species', **kwargs)
