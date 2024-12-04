@@ -5,14 +5,15 @@ from django.contrib.auth import get_user_model
 from django import forms
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
+from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.photos.forms import PhotoCreateForm, PhotoEditForm, PhotoDeleteForm
 from theOutdoorChronicles.photos.models import Photo
 from theOutdoorChronicles.trail_logs.models import TrailLog
+from theOutdoorChronicles.trails.models import Trail
 
 UserModel = get_user_model()
 
@@ -36,13 +37,18 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
             trail_id = trail_log.trail.pk
 
         if trail_id:
+            # Filter animals found on this trail
+            trail = get_object_or_404(Trail, pk=trail_id)
+            form.fields['animal'].queryset = trail.animals.all()
             form.fields['trail'].widget = forms.HiddenInput()
             form.fields['trail'].initial = trail_id
 
         if animal_id:
+            # Filter trails where this animal is found
+            animal = get_object_or_404(Animal, pk=animal_id)
+            form.fields['trail'].queryset = animal.trails.all()
             form.fields['animal'].widget = forms.HiddenInput()
             form.fields['animal'].initial = animal_id
-        #     TODO Display just animals existing on trail or raise error
 
         return form
 
@@ -55,7 +61,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
         if trail_log_id:
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
-            if trail_log.user == self.request.user:  # only owners of the trail_log can upload photos
+            if trail_log.user == self.request.user:  # Only owners of the trail_log can upload photos
                 trail_log.photos.add(photo)
             else:
                 raise PermissionDenied("You do not own this TrailLog.")
@@ -170,4 +176,6 @@ class PhotoDeleteView(DeleteView):
     #
     #     # Redirect to success URL
     #     return HttpResponseRedirect(reverse_lazy('photo-list'))
-1
+
+
+
