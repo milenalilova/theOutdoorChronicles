@@ -26,7 +26,8 @@ class TrailDetailsView(DetailView):
     pk_url_kwarg = 'trail_id'
     template_name = 'trails/trail-details-page.html'
 
-    # TODO optimize queries, prefetch, select related
+    def get_queryset(self):
+        return Trail.objects.prefetch_related('animals', 'photos', 'trail_logs')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

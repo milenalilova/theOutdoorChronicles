@@ -86,7 +86,7 @@ class AnimalListView(ListView):
         return queryset
 
 
-# TODO make one search form for animals and trails to get query parm and queryset.
+#  TODO make one search form for animals and trails to get query parm and queryset.
 #  Possibly mixin for get_queryset()
 
 
