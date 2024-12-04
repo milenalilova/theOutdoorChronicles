@@ -59,7 +59,7 @@ class TrailDetailsView(DetailView):
 
 class TrailListView(ListView):
     model = Trail
-    paginate_by = 2
+    paginate_by = 3
     template_name = 'trails/trail-list-page.html'
 
     def get(self, request, *args, **kwargs):
@@ -69,10 +69,7 @@ class TrailListView(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data()
-
-        context['trails'] = Trail.objects.all()
-        context['trails_found'] = self.get_queryset()
+        context = super().get_context_data(**kwargs)
         context['trails_search_form'] = TrailSearchForm(self.request.GET or None)
 
         return context

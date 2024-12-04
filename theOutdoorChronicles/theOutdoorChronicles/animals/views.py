@@ -55,7 +55,8 @@ class AnimalDetailsView(DetailView):
 
 class AnimalListView(ListView):
     model = Animal
-    paginate_by = 3
+    paginate_by = 2
+
     template_name = 'animals/animal-list-page.html'
 
     def get(self, request, *args, **kwargs):
@@ -73,7 +74,6 @@ class AnimalListView(ListView):
 
         return context
 
-    #
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -114,4 +114,4 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
     def get_initial(self):
         return self.object.__dict__
 
-# TODO add LoginRequiredMixin to all views
+# TODO add LoginRequiredMixin to all views, check need to add in permission required views

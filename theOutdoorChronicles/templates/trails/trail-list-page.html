@@ -18,13 +18,13 @@
     </form>
 
     {% if request.GET.search_query %}
-        {% if trails_found %}
+        {% if page_obj %}
             <div class="search-results">
                 <h2>Search Results</h2>
-                <p>{{ trails_found.count }} trail(s) found</p>
+                <p>{{ page_obj.paginator.count }} trail(s) found</p>
             </div>
             <div class="trails-grid">
-                {% for trail in trails_found %}
+                {% for trail in page_obj %}
                     {% include 'partials/trail-details-card.html' %}
                 {% endfor %}
             </div>
@@ -32,11 +32,11 @@
                 {% include 'partials/pagination.html' %}
             {% endif %}
         {% else %}
-            Display "No trails found for: {{ request.GET.search_query }}
+            <p>No trails found for: {{ request.GET.search_query }}</p>
         {% endif %}
     {% else %}
         <div class="trails-grid">
-            {% for trail in trails %}
+            {% for trail in page_obj %}
                 {% include 'partials/trail-details-card.html' %}
             {% endfor %}
         </div>
@@ -46,6 +46,3 @@
     {% endif %}
 {% endblock %}
 
-
-{# TODO make custom tag to check for a search query #}
-{# TODO does not paginate #}
