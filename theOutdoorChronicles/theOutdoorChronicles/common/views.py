@@ -28,6 +28,7 @@ class IndexView(TemplateView):
 
             context['random_trails'] = random_trails
             context['random_animals'] = random_animals
+            context['user_location'] = user_location
 
         else:
             random_trails = cache.get('daily_trails')

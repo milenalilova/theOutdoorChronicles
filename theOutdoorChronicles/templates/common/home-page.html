@@ -8,9 +8,12 @@
     <main>
         <div class="trails-header">
             <h1>Explore Our Trails</h1>
-            <p class="trails-subtitle">Discover amazing trails and wildlife</p>
+            {% if user_location %}
+                <p class="trails-subtitle">Discover amazing trails and wildlife near {{ user_location }}</p>
+            {% else %}
+                <p class="trails-subtitle">Discover amazing trails and wildlife</p>
+            {% endif %}
         </div>
-
         <div class="trails-grid">
             {% for trail in random_trails %}
                 <div class="trail-card">
@@ -93,6 +96,3 @@
         {% endif %}
     </main>
 {% endblock %}
-
-
-{# TODO add user.location #}
