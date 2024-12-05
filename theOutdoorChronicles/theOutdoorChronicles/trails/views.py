@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.paginator import Paginator
 from django.db.models import Q, Count, Avg
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -24,10 +25,16 @@ class TrailCreateView(PermissionRequiredMixin, CreateView):
 class TrailDetailsView(DetailView):
     model = Trail
     pk_url_kwarg = 'trail_id'
+    paginate_by = 3
     template_name = 'trails/trail-details-page.html'
 
     def get_queryset(self):
         return Trail.objects.prefetch_related('animals', 'photos', 'trail_logs')
+
+    def paginate_context(self, queryset, page_param, per_page):
+        page_number = self.request.GET.get(page_param, 1)
+        paginator = Paginator(queryset, per_page)
+        return paginator.get_page(page_number)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -40,9 +47,21 @@ class TrailDetailsView(DetailView):
         )
 
         context['public_stats'] = public_stats
-        context['animals'] = self.object.animals.all()
-        context['photos'] = self.object.photos.all()
-        context['trail_logs'] = self.object.trail_logs.all()
+        context['trail'] = self.object
+
+        trail_logs = self.object.trail_logs.all()
+        context['trail_logs_paginated'] = self.paginate_context(trail_logs, 'page_logs', self.paginate_by)
+        context['trail_logs_page_param'] = 'page_logs'
+
+        animals = self.object.animals.all()
+        context['animals_count'] = animals.count()
+        context['animals_paginated'] = self.paginate_context(animals, 'page_animals', self.paginate_by)
+        context['animals_page_param'] = 'page_animals'
+
+        photos = self.object.photos.all()
+        context['photos_count'] = photos.count()
+        context['photos_paginated'] = self.paginate_context(photos, 'page_photos', self.paginate_by)
+        context['photos_page_param'] = 'page_photos'
 
         return context
 
@@ -84,7 +103,6 @@ class TrailListView(ListView):
                 Q(location__icontains=search_query)
             )
         return queryset
-# TODO pagination works here
 
 
 class TrailEditView(PermissionRequiredMixin, UpdateView):

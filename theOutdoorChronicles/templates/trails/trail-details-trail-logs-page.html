@@ -16,10 +16,10 @@
 
 
     <div class="log-context-trail">
-        {% include 'partials/trail-excerpt.html' with trail=trail_logs.first.trail %}
+        {% include 'partials/trail-excerpt.html' with trail=trail %}
         {#            TODO fix excerpt width, check <div> class, add log details partial #}
     </div>
-    
+
     <div class="feed-stats">
         <div class="stat-item">
             <i class="fas fa-hiking"></i>
@@ -30,9 +30,9 @@
             <span>{{ public_stats.total_hikers }} hikers</span>
         </div>
     </div>
-
+        {% if trail_logs_paginated %}
     <div class="feed-container">
-        {% for log in trail_logs %}
+        {% for log in trail_logs_paginated %}
             <div class="log-card">
                 <div class="log-header">
                     <div class="log-meta">
@@ -101,10 +101,14 @@
             </div>
         {% endfor %}
     </div>
+        {% else %}
+            No Logs For This Trail Yet!
+        {% endif %}
 
-    {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
-    {% endif %}
+        {% if trail_logs_paginated.has_other_pages %}
+            {% include 'partials/pagination.html' with page_obj=trail_logs_paginated page_param=trail_logs_page_param %}
+        {% endif %}
+
 {% endblock %}
 
 {# TODO display trail summary ton op of each log #}

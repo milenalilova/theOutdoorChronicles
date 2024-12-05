@@ -61,28 +61,28 @@
                     </div>
                 {% endif %}
 
-                {% if photos.count > 0 %}
+                {% if photos_count > 0 %}
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <div class="stat-content">
                             <span class="stat-label">Total Photos</span>
                             <span class="stat-value">
                 <a href="{% url 'trail-details-photos' trail_id=trail.pk %}">
-                    {{ photos.count }}
+                    {{ photos_count }}
                 </a>
             </span>
                         </div>
                     </div>
                 {% endif %}
 
-                {% if animals.count > 0 %}
+                {% if animals_count > 0 %}
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <div class="stat-content">
                             <span class="stat-label">Animal Species</span>
                             <span class="stat-value">
                 <a href="{% url 'trail-details-animals' trail_id=trail.pk %}">
-                    {{ animals.count }}
+                    {{ animals_count }}
                 </a>
             </span>
                         </div>
@@ -144,9 +144,9 @@
                 <a href="{% url 'trail-logs-specific-trail-logs' trail_id=trail.pk %}" class="action-button edit">
                     <i class="fas fa-edit"></i> My Logs on This Trail
                 </a>
-                
+
                 {#       TODO fix the buttons name/look (Photo and Log, class="action-button edit")>#}
-            
+
             </div>
         </div>
     </div>
