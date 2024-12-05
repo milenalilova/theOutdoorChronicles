@@ -7,23 +7,25 @@
 {% block main_content %}
 
     {% include 'partials/my-logs-details-buttons.html' %}
-    
+
     <div class="feed-header">
         <h1>Trail Journey Log</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
 
-    {% if trail_logs %}
+    {% if trails %}
         <div class="trails-grid">
             {% for trail in trails %}
                 {% include 'partials/trail-details-card.html' %}
             {% endfor %}
         </div>
-        {% if is_paginated %}
-            {% include 'partials/pagination.html' %}
-        {% endif %}
+    {% else %}
+        No Trails!
     {% endif %}
-
+    {% if is_paginated %}
+        {% include 'partials/pagination.html' %}
+    {% endif %}
+    
 {% endblock %}
 
 {# TODO rename partials #}

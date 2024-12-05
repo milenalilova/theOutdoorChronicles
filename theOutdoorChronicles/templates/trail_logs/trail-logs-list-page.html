@@ -5,20 +5,20 @@
 {% endblock %}
 
 {% block main_content %}
-    
+
     {% include 'partials/my-logs-details-buttons.html' %}
 
     <div class="feed-header">
         <h1>Trail Journey Log</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
-    
+
     <div class="feed-stats">
         <div class="stat-item">
             <i class="fas fa-hiking"></i>
             <span>{{ total_trails }} trails</span>
         </div>
-         <div class="stat-item">
+        <div class="stat-item">
             <i class="fas fa-hiking"></i>
             <span>{{ trail_logs_count }} logs</span>
         </div>
@@ -30,25 +30,29 @@
             <i class="fas fa-paw"></i>
             <span>{{ total_species_seen }} species</span>
         </div>
-     <div class="stat-item">
+        <div class="stat-item">
             <i class="fas fa-paw"></i>
             <span>{{ photos.count }} photos</span>
         </div>
     </div>
 
-    <div class="feed-container">
-        {% for log in trail_logs %}
-            <div class="log-context-trail">
-                {% include 'partials/trail-excerpt.html' with trail=log.trail %}
-            </div>
-            
-            {% include 'partials/trail-log-card.html' %}
-            
-        {% endfor %}
-    </div>
+    {% if trail_logs %}
+        <div class="feed-container">
+            {% for log in trail_logs %}
+                <div class="log-context-trail">
+                    {% include 'partials/trail-excerpt.html' with trail=log.trail %}
+                </div>
+
+                {% include 'partials/trail-log-card.html' %}
+
+            {% endfor %}
+        </div>
+    {% else %}
+        No Logs Yet!
+    {% endif %}
 
     {% if is_paginated %}
         {% include 'partials/pagination.html' %}
     {% endif %}
-    
+
 {% endblock %}

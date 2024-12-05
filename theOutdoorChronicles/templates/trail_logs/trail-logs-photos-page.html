@@ -13,9 +13,9 @@
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
 
-    {% if trail_logs %}
+    {% if photos_paginated %}
         <div class="trails-grid">
-            {% for photo in photos %}
+            {% for photo in photos_paginated %}
                 {% include 'partials/photo-card.html' %}
             {% endfor %}
         </div>
@@ -26,7 +26,7 @@
     {% endif %}
 
     {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+        {% include 'partials/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}
     {% endif %}
 
 {% endblock %}

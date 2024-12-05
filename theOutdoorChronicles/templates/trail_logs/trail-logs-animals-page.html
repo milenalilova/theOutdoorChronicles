@@ -13,9 +13,9 @@
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
 
-    {% if trail_logs %}
+    {% if animals_paginated %}
         <div class="trails-grid">
-            {% for animal in animals %}
+            {% for animal in animals_paginated %}
                 {% include 'partials/animal-details-card.html' %}
             {% endfor %}
         </div>
@@ -25,7 +25,7 @@
         </div>
     {% endif %}
     {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+        {% include 'partials/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
     {% endif %}
 
 {% endblock %}

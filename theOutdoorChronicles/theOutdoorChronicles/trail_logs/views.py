@@ -90,7 +90,7 @@ class TrailLogDetailsView(DetailView):
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
-    paginate_by = 2
+    paginate_by = 3
     template_name = 'trail_logs/trail-logs-list-page.html'
 
     def get_queryset(self):
@@ -98,6 +98,11 @@ class TrailLogListView(ListView):  # all hiking user experience
             .select_related('trail') \
             .prefetch_related('animals', 'photos') \
             .order_by('-date_completed')
+
+    def paginate_context(self, queryset, page_param, per_page):
+        page_number = self.request.GET.get(page_param, 1)
+        paginator = Paginator(queryset, per_page)
+        return paginator.get_page(page_number)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -117,18 +122,24 @@ class TrailLogListView(ListView):  # all hiking user experience
             .count()
 
         trail_logs_count = self.get_queryset().count()
-        trails = Trail.objects.filter(trail_logs__user=self.request.user).distinct()
+        trails = Trail.objects.filter(trail_logs__in=context['trail_logs'],
+                                      trail_logs__user=self.request.user).distinct()
+
         animals = Animal.objects.filter(trail_logs__user=self.request.user).distinct()
+
+        context['animals_paginated'] = self.paginate_context(animals, 'page_animals', self.paginate_by)
+        context['animals_page_param'] = 'page_animals'  # Pass the parameter name for animals pagination ('partials')
+
         # photos are not always related to a trail_log
         photos = Photo.objects.filter(user=self.request.user)
+        context['photos_paginated'] = self.paginate_context(photos, 'page_photos', self.paginate_by)
+        context['photos_page_param'] = 'page_photos'  # Pass the parameter name for photos pagination ('partials')
 
         context['total_trails'] = total_trails
         context['total_length'] = total_length
         context['total_species_seen'] = total_species_seen
         context['trail_logs_count'] = trail_logs_count
         context['trails'] = trails
-        context['animals'] = animals
-        context['photos'] = photos
 
         return context
 
@@ -142,8 +153,6 @@ class TrailLogListView(ListView):  # all hiking user experience
         else:
             return self.template_name
 
-
-# TODO fix pagination of trails, animals and photos. It works only for logs list, for trail_logs objects
 
 class TrailLogSpecificTrailView(ListView):
     model = TrailLog
@@ -164,6 +173,8 @@ class TrailLogSpecificTrailView(ListView):
         page_number = self.request.GET.get(page_param, 1)
         paginator = Paginator(queryset, per_page)
         return paginator.get_page(page_number)
+
+    # TODO move to a different file to use across all CBV
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
