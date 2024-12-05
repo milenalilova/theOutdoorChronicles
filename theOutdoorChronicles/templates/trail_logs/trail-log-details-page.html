@@ -10,7 +10,7 @@
         <div class="log-context-trail">
             {% include 'partials/trail-details-card.html' with trail=trail_log.trail %}
         </div>
-    
+
         <div class="log-header">
             <div class="log-meta">
                 <h1>{{ trail_log.title }}</h1>
@@ -89,29 +89,20 @@
         {% endif %}
 
         <div class="action-buttons">
-            <a href="{% url 'trail-logs-specific-trail-logs' trail_id=trail_log.trail.pk %}" class="action-button edit">
-                <i class="fas fa-edit"></i> My Logs on This Trail
-            </a>
-            <a href="{% url 'trail-logs-specific-trail-animals' trail_id=trail_log.trail.pk %}"
-               class="action-button edit">
-                <i class="fas fa-edit"></i> My Animals on This Trail
-            </a>
-            <a href="{% url 'trail-logs-specific-trail-photos' trail_id=trail_log.trail.pk %}"
-               class="action-button edit">
-                <i class="fas fa-edit"></i> My Photos on This Trail
-            </a>
-
             <a href="{% url 'trail-log-edit' trail_log.pk %}" class="action-btn edit">
                 <i class="fas fa-edit"></i> Edit Log
+            </a>
+            <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-btn delete">
+                <i class="fas fa-trash-alt"></i> Delete Log
             </a>
             <a href="{% url 'trail-log-photo-upload' trail_log_id=trail_log.pk %}" id="photo-upload-section"
                class="action-btn photo">
                 <i class="fas fa-camera"></i> Add Photos
             </a>
-            <a href="{% url 'trail-log-delete' trail_log.pk %}" class="action-btn delete">
-                <i class="fas fa-trash-alt"></i> Delete Log
+            <a href="{% url 'trail-logs-specific-trail-logs' trail_id=trail_log.trail.pk %}" class="action-button edit">
+                <i class="fas fa-edit"></i> My Logs on This Trail
             </a>
         </div>
     </div>
-    
+
 {% endblock %}

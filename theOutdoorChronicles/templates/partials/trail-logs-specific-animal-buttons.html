@@ -1,4 +1,7 @@
 <div class="action-buttons">
+    <a href="{% url 'animal-details' animal.pk %}" class="action-button edit">
+        <i class="fas fa-edit"></i> Return to Animal's Details
+    </a>
     <a href="{% url 'trail-logs-specific-animal-logs' animal.pk %}" class="action-button edit">
         <i class="fas fa-edit"></i> My Logs of This Animal
     </a>
