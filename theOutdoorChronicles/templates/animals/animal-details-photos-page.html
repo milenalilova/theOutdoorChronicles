@@ -8,18 +8,20 @@
     <h1>This is the Animal Photos Page</h1>
 
     {% include 'partials/animal-details-buttons.html' %}
-    <div class="trails-grid">
-        {% for photo in photos %}
-            <div class="trail-card">
-                <div class="trail-image">
-                    <a href="{% url 'photo-details' photo.pk %}">
-                        <img src="{{ photo.image.url }}" alt="Photo of {{ photo.trail.name }}">
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
 
-    {% include 'partials/pagination.html' %}
+    {% if photos_paginated %}
+        <div class="trails-grid">
+        {% for photo in photos_paginated %}
+            {% include 'partials/photo-card.html' %}
+        {% endfor %}
+    {% else %}
+        No Photos Found!
+    {% endif %}
+</div>
+
+
+    {% if photos_paginated.has_other_pages %}
+        {% include 'partials/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}
+    {% endif %}
 
 {% endblock %}

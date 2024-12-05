@@ -8,14 +8,18 @@
     <h1>This is the Animal Trails Page</h1>
 
     {% include 'partials/animal-details-buttons.html' %}
+    {% if trails_paginated %}
+        <div class="trails-grid">
+            {% for trail in trails_paginated %}
+                {% include 'partials/trail-details-card.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        No Trails Found!
+    {% endif %}
 
-    <div class="trails-grid">
-        {% for trail in trails %}
-            {% include 'partials/trail-details-card.html' %}
-        {% endfor %}
-    </div>
-    {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+    {% if trails_paginated.has_other_pages %}
+        {% include 'partials/pagination.html' with page_obj=trails_paginated page_param=trails_page_param %}
     {% endif %}
 
 {% endblock %}

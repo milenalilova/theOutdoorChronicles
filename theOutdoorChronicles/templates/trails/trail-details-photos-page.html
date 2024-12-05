@@ -8,16 +8,16 @@
     <h1>This is the Trail Photos Page</h1>
 
     {% include 'partials/trail-details-buttons.html' %}
-
-    <div class="trails-grid">
-        {% if photos_paginated %}
+    {% if photos_paginated %}
+        <div class="trails-grid">
             {% for photo in photos_paginated %}
                 {% include 'partials/photo-card.html' %}
             {% endfor %}
-        {% else %}
-            No Photos of This Trail!
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        No Photos of This Trail!
+    {% endif %}
+
 
     {% if photos_paginated.has_other_pages %}
         {% include 'partials/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}

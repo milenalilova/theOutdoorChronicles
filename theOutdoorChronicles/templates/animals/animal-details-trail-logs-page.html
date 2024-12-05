@@ -8,7 +8,7 @@
     <h1>This is the Animal Trail Logs Page</h1>
 
     {% include 'partials/animal-details-buttons.html' %}
-    
+
     <div class="feed-header">
         <h1>All Users Logs</h1>
         <p class="feed-subtitle">All Users Logs</p>
@@ -24,19 +24,22 @@
             <span>{{ public_stats.total_observers }} observers</span>
         </div>
     </div>
+    {% if trail_logs_paginated %}
+        <div class="feed-container">
+            {% for log in trail_logs_paginated %}
 
-    <div class="feed-container">
-        {% for log in trail_logs %}
+                {% include 'partials/trail-excerpt.html' with trail=log.trail %}
+                {#            TODO fix excerpt width #}
 
-                        {% include 'partials/trail-excerpt.html' with trail=log.trail %}
-            {#            TODO fix excerpt width #}
+                {% include 'partials/trail-log-card.html' with trail=log.trail %}
 
-            {% include 'partials/trail-log-card.html' with trail=log.trail %}
+            {% endfor %}
+        </div>
+    {% else %}
+        No Logs For This Animal!
+    {% endif %}
 
-        {% endfor %}
-    </div>
-
-    {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+    {% if trail_logs_paginated.has_other_pages %}
+        {% include 'partials/pagination.html' with page_obj=trail_logs_paginated page_param=trail_logs_page_param %}
     {% endif %}
 {% endblock %}

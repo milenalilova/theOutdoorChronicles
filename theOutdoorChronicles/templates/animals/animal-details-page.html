@@ -60,28 +60,28 @@
                     </div>
                 {% endif %}
 
-                {% if photos.count > 0 %}
+                {% if photos_count > 0 %}
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <div class="stat-content">
                             <span class="stat-label">Total Photos</span>
                             <span class="stat-value">
                 <a href="{% url 'animal-details-photos' animal_id=animal.pk %}">
-                    {{ photos.count }}
+                    {{ photos_count }}
                 </a>
             </span>
                         </div>
                     </div>
                 {% endif %}
 
-                {% if trails.count > 0 %}
+                {% if trails_count > 0 %}
                     <div class="stat-item">
                         <i class="fas fa-users"></i>
                         <div class="stat-content">
                             <span class="stat-label">Found on Trails</span>
                             <span class="stat-value">
                 <a href="{% url 'animal-details-trails' animal_id=animal.pk %}">
-                    {{ trails.count }}
+                    {{ trails_count }}
                 </a>
             </span>
                         </div>
