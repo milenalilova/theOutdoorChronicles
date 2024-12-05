@@ -34,6 +34,16 @@
                     </a>
                 </div>
             </div>
+            <div class="stat-item">
+                <i class="fas fa-mountain"></i>
+                <div class="stat-content">
+                    <span class="stat-label">Taken by</span>
+{#                    <a href="{% url 'profile-details' photo.user.profile.pk %}">#}
+                        <strong>{{ photo.user.profile.get_display_name }}</strong>
+{#                    </a>#}
+                </div>
+            </div>
+
             {% if photo.animal %}
                 <div class="stat-item">
                     <i class="fas fa-paw"></i>

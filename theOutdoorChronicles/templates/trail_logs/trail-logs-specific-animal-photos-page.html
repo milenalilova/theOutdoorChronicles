@@ -9,20 +9,20 @@
 
     {% include 'partials/trail-logs-specific-animal-buttons.html' %}
 
-    {% if photos %}
+    {% if photos_paginated %}
         <div class="trails-grid">
-            {% for photo in photos %}
+            {% for photo in photos_paginated %}
                 {% include 'partials/photo-details-card.html' %}
             {% endfor %}
         </div>
     {% else %}
         <div>
-            No Photos!
+            No Photos Taken Yet!
         </div>
     {% endif %}
 
-    {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+    {% if photos_paginated.has_other_pages %}
+        {% include 'partials/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}
     {% endif %}
-    
+
 {% endblock %}

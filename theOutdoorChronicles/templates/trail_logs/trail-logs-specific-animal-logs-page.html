@@ -10,6 +10,8 @@
     {% include 'partials/trail-logs-specific-animal-buttons.html' %}
 
     <div class="feed-container">
+{#    TODO count logs maybe #}
+    
         {% if trail_logs %}
             {% for log in trail_logs %}
                 {% include 'partials/trail-excerpt.html' with trail=log.trail %}

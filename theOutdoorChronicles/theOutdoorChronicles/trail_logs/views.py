@@ -90,7 +90,7 @@ class TrailLogDetailsView(DetailView):
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
-    paginate_by = 3
+    paginate_by = 2
     template_name = 'trail_logs/trail-logs-list-page.html'
 
     def get_queryset(self):
@@ -182,6 +182,8 @@ class TrailLogSpecificTrailView(ListView):
         context['animals_paginated'] = self.paginate_context(animals, 'page_animals', self.paginate_by)
         context['animals_page_param'] = 'page_animals'  # Pass the parameter name for animals pagination ('partials')
 
+        # TODO add total_logs to context. It counts the logs per page now
+
         return context
 
     def get_template_names(self):
@@ -196,7 +198,7 @@ class TrailLogSpecificTrailView(ListView):
 class TrailLogSpecificAnimalView(ListView):  # every time the user logged this animal
     model = TrailLog
     context_object_name = 'trail_logs'
-    paginate_by = 2
+    paginate_by = 3
     template_name = 'trail_logs/trail-logs-specific-animal-logs-page.html'
 
     def get_queryset(self):
@@ -206,12 +208,22 @@ class TrailLogSpecificAnimalView(ListView):  # every time the user logged this a
             user=self.request.user
         ).select_related('trail').prefetch_related('photos', 'animals')
 
+    def paginate_context(self, queryset, page_param, per_page):
+        page_number = self.request.GET.get(page_param, 1)
+        paginator = Paginator(queryset, per_page)
+        return paginator.get_page(page_number)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         animal = get_object_or_404(Animal, id=self.kwargs['animal_id'])
+
         context['animal'] = animal
-        context['trails'] = animal.trails.all()
-        context['photos'] = animal.photos.all()
+        context['trails'] = Trail.objects.filter(trail_logs__in=context['trail_logs']).distinct()
+
+        photos = Photo.objects.filter(animal=animal, user=self.request.user)
+        context['photos_paginated'] = self.paginate_context(photos, 'page_photos', self.paginate_by)
+        context['photos_page_param'] = 'page_photos'  # Pass the parameter name for photos pagination ('partials')
+
         return context
 
     def get_template_names(self):
@@ -222,8 +234,6 @@ class TrailLogSpecificAnimalView(ListView):  # every time the user logged this a
         else:
             return self.template_name
 
-
-# TODO fix pagination
 
 class TrailLogEditView(UpdateView):
     model = TrailLog
