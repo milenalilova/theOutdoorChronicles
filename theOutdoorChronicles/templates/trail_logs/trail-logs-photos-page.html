@@ -25,7 +25,7 @@
         </div>
     {% endif %}
 
-    {% if is_paginated %}
+    {% if photos_paginated.has_other_pages %}
         {% include 'partials/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}
     {% endif %}
 

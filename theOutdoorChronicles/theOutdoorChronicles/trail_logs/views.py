@@ -90,7 +90,7 @@ class TrailLogDetailsView(DetailView):
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
-    paginate_by = 3
+    paginate_by = 5
     template_name = 'trail_logs/trail-logs-list-page.html'
 
     def get_queryset(self):
@@ -122,6 +122,8 @@ class TrailLogListView(ListView):  # all hiking user experience
             .count()
 
         trail_logs_count = self.get_queryset().count()
+        photos_count = Photo.objects.filter(user=self.request.user).count()
+
         trails = Trail.objects.filter(trail_logs__in=context['trail_logs'],
                                       trail_logs__user=self.request.user).distinct()
 
@@ -140,6 +142,7 @@ class TrailLogListView(ListView):  # all hiking user experience
         context['total_species_seen'] = total_species_seen
         context['trail_logs_count'] = trail_logs_count
         context['trails'] = trails
+        context['photos_count'] = photos_count
 
         return context
 
