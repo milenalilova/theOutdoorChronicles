@@ -84,6 +84,7 @@ class TrailListView(ListView):
                 Q(location__icontains=search_query)
             )
         return queryset
+# TODO pagination works here
 
 
 class TrailEditView(PermissionRequiredMixin, UpdateView):

@@ -55,7 +55,7 @@ class AnimalDetailsView(DetailView):
 
 class AnimalListView(ListView):
     model = Animal
-    paginate_by = 3
+    paginate_by = 2
 
     template_name = 'animals/animal-list-page.html'
 
@@ -81,6 +81,7 @@ class AnimalListView(ListView):
                 Q(species__icontains=search_query)
             )
         return queryset
+# TODO pagination works here
 
 
 class AnimalEditView(PermissionRequiredMixin, UpdateView):

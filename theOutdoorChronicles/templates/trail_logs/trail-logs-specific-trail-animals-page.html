@@ -13,61 +13,19 @@
     -------------------------------------
 
     {% include 'partials/trail-logs-specific-trail-buttons.html' %}
-
-    <div class="trails-grid">
-        {% for animal in animals %}
-            <div class="trail-card">
-                <div class="trail-image">
-                    <img src="{{ animal.image.url }}" alt="{{ animal.common_name }}">
-                    <div class="trail-difficulty {{ animal.conservation_status|lower }}">
-                        {{ animal.conservation_status }}
-                    </div>
-                </div>
-                <div class="trail-content">
-                    <h2 class="trail-name">{{ animal.common_name }}</h2>
-                    <p class="trail-location">
-                        <i class="fas fa-microscope"></i> {{ animal.species }}
-                    </p>
-                    <div class="trail-stats">
-                    <span>
-                        <i class="fas fa-book"></i> 
-                        <a href="{{ animal.wikipedia_page }}" target="_blank">Wikipedia</a>
-                    </span>
-                        {% if animal.additional_info %}
-                            <span>
-                            <i class="fas fa-info-circle"></i>
-                            <a href="{{ animal.additional_info }}" target="_blank">More Info</a>
-                        </span>
-                        {% endif %}
-                        <span>
-                        <i class="fas fa-tree"></i> {{ animal.trails.count }} Trails
-                    </span>
-                    </div>
-                    <a href="{% url 'animal-details' animal.pk %}" class="trail-details-btn">
-                        View Details
-                    </a>
-                </div>
-            </div>
+    
+    {% if animals_paginated %}
+        <div class="trails-grid">
+        {% for animal in animals_paginated %}
+            {% include 'partials/animal-details-card.html' %}
         {% endfor %}
-    </div>
-    {% if is_paginated %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; Previous</a>
-            {% endif %}
+    {% else %}
+        No Animals Spotted Yet!
+    {% endif %}
+</div>
 
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <span class="page-link active">{{ num }}</span>
-                {% else %}
-                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next &raquo;</a>
-            {% endif %}
-        </div>
+    {% if animals_paginated.has_other_pages %}
+        {% include 'partials/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
     {% endif %}
 
 {% endblock %}
