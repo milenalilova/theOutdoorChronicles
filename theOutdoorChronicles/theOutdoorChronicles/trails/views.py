@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
-from theOutdoorChronicles.common.utils import paginate_context
+from theOutdoorChronicles.common.utils import paginate_and_add_to_context
 from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, TrailDeleteForm, TrailSearchForm
 from theOutdoorChronicles.trails.models import Trail
 
@@ -45,18 +45,15 @@ class TrailDetailsView(DetailView):
         context['trail'] = self.object
 
         trail_logs = self.object.trail_logs.all()
-        context['trail_logs_paginated'] = paginate_context(trail_logs, 'page_logs', self.paginate_by, self.request)
-        context['trail_logs_page_param'] = 'page_logs'
+        context = paginate_and_add_to_context(trail_logs, context, 'trail_log', self.paginate_by, self.request)
 
         animals = self.object.animals.all()
+        context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
         context['animals_count'] = animals.count()
-        context['animals_paginated'] = paginate_context(animals, 'page_animals', self.paginate_by, self.request)
-        context['animals_page_param'] = 'page_animals'
 
         photos = self.object.photos.all()
+        context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
         context['photos_count'] = photos.count()
-        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
-        context['photos_page_param'] = 'page_photos'
 
         return context
 

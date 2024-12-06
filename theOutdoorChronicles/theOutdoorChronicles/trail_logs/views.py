@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from theOutdoorChronicles.animals.models import Animal
-from theOutdoorChronicles.common.utils import paginate_context
+from theOutdoorChronicles.common.utils import paginate_and_add_to_context
 from theOutdoorChronicles.photos.models import Photo
 from theOutdoorChronicles.trail_logs.forms import TrailLogCreateForm, TrailLogEditForm, TrailLogDeleteForm
 from theOutdoorChronicles.trail_logs.models import TrailLog
@@ -90,7 +90,7 @@ class TrailLogDetailsView(DetailView):
 class TrailLogListView(ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
-    paginate_by = 5
+    paginate_by = 3
     template_name = 'trail_logs/trail-logs-list-page.html'
 
     def get_queryset(self):
@@ -120,17 +120,14 @@ class TrailLogListView(ListView):  # all hiking user experience
         photos_count = Photo.objects.filter(user=self.request.user).count()
 
         trails = Trail.objects.filter(trail_logs__user=self.request.user).distinct()
-        context['trails_paginated'] = paginate_context(trails, 'page_trails', self.paginate_by, self.request)
-        context['trails_page_param'] = 'page_trails'  # Pass the parameter name for trails pagination ('partials')
+        context = paginate_and_add_to_context(trails, context, 'trail', self.paginate_by, self.request)
 
         animals = Animal.objects.filter(trail_logs__user=self.request.user).distinct()
-        context['animals_paginated'] = paginate_context(animals, 'page_animals', self.paginate_by, self.request)
-        context['animals_page_param'] = 'page_animals'  # Pass the parameter name for animals pagination ('partials')
+        context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
 
         # photos are not always related to a trail_log
         photos = Photo.objects.filter(user=self.request.user)
-        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
-        context['photos_page_param'] = 'page_photos'  # Pass the parameter name for photos pagination ('partials')
+        context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
 
         context['total_trails'] = total_trails
         context['total_length'] = total_length
@@ -175,15 +172,12 @@ class TrailLogSpecificTrailView(ListView):
 
         # Paginate photos
         photos = Photo.objects.filter(trail_id=trail_id, user=self.request.user).distinct()
-        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
-        context['photos_page_param'] = 'page_photos'  # Pass the parameter name for photos pagination ('partials')
+        context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
 
         # Paginate animals
         animals = Animal.objects.filter(trail_logs__in=context['trail_logs']).distinct()
-        context['animals_paginated'] = paginate_context(animals, 'page_animals', self.paginate_by, self.request)
-        context['animals_page_param'] = 'page_animals'  # Pass the parameter name for animals pagination ('partials')
+        context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
 
-        # TODO check animals pagination
         # TODO add total_logs to context. It counts the logs per page now
 
         return context
@@ -200,7 +194,7 @@ class TrailLogSpecificTrailView(ListView):
 class TrailLogSpecificAnimalView(ListView):  # every time the user logged this animal
     model = TrailLog
     context_object_name = 'trail_logs'
-    paginate_by = 1
+    paginate_by = 3
     template_name = 'trail_logs/trail-logs-specific-animal-logs-page.html'
 
     def get_queryset(self):
@@ -218,8 +212,7 @@ class TrailLogSpecificAnimalView(ListView):  # every time the user logged this a
         context['trails'] = Trail.objects.filter(trail_logs__in=context['trail_logs']).distinct()
 
         photos = Photo.objects.filter(animal=animal, user=self.request.user)
-        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
-        context['photos_page_param'] = 'page_photos'  # Pass the parameter name for photos pagination ('partials')
+        context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
 
         return context
 

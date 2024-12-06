@@ -6,7 +6,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 
 from theOutdoorChronicles.animals.forms import AnimalCreateForm, AnimalEditForm, AnimalDeleteForm, AnimalSearchForm
 from theOutdoorChronicles.animals.models import Animal
-from theOutdoorChronicles.common.utils import paginate_context
+from theOutdoorChronicles.common.utils import paginate_and_add_to_context
 
 
 class AnimalCreateView(PermissionRequiredMixin, CreateView):
@@ -23,7 +23,7 @@ class AnimalCreateView(PermissionRequiredMixin, CreateView):
 class AnimalDetailsView(DetailView):
     model = Animal
     pk_url_kwarg = 'animal_id'
-    paginate_by = 1
+    paginate_by = 3
     template_name = 'animals/animal-details-page.html'
 
     def get_queryset(self):
@@ -41,19 +41,16 @@ class AnimalDetailsView(DetailView):
         context['animal'] = self.object
 
         trails = self.object.trails.all()
+        context = paginate_and_add_to_context(trails, context, 'trail', self.paginate_by, self.request)
         context['trails_count'] = trails.count()
-        context['trails_paginated'] = paginate_context(trails, 'page_logs', self.paginate_by, self.request)
-        context['trails_page_param'] = 'page_logs'
 
         trail_logs = self.object.trail_logs.all()
+        context = paginate_and_add_to_context(trail_logs, context, 'trail_log', self.paginate_by, self.request)
         context['trail_logs_count'] = trail_logs.count()
-        context['trail_logs_paginated'] = paginate_context(trail_logs, 'page_logs', self.paginate_by, self.request)
-        context['trail_logs_page_param'] = 'page_logs'
 
         photos = self.object.photos.all()
+        context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
         context['photos_count'] = photos.count()
-        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
-        context['photos_page_param'] = 'page_photos'
 
         return context
 
@@ -70,7 +67,7 @@ class AnimalDetailsView(DetailView):
 
 class AnimalListView(ListView):
     model = Animal
-    paginate_by = 2
+    paginate_by = 3
 
     template_name = 'animals/animal-list-page.html'
 
