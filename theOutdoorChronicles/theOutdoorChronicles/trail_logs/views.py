@@ -170,6 +170,8 @@ class TrailLogSpecificTrailView(ListView):
         trail = get_object_or_404(Trail, pk=trail_id)
         context['trail'] = trail
 
+        context['trail_logs_count'] = self.get_queryset().count()
+
         # Paginate photos
         photos = Photo.objects.filter(trail_id=trail_id, user=self.request.user).distinct()
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
@@ -177,8 +179,6 @@ class TrailLogSpecificTrailView(ListView):
         # Paginate animals
         animals = Animal.objects.filter(trail_logs__in=context['trail_logs']).distinct()
         context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
-
-        # TODO add total_logs to context. It counts the logs per page now
 
         return context
 
