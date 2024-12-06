@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import Q, Count
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -9,7 +9,7 @@ from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.common.utils import paginate_and_add_to_context
 
 
-class AnimalCreateView(PermissionRequiredMixin, CreateView):
+class AnimalCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Animal
     form_class = AnimalCreateForm
     pk_url_kwarg = 'animal_id'
@@ -20,7 +20,7 @@ class AnimalCreateView(PermissionRequiredMixin, CreateView):
         return reverse_lazy('animal-details', kwargs={'animal_id': self.object.pk})
 
 
-class AnimalDetailsView(DetailView):
+class AnimalDetailsView(LoginRequiredMixin, DetailView):
     model = Animal
     pk_url_kwarg = 'animal_id'
     paginate_by = 3
@@ -65,7 +65,7 @@ class AnimalDetailsView(DetailView):
             return self.template_name
 
 
-class AnimalListView(ListView):
+class AnimalListView(LoginRequiredMixin, ListView):
     model = Animal
     paginate_by = 3
 
@@ -95,7 +95,7 @@ class AnimalListView(ListView):
         return queryset
 
 
-class AnimalEditView(PermissionRequiredMixin, UpdateView):
+class AnimalEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Animal
     form_class = AnimalEditForm
     pk_url_kwarg = 'animal_id'
@@ -106,7 +106,7 @@ class AnimalEditView(PermissionRequiredMixin, UpdateView):
         return reverse_lazy('animal-details', kwargs={'animal_id': self.object.pk})
 
 
-class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
+class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Animal
     form_class = AnimalDeleteForm
     pk_url_kwarg = 'animal_id'
@@ -122,8 +122,6 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
 
     def get_initial(self):
         return self.object.__dict__
-
-# TODO add LoginRequiredMixin to all views, check need to add in permission required views
 
 # TODO display user with link everywhere
 # TODO add tests

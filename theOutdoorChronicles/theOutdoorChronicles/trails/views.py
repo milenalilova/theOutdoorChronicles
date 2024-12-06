@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.db.models import Q, Count, Avg
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -11,7 +11,7 @@ from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, Tr
 from theOutdoorChronicles.trails.models import Trail
 
 
-class TrailCreateView(PermissionRequiredMixin, CreateView):
+class TrailCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Trail
     form_class = TrailCreateForm
     pk_url_kwarg = 'trail_id'
@@ -22,7 +22,7 @@ class TrailCreateView(PermissionRequiredMixin, CreateView):
         return reverse_lazy('trail-details', kwargs={'trail_id': self.object.pk})
 
 
-class TrailDetailsView(DetailView):
+class TrailDetailsView(LoginRequiredMixin, DetailView):
     model = Trail
     pk_url_kwarg = 'trail_id'
     paginate_by = 3
@@ -68,7 +68,7 @@ class TrailDetailsView(DetailView):
             return self.template_name
 
 
-class TrailListView(ListView):
+class TrailListView(LoginRequiredMixin, ListView):
     model = Trail
     paginate_by = 3
     template_name = 'trails/trail-list-page.html'
@@ -97,7 +97,7 @@ class TrailListView(ListView):
         return queryset
 
 
-class TrailEditView(PermissionRequiredMixin, UpdateView):
+class TrailEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Trail
     form_class = TrailEditForm
     pk_url_kwarg = 'trail_id'
@@ -108,7 +108,7 @@ class TrailEditView(PermissionRequiredMixin, UpdateView):
         return reverse_lazy('trail-details', kwargs={'trail_id': self.object.pk})
 
 
-class TrailDeleteView(PermissionRequiredMixin, DeleteView):
+class TrailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Trail
     form_class = TrailDeleteForm
     pk_url_kwarg = 'trail_id'

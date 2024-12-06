@@ -86,7 +86,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
                             kwargs={'photo_id': self.object.pk}) + '#photo-upload-section'
 
 
-class PhotoDetailView(DetailView):
+class PhotoDetailView(LoginRequiredMixin, DetailView):
     model = Photo
     pk_url_kwarg = 'photo_id'
     template_name = 'photos/photo-details-page.html'
@@ -95,7 +95,7 @@ class PhotoDetailView(DetailView):
         return Photo.objects.select_related('user', 'trail', 'animal').prefetch_related('trail_logs')
 
 
-class PhotoListView(ListView):
+class PhotoListView(LoginRequiredMixin, ListView):
     model = Photo
     context_object_name = 'photos'
     paginate_by = 9
@@ -105,7 +105,7 @@ class PhotoListView(ListView):
 #     TODO this view maybe unnecessary
 
 
-class PhotoEditView(UpdateView):
+class PhotoEditView(LoginRequiredMixin, UpdateView):
     model = Photo
     pk_url_kwarg = 'photo_id'
     form_class = PhotoEditForm
@@ -118,7 +118,7 @@ class PhotoEditView(UpdateView):
         return reverse_lazy('photo-details', kwargs={'photo_id': self.object.pk})
 
 
-class PhotoDeleteView(DeleteView):
+class PhotoDeleteView(LoginRequiredMixin, DeleteView):
     model = Photo
     pk_url_kwarg = 'photo_id'
     form_class = PhotoDeleteForm
@@ -176,6 +176,3 @@ class PhotoDeleteView(DeleteView):
     #
     #     # Redirect to success URL
     #     return HttpResponseRedirect(reverse_lazy('photo-list'))
-
-
-

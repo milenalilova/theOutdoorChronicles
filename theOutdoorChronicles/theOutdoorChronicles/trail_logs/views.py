@@ -61,7 +61,7 @@ class TrailLogCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
 
 
-class TrailLogDetailsView(DetailView):
+class TrailLogDetailsView(LoginRequiredMixin, DetailView):
     model = TrailLog
     context_object_name = 'trail_log'
     pk_url_kwarg = 'trail_log_id'
@@ -87,7 +87,7 @@ class TrailLogDetailsView(DetailView):
             return self.template_name
 
 
-class TrailLogListView(ListView):  # all hiking user experience
+class TrailLogListView(LoginRequiredMixin, ListView):  # all hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
@@ -148,7 +148,7 @@ class TrailLogListView(ListView):  # all hiking user experience
             return self.template_name
 
 
-class TrailLogSpecificTrailView(ListView):
+class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
@@ -191,7 +191,7 @@ class TrailLogSpecificTrailView(ListView):
             return self.template_name
 
 
-class TrailLogSpecificAnimalView(ListView):  # every time the user logged this animal
+class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # every time the user logged this animal
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
@@ -225,7 +225,7 @@ class TrailLogSpecificAnimalView(ListView):  # every time the user logged this a
             return self.template_name
 
 
-class TrailLogEditView(UpdateView):
+class TrailLogEditView(LoginRequiredMixin, UpdateView):
     model = TrailLog
     form_class = TrailLogEditForm
     pk_url_kwarg = 'trail_log_id'
@@ -244,7 +244,7 @@ class TrailLogEditView(UpdateView):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
 
 
-class TrailLogDeleteView(DeleteView):
+class TrailLogDeleteView(LoginRequiredMixin, DeleteView):
     model = TrailLog
     form_class = TrailLogDeleteForm
     pk_url_kwarg = 'trail_log_id'
