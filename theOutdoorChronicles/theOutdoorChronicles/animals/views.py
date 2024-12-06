@@ -125,6 +125,7 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
 
 # TODO add LoginRequiredMixin to all views, check need to add in permission required views
 
+# TODO display user with link everywhere
 # TODO add tests
 # TODO async views
 # TODO deploy
