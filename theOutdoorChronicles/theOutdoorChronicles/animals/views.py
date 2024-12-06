@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.paginator import Paginator
 from django.db.models import Q, Count
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -7,6 +6,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 
 from theOutdoorChronicles.animals.forms import AnimalCreateForm, AnimalEditForm, AnimalDeleteForm, AnimalSearchForm
 from theOutdoorChronicles.animals.models import Animal
+from theOutdoorChronicles.common.utils import paginate_context
 
 
 class AnimalCreateView(PermissionRequiredMixin, CreateView):
@@ -23,16 +23,11 @@ class AnimalCreateView(PermissionRequiredMixin, CreateView):
 class AnimalDetailsView(DetailView):
     model = Animal
     pk_url_kwarg = 'animal_id'
-    paginate_by = 3
+    paginate_by = 1
     template_name = 'animals/animal-details-page.html'
 
     def get_queryset(self):
         return Animal.objects.prefetch_related('trails', 'photos', 'trail_logs')
-
-    def paginate_context(self, queryset, page_param, per_page):
-        page_number = self.request.GET.get(page_param, 1)
-        paginator = Paginator(queryset, per_page)
-        return paginator.get_page(page_number)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,17 +42,17 @@ class AnimalDetailsView(DetailView):
 
         trails = self.object.trails.all()
         context['trails_count'] = trails.count()
-        context['trails_paginated'] = self.paginate_context(trails, 'page_logs', self.paginate_by)
+        context['trails_paginated'] = paginate_context(trails, 'page_logs', self.paginate_by, self.request)
         context['trails_page_param'] = 'page_logs'
 
         trail_logs = self.object.trail_logs.all()
         context['trail_logs_count'] = trail_logs.count()
-        context['trail_logs_paginated'] = self.paginate_context(trail_logs, 'page_logs', self.paginate_by)
+        context['trail_logs_paginated'] = paginate_context(trail_logs, 'page_logs', self.paginate_by, self.request)
         context['trail_logs_page_param'] = 'page_logs'
 
         photos = self.object.photos.all()
         context['photos_count'] = photos.count()
-        context['photos_paginated'] = self.paginate_context(photos, 'page_photos', self.paginate_by)
+        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
         context['photos_page_param'] = 'page_photos'
 
         return context
@@ -132,3 +127,7 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
         return self.object.__dict__
 
 # TODO add LoginRequiredMixin to all views, check need to add in permission required views
+
+# TODO add tests
+# TODO async views
+# TODO deploy

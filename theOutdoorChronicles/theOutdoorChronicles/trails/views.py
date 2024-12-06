@@ -1,12 +1,12 @@
 from datetime import timedelta
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.core.paginator import Paginator
 from django.db.models import Q, Count, Avg
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
+from theOutdoorChronicles.common.utils import paginate_context
 from theOutdoorChronicles.trails.forms import TrailCreateForm, TrailEditForm, TrailDeleteForm, TrailSearchForm
 from theOutdoorChronicles.trails.models import Trail
 
@@ -31,11 +31,6 @@ class TrailDetailsView(DetailView):
     def get_queryset(self):
         return Trail.objects.prefetch_related('animals', 'photos', 'trail_logs')
 
-    def paginate_context(self, queryset, page_param, per_page):
-        page_number = self.request.GET.get(page_param, 1)
-        paginator = Paginator(queryset, per_page)
-        return paginator.get_page(page_number)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -50,17 +45,17 @@ class TrailDetailsView(DetailView):
         context['trail'] = self.object
 
         trail_logs = self.object.trail_logs.all()
-        context['trail_logs_paginated'] = self.paginate_context(trail_logs, 'page_logs', self.paginate_by)
+        context['trail_logs_paginated'] = paginate_context(trail_logs, 'page_logs', self.paginate_by, self.request)
         context['trail_logs_page_param'] = 'page_logs'
 
         animals = self.object.animals.all()
         context['animals_count'] = animals.count()
-        context['animals_paginated'] = self.paginate_context(animals, 'page_animals', self.paginate_by)
+        context['animals_paginated'] = paginate_context(animals, 'page_animals', self.paginate_by, self.request)
         context['animals_page_param'] = 'page_animals'
 
         photos = self.object.photos.all()
         context['photos_count'] = photos.count()
-        context['photos_paginated'] = self.paginate_context(photos, 'page_photos', self.paginate_by)
+        context['photos_paginated'] = paginate_context(photos, 'page_photos', self.paginate_by, self.request)
         context['photos_page_param'] = 'page_photos'
 
         return context

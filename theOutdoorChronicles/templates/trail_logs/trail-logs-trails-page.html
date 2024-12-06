@@ -13,19 +13,20 @@
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
 
-    {% if trails %}
+    {% if trails_paginated %}
         <div class="trails-grid">
-            {% for trail in trails %}
+            {% for trail in trails_paginated %}
                 {% include 'partials/trail-details-card.html' %}
             {% endfor %}
         </div>
     {% else %}
         No Trails!
     {% endif %}
-    {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+
+    {% if trails_paginated.has_other_pages %}
+        {% include 'partials/pagination.html' with page_obj=trails_paginated page_param=trails_page_param %}
     {% endif %}
-    
+
 {% endblock %}
 
 {# TODO rename partials #}
