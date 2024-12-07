@@ -6,17 +6,19 @@
 
 {% block main_content %}
 
-    {% include 'partials/my-logs-details-buttons.html' %}
+    {% include 'partials/trail_logs/trail-logs-my-details-buttons.html' %}
 
     <div class="feed-header">
-        <h1>Trail Journey Log</h1>
+        <h1>Your Journey Animals</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
-
+    
+        {% include 'partials/trail_logs/trail-logs-my-stats.html' %}
+    
     {% if animals_paginated %}
         <div class="trails-grid">
             {% for animal in animals_paginated %}
-                {% include 'partials/animal-details-card.html' %}
+                {% include 'partials/animals/animal-details-card.html' %}
             {% endfor %}
         </div>
     {% else %}
@@ -25,9 +27,10 @@
         </div>
     {% endif %}
     {% if is_paginated %}
-        {% include 'partials/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
+        {% include 'partials/common/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
     {% endif %}
-{#    TODO check pagination here
-    #}
+    
+{#  TODO check pagination here #}
+{# TODO rename everything from MY to USER #}
 
 {% endblock %}

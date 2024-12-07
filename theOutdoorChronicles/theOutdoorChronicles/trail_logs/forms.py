@@ -22,6 +22,8 @@ class TrailLogBaseForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-list'})
     )
 
+    # TODO add the uploaded photos to the edit form
+
     class Meta:
         model = TrailLog
         exclude = ('user', 'animals', 'photos')

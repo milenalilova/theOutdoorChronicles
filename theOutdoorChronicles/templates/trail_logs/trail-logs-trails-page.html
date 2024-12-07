@@ -6,17 +6,19 @@
 
 {% block main_content %}
 
-    {% include 'partials/my-logs-details-buttons.html' %}
+    {% include 'partials/trail_logs/trail-logs-my-details-buttons.html' %}
 
     <div class="feed-header">
-        <h1>Trail Journey Log</h1>
+        <h1>Your Journey Trails</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
+
+        {% include 'partials/trail_logs/trail-logs-my-stats.html' %}
 
     {% if trails_paginated %}
         <div class="trails-grid">
             {% for trail in trails_paginated %}
-                {% include 'partials/trail-details-card.html' %}
+                {% include 'partials/trails/trail-details-card.html' %}
             {% endfor %}
         </div>
     {% else %}
@@ -24,7 +26,7 @@
     {% endif %}
 
     {% if trails_paginated.has_other_pages %}
-        {% include 'partials/pagination.html' with page_obj=trails_paginated page_param=trails_page_param %}
+        {% include 'partials/common/pagination.html' with page_obj=trails_paginated page_param=trails_page_param %}
     {% endif %}
 
 {% endblock %}

@@ -25,11 +25,11 @@
             </div>
             <div class="trails-grid">
                 {% for trail in page_obj %}
-                    {% include 'partials/trail-details-card.html' %}
+                    {% include 'partials/trails/trail-details-card.html' %}
                 {% endfor %}
             </div>
             {% if is_paginated %}
-                {% include 'partials/pagination.html' %}
+                {% include 'partials/common/pagination.html' %}
             {% endif %}
         {% else %}
             <p>No trails found for: {{ request.GET.search_query }}</p>
@@ -37,11 +37,11 @@
     {% else %}
         <div class="trails-grid">
             {% for trail in page_obj %}
-                {% include 'partials/trail-details-card.html' %}
+                {% include 'partials/trails/trail-details-card.html' %}
             {% endfor %}
         </div>
         {% if is_paginated %}
-            {% include 'partials/pagination.html' %}
+            {% include 'partials/common/pagination.html' %}
         {% endif %}
     {% endif %}
 {% endblock %}

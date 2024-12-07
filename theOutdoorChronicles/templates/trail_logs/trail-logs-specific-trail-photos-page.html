@@ -6,18 +6,20 @@
 
 {% block main_content %}
     <h1>This is the Specific Trail Photos Page</h1>
-    -------------------------------------
-    <p>
-        {{ trail }}
-    </p>
-    --------------------------------------
 
-    {% include 'partials/trail-logs-specific-trail-buttons.html' %}
+    {% include 'partials/trail_logs/trail-logs-specific-trail-buttons.html' %}
+    
+     <div class="feed-header">
+        <h1>My Photos</h1>
+        <p class="feed-subtitle">My Photos</p>
+    </div>
+    
+            {% include 'partials/trail_logs/trail-logs-specific-trail-stats.html' %}
 
     {% if photos_paginated %}
         <div class="trails-grid">
             {% for photo in photos_paginated %}
-                {% include 'partials/photo-details-card.html' %}
+                {% include 'partials/photos/photo-card.html' %}
             {% endfor %}
         </div>
     {% else %}
@@ -27,7 +29,7 @@
     {% endif %}
 
     {% if photos_paginated.has_other_pages %}
-        {% include 'partials/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}
+        {% include 'partials/common/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}
     {% endif %}
 
 {% endblock %}

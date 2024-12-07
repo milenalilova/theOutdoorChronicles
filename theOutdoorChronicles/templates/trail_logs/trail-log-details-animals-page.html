@@ -7,15 +7,31 @@
 {% block main_content %}
     <h1>This is the Trail Log Details Animals Page</h1>
 
-    {% if animals %}
+    {% include 'partials/trail_logs/trail-log-details-buttons.html' %}
 
-        {% for animal in animals %}
-            <p>
-                {{ animal.species }}, {{ animal.common_name }}
-            </p>
-        {% endfor %}
+    <div class="feed-header">
+        <h1>Log's Animals</h1>
+        <p class="feed-subtitle">Your hiking adventures</p>
+    </div>
+    {% if animals %}
+        <div class="feed-stats">
+            <div class="stat-item">
+                <i class="fas fa-paw"></i>
+                <span>{{ animals.count }} species</span>
+            </div>
+        </div>
+{#    {% endif %}#}
+{##}
+{#    {% if animals %}#}
+        <div class="trails-grid">
+            {% for animal in animals %}
+                {% include 'partials/animals/animal-details-card.html' %}
+            {% endfor %}
+        </div>
     {% else %}
-        No animals sighting recorded for this log!
+        <div>
+            No Animals!
+        </div>
     {% endif %}
 
 {% endblock %}

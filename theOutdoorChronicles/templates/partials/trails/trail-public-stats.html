@@ -1,0 +1,26 @@
+<div class="feed-stats">
+    {% if public_stats.total_logs > 0 %}
+        <div class="stat-item">
+            <i class="fas fa-hiking"></i>
+            <span>{{ public_stats.total_logs }} logs </span>
+        </div>
+    {% endif %}
+    {% if public_stats.total_hikers > 0 %}
+        <div class="stat-item">
+            <i class="fas fa-route"></i>
+            <span>{{ public_stats.total_hikers }} hikers</span>
+        </div>
+    {% endif %}
+    {% if animals_count %}
+        <div class="stat-item">
+            <i class="fas fa-route"></i>
+            <span>{{ animals_count }} species</span>
+        </div>
+    {% endif %}
+    {% if photos_count %}
+        <div class="stat-item">
+            <i class="fas fa-route"></i>
+            <span>{{ photos_count }} photos</span>
+        </div>
+    {% endif %}
+</div>

@@ -1,10 +1,20 @@
 <div class="log-card">
     <div class="log-header">
         <div class="log-meta">
-            <h2>{{ log.title }}</h2>
+            <div>
+                <h2>{{ log.title }}</h2>
+                <span class="log-date">
+                <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
+            </span>
+            </div>
+            <div>
             <span class="log-date">
-                            <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
-                        </span>
+                <i class="fas fa-user"></i> 
+               By <a href="{% url 'profile-details' log.user.profile.pk %}" class="user-profile-link">
+                    {{ log.user.profile.get_display_name }}
+                </a>
+            </span>
+            </div>
         </div>
     </div>
 
@@ -14,38 +24,42 @@
         </a>
         {% if log.duration %}
             <span class="duration">
-                            <i class="fas fa-clock"></i> {{ log.duration }}
-                        </span>
+                <i class="fas fa-clock"></i> {{ log.duration }}
+            </span>
         {% endif %}
     </div>
 
     {% if log.photos.all %}
-        <div class="log-photos">
-            {% for photo in log.photos.all|slice:":4" %}
-                <img src="{{ photo.image.url }}" alt="Trail photo" class="log-photo">
-            {% endfor %}
+        <div class="log-section">
+            <div class="photos-grid">
+                {% for photo in log.photos.all|slice:":4" %}
+                    <div class="photo-item">
+                        <img src="{{ photo.image.url }}" alt="Trail photo" class="gallery-image">
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     {% endif %}
 
     <div class="log-content">
-        <p>{{ log.notes }}</p>
+        <p>{{ log.notes|truncatechars:100 }}</p>
     </div>
 
     <div class="log-details">
         {% if log.weather_conditions %}
             <span class="condition-tag">
-                            <i class="fas fa-cloud"></i> {{ log.weather_conditions }}
-                        </span>
+                <i class="fas fa-cloud"></i> {{ log.weather_conditions }}
+            </span>
         {% endif %}
         {% if log.trail_conditions %}
             <span class="condition-tag">
-                            <i class="fas fa-hiking"></i> {{ log.trail_conditions }}
-                        </span>
+                <i class="fas fa-hiking"></i> {{ log.trail_conditions }}
+            </span>
         {% endif %}
         {% if log.difficulty_rating %}
             <span class="condition-tag">
-                            <i class="fas fa-mountain"></i> {{ log.difficulty_rating }}
-                        </span>
+                <i class="fas fa-mountain"></i> {{ log.difficulty_rating }}
+            </span>
         {% endif %}
     </div>
 

@@ -1,0 +1,20 @@
+<div class="feed-stats">
+    {% if trail_logs_count %}
+        <div class="stat-item">
+            <i class="fas fa-hiking"></i>
+            <span>{{ trail_logs_count }} logs </span>
+        </div>
+    {% endif %}
+    {% if animals_count %}
+        <div class="stat-item">
+            <i class="fas fa-route"></i>
+            <span>{{ animals_count }} species</span>
+        </div>
+    {% endif %}
+    {% if photos_count %}
+        <div class="stat-item">
+            <i class="fas fa-route"></i>
+            <span>{{ photos_count }} photos</span>
+        </div>
+    {% endif %}
+</div>

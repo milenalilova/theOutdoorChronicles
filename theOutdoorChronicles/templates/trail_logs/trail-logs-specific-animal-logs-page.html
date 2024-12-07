@@ -7,16 +7,21 @@
 {% block main_content %}
     <h1>This is the Specific Animal Logs Page</h1>
 
-    {% include 'partials/trail-logs-specific-animal-buttons.html' %}
+    {% include 'partials/trail_logs/trail-logs-specific-animal-buttons.html' %}
+       <div class="feed-header">
+        <h1>My Logs</h1>
+        <p class="feed-subtitle">My Logs</p>
+    </div>
+    {% include 'partials/trail_logs/trail-logs-specific-animal-stats.html' %}
 
     <div class="feed-container">
-{#    TODO count logs maybe #}
-    
+
         {% if trail_logs %}
             {% for log in trail_logs %}
-                {% include 'partials/trail-excerpt.html' with trail=log.trail %}
-                {#                TODO fix partial width #}
-                {% include 'partials/trail-log-card.html' %}
+                <div class="log-context-trail">
+                    {% include 'partials/trails/trail-details-card.html' with trail=log.trail %}
+                </div>
+                {% include 'partials/trail_logs/trail-log-card.html' %}
             {% endfor %}
         {% else %}
             <div>
@@ -26,7 +31,7 @@
     </div>
 
     {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+        {% include 'partials/common/pagination.html' %}
     {% endif %}
 
 {% endblock %}

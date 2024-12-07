@@ -6,44 +6,23 @@
 
 {% block main_content %}
 
-    {% include 'partials/my-logs-details-buttons.html' %}
+    {% include 'partials/trail_logs/trail-logs-my-details-buttons.html' %}
 
     <div class="feed-header">
-        <h1>Trail Journey Log</h1>
+        <h1>Your Journey Logs</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
 
-    <div class="feed-stats">
-        <div class="stat-item">
-            <i class="fas fa-hiking"></i>
-            <span>{{ trail_logs_count }} logs</span>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-hiking"></i>
-            <span>{{ total_trails }} trails</span>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-route"></i>
-            <span>{{ total_length }} km</span>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-paw"></i>
-            <span>{{ total_species_seen }} species</span>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-paw"></i>
-            <span>{{ photos_count }} photos</span>
-        </div>
-    </div>
+    {% include 'partials/trail_logs/trail-logs-my-stats.html' %}
 
     {% if trail_logs %}
         <div class="feed-container">
             {% for log in trail_logs %}
                 <div class="log-context-trail">
-                    {% include 'partials/trail-excerpt.html' with trail=log.trail %}
+                    {% include 'partials/trails/trail-details-card.html' with trail=log.trail %}
                 </div>
 
-                {% include 'partials/trail-log-card.html' %}
+                {% include 'partials/trail_logs/trail-log-card.html' %}
 
             {% endfor %}
         </div>
@@ -52,7 +31,7 @@
     {% endif %}
 
     {% if is_paginated %}
-        {% include 'partials/pagination.html' %}
+        {% include 'partials/common/pagination.html' %}
     {% endif %}
 
 {% endblock %}

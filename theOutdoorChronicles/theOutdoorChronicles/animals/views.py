@@ -46,7 +46,6 @@ class AnimalDetailsView(LoginRequiredMixin, DetailView):
 
         trail_logs = self.object.trail_logs.all()
         context = paginate_and_add_to_context(trail_logs, context, 'trail_log', self.paginate_by, self.request)
-        context['trail_logs_count'] = trail_logs.count()
 
         photos = self.object.photos.all()
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
@@ -126,4 +125,5 @@ class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 # TODO display user with link everywhere
 # TODO add tests
 # TODO async views
+# TODO add readme
 # TODO deploy

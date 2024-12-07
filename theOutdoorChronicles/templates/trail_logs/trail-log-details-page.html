@@ -8,7 +8,7 @@
     <div class="feed-container">
         <!-- Associated Trail Card -->
         <div class="log-context-trail">
-            {% include 'partials/trail-details-card.html' with trail=trail_log.trail %}
+            {% include 'partials/trails/trail-details-card.html' with trail=trail_log.trail %}
         </div>
 
         <div class="log-header">
@@ -66,7 +66,12 @@
 
         {% if trail_log.animals.count > 0 %}
             <div class="log-section">
-                <h2><i class="fas fa-paw"></i> Wildlife Spotted ({{ trail_log.animals.count }})</h2>
+                <h2>
+                    <i class="fas fa-paw"></i> Wildlife Spotted
+                    <a href="{% url 'trail-log-details-animals' trail_log.pk %}">
+                        ({{ trail_log.animals.count }})
+                    </a>
+                </h2>
                 <div class="animal-tags">
                     {% for animal in trail_log.animals.all %}
                         <span class="animal-tag">{{ animal.species }}, {{ animal.common_name }}</span>
@@ -77,7 +82,12 @@
 
         {% if trail_log.photos.all %}
             <div class="log-section">
-                <h2><i class="fas fa-camera"></i> Photos ({{ trail_log.photos.count }})</h2>
+                <h2>
+                    <i class="fas fa-camera"></i> Photos
+                    <a href="{% url 'trail-log-details-photos' trail_log.pk %}">
+                        ({{ trail_log.photos.count }})
+                    </a>
+                </h2>
                 <div class="photos-grid">
                     {% for photo in trail_log.photos.all %}
                         <div class="photo-item">

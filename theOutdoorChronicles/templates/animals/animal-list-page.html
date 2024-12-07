@@ -25,11 +25,11 @@
             </div>
             <div class="trails-grid">
                 {% for animal in page_obj %}
-                    {% include 'partials/animal-details-card.html' %}
+                    {% include 'partials/animals/animal-details-card.html' %}
                 {% endfor %}
             </div>
             {% if is_paginated %}
-                {% include 'partials/pagination.html' %}
+                {% include 'partials/common/pagination.html' %}
             {% endif %}
         {% else %}
             Display "No species found for: {{ request.GET.search_query }}
@@ -37,11 +37,11 @@
     {% else %}
         <div class="trails-grid">
             {% for animal in page_obj %}
-                {% include 'partials/animal-details-card.html' %}
+                {% include 'partials/animals/animal-details-card.html' %}
             {% endfor %}
         </div>
         {% if is_paginated %}
-            {% include 'partials/pagination.html' %}
+            {% include 'partials/common/pagination.html' %}
         {% endif %}
     {% endif %}
 {% endblock %}

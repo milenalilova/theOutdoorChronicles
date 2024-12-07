@@ -7,14 +7,29 @@
 {% block main_content %}
     <h1>This is the Trail Log Details Photos Page</h1>
 
-    {% if photos %}
-        {% for photo in photos %}
-            <p>
-                {{ photo }}
-            </p>
-        {% endfor %}
-    {% else %}
-        No photos uploaded for this log!
-    {% endif %}
+    {% include 'partials/trail_logs/trail-log-details-buttons.html' %}
 
+    <div class="feed-header">
+        <h1>Log's Photos</h1>
+        <p class="feed-subtitle">Your hiking adventures</p>
+    </div>
+    {% if photos %}
+        
+        <div class="feed-stats">
+            <div class="stat-item">
+                <i class="fas fa-paw"></i>
+                <span>{{ photos.count }} photos</span>
+            </div>
+        </div>
+
+        <div class="trails-grid">
+            {% for photo in photos %}
+                {% include 'partials/photos/photo-card.html' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>
+            No Photos!
+        </div>
+    {% endif %}
 {% endblock %}

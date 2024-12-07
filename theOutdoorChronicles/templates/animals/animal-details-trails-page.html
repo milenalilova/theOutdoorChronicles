@@ -7,11 +7,19 @@
 {% block main_content %}
     <h1>This is the Animal Trails Page</h1>
 
-    {% include 'partials/animal-details-buttons.html' %}
+    {% include 'partials/animals/animal-details-buttons.html' %}
+
+    <div class="feed-header">
+        <h1>All Users Trails</h1>
+        <p class="feed-subtitle">All Users Trails</p>
+    </div>
+
+    {% include 'partials/animals/animal-public-stats.html' %}
+
     {% if trails_paginated %}
         <div class="trails-grid">
             {% for trail in trails_paginated %}
-                {% include 'partials/trail-details-card.html' %}
+                {% include 'partials/trails/trail-details-card.html' %}
             {% endfor %}
         </div>
     {% else %}
@@ -19,7 +27,7 @@
     {% endif %}
 
     {% if trails_paginated.has_other_pages %}
-        {% include 'partials/pagination.html' with page_obj=trails_paginated page_param=trails_page_param %}
+        {% include 'partials/common/pagination.html' with page_obj=trails_paginated page_param=trails_page_param %}
     {% endif %}
 
 {% endblock %}

@@ -76,8 +76,6 @@ class TrailLogDetailsView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         return TrailLog.objects.select_related('trail').prefetch_related('animals', 'photos')
 
-        # filter(user=self.request.user)  # only log's users can see details
-
     def get_template_names(self):
         if 'animals' in self.request.path:
             return 'trail_logs/trail-log-details-animals-page.html'
@@ -174,10 +172,12 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):
 
         # Paginate photos
         photos = Photo.objects.filter(trail_id=trail_id, user=self.request.user).distinct()
+        context['photos_count'] = photos.count()
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
 
         # Paginate animals
         animals = Animal.objects.filter(trail_logs__in=context['trail_logs']).distinct()
+        context['animals_count'] = animals.count()
         context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
 
         return context
@@ -206,12 +206,16 @@ class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # every time th
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        animal = get_object_or_404(Animal, id=self.kwargs['animal_id'])
 
+        animal = get_object_or_404(Animal, id=self.kwargs['animal_id'])
         context['animal'] = animal
-        context['trails'] = Trail.objects.filter(trail_logs__in=context['trail_logs']).distinct()
+
+        trails = Trail.objects.filter(trail_logs__in=context['trail_logs']).distinct()
+        context['trails'] = trails
+        context['trails_count'] = trails.count()
 
         photos = Photo.objects.filter(animal=animal, user=self.request.user)
+        context['photos_count'] = photos.count()
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
 
         return context
@@ -242,6 +246,9 @@ class TrailLogEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
+
+
+#     TODO add option to delete photos from log
 
 
 class TrailLogDeleteView(LoginRequiredMixin, DeleteView):

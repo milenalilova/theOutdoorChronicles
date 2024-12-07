@@ -6,18 +6,20 @@
 
 {% block main_content %}
     <h1>This is the Specific Trail Animals Page</h1>
-    -------------------------------------
-    <p>
-        {{ trail }}
-    </p>
-    -------------------------------------
 
-    {% include 'partials/trail-logs-specific-trail-buttons.html' %}
+    {% include 'partials/trail_logs/trail-logs-specific-trail-buttons.html' %}
+    
+     <div class="feed-header">
+        <h1>My Animals</h1>
+        <p class="feed-subtitle">My Animals</p>
+    </div>
+    
+        {% include 'partials/trail_logs/trail-logs-specific-trail-stats.html' %}
     
     {% if animals_paginated %}
         <div class="trails-grid">
         {% for animal in animals_paginated %}
-            {% include 'partials/animal-details-card.html' %}
+            {% include 'partials/animals/animal-details-card.html' %}
         {% endfor %}
     {% else %}
         No Animals Spotted Yet!
@@ -25,7 +27,7 @@
 </div>
 
     {% if animals_paginated.has_other_pages %}
-        {% include 'partials/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
+        {% include 'partials/common/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
     {% endif %}
 
 {% endblock %}

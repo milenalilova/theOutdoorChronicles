@@ -7,31 +7,24 @@
 {% block main_content %}
     <h1>This is the Animal Trail Logs Page</h1>
 
-    {% include 'partials/animal-details-buttons.html' %}
+    {% include 'partials/animals/animal-details-buttons.html' %}
 
     <div class="feed-header">
         <h1>All Users Logs</h1>
         <p class="feed-subtitle">All Users Logs</p>
     </div>
 
-    <div class="feed-stats">
-        <div class="stat-item">
-            <i class="fas fa-hiking"></i>
-            <span>{{ public_stats.total_logs }} logs </span>
-        </div>
-        <div class="stat-item">
-            <i class="fas fa-route"></i>
-            <span>{{ public_stats.total_observers }} observers</span>
-        </div>
-    </div>
+    {% include 'partials/animals/animal-public-stats.html' %}
+
     {% if trail_logs_paginated %}
         <div class="feed-container">
             {% for log in trail_logs_paginated %}
 
-                {% include 'partials/trail-excerpt.html' with trail=log.trail %}
-                {#            TODO fix excerpt width #}
+                <div class="log-context-trail">
+                    {% include 'partials/trails/trail-details-card.html' with trail=log.trail %}
+                </div>
 
-                {% include 'partials/trail-log-card.html' with trail=log.trail %}
+                {% include 'partials/trail_logs/trail-log-card.html' with trail=log.trail %}
 
             {% endfor %}
         </div>
@@ -40,6 +33,6 @@
     {% endif %}
 
     {% if trail_logs_paginated.has_other_pages %}
-        {% include 'partials/pagination.html' with page_obj=trail_logs_paginated page_param=trail_logs_page_param %}
+        {% include 'partials/common/pagination.html' with page_obj=trail_logs_paginated page_param=trail_logs_page_param %}
     {% endif %}
 {% endblock %}
