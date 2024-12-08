@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Edit Trail Page</h1>
+    <div class="trails-header">
+        <h1>Edit Trail Details</h1>
+        <p class="trails-subtitle">Update the information for this trail</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

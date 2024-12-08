@@ -5,15 +5,13 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Animal Photos Page</h1>
-
-    {% include 'partials/animals/animal-details-buttons.html' %}
-
+    
     <div class="feed-header">
-        <h1>All Users Photos</h1>
-        <p class="feed-subtitle">All Users Photos</p>
+        <h1>All User Photos</h1>
+        <p class="feed-subtitle">Browse photos of this animal shared by users</p>
     </div>
 
+    {% include 'partials/animals/animal-details-buttons.html' %}
     {% include 'partials/animals/animal-public-stats.html' %}
 
     {% if photos_paginated %}

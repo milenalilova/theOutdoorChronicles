@@ -5,15 +5,13 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Animal Trails Page</h1>
-
-    {% include 'partials/animals/animal-details-buttons.html' %}
 
     <div class="feed-header">
-        <h1>All Users Trails</h1>
-        <p class="feed-subtitle">All Users Trails</p>
+        <h1>Trails for This Animal</h1>
+        <p class="feed-subtitle">Explore trails where this animal has been sighted</p>
     </div>
 
+    {% include 'partials/animals/animal-details-buttons.html' %}
     {% include 'partials/animals/animal-public-stats.html' %}
 
     {% if trails_paginated %}

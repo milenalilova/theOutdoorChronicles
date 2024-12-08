@@ -5,22 +5,22 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Specific Animal Trails Page</h1>
+
+    <div class="feed-header">
+        <h1>My Trails with This Animal</h1>
+        <p class="feed-subtitle">All the trails where you've logged sightings of this animal</p>
+    </div>
 
     {% include 'partials/trail_logs/trail-logs-specific-animal-buttons.html' %}
-       <div class="feed-header">
-        <h1>My Trails</h1>
-        <p class="feed-subtitle">My Trails</p>
-    </div>
-        {% include 'partials/trail_logs/trail-logs-specific-animal-stats.html' %}
+    {% include 'partials/trail_logs/trail-logs-specific-animal-stats.html' %}
 
     <div class="feed-container">
         {% if trails %}
-             <div class="trails-grid">
-            {% for trail in trails %}
-                {% include 'partials/trails/trail-details-card.html' %}
-            {% endfor %}
-        </div>
+            <div class="trails-grid">
+                {% for trail in trails %}
+                    {% include 'partials/trails/trail-details-card.html' %}
+                {% endfor %}
+            </div>
         {% else %}
             <div>
                 You have no trails with that animal!

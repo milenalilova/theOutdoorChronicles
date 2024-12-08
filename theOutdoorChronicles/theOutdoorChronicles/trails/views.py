@@ -118,7 +118,7 @@ class TrailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('trail-list')
     permission_required = 'trails.delete_trail'
 
-    # displays all related data before deletion
+    # Displays all related data before deletion
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['animals'] = self.object.animals.all()

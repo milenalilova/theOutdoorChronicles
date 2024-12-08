@@ -5,15 +5,12 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Trail's Trail Logs Page</h1>
-
-    {% include 'partials/trails/trail-details-buttons.html' %}
-
     <div class="feed-header">
-        <h1>All Users Logs</h1>
-        <p class="feed-subtitle">All Users Logs</p>
+        <h1>All Users' Logs for This Trail</h1>
+        <p class="feed-subtitle">Browse all logs from users related to this trail</p>
     </div>
 
+    {% include 'partials/trails/trail-details-buttons.html' %}
     {% include 'partials/trails/trail-public-stats.html' %}
 
     <div class="feed-container">

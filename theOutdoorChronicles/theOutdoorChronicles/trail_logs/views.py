@@ -242,25 +242,30 @@ class TrailLogEditView(LoginRequiredMixin, UpdateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         form.instance.animals.set(form.cleaned_data['animals_spotted'])
+        form.instance.photos.set(form.cleaned_data['photos_uploaded'])
         return response
 
     def get_success_url(self):
         return reverse_lazy('trail-log-details', kwargs={'trail_log_id': self.object.pk})
 
 
-#     TODO add option to delete photos from log
-
-
 class TrailLogDeleteView(LoginRequiredMixin, DeleteView):
     model = TrailLog
     form_class = TrailLogDeleteForm
     pk_url_kwarg = 'trail_log_id'
+    context_object_name = 'trail_log'
     template_name = 'trail_logs/trail-log-delete-page.html'
     success_url = reverse_lazy('trail-logs-my-logs')
 
     def get_queryset(self):
         return TrailLog.objects.filter(user=self.request.user) \
             .select_related('trail')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['animals_spotted'] = self.object.animals.all()
+        context['photos_uploaded'] = self.object.photos.all()
+        return context
 
     def get_initial(self):
         return self.object.__dict__

@@ -5,10 +5,15 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Edit Photo Page</h1>
+    <div class="feed-header">
+        <h1>Edit Photo</h1>
+        <p class="feed-subtitle">Update the details of your photo</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Edit Photo</button>
     </form>
 {% endblock %}
+
+

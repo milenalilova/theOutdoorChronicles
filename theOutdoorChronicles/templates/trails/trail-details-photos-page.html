@@ -5,15 +5,12 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Trail Photos Page</h1>
-
-    {% include 'partials/trails/trail-details-buttons.html' %}
-
     <div class="feed-header">
-        <h1>All Users Photos</h1>
-        <p class="feed-subtitle">All Users Photos</p>
+        <h1>All Users' Photos on This Trail</h1>
+        <p class="feed-subtitle">Browse all photos taken on this trail</p>
     </div>
 
+    {% include 'partials/trails/trail-details-buttons.html' %}
     {% include 'partials/trails/trail-public-stats.html' %}
 
     {% if photos_paginated %}

@@ -5,17 +5,16 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Specific Animal Photos Page</h1>
+
+    <div class="feed-header">
+        <h1>My Photos of This Animal</h1>
+        <p class="feed-subtitle">Browse all the photos you've taken of this animal</p>
+    </div>
 
     {% include 'partials/trail_logs/trail-logs-specific-animal-buttons.html' %}
-    <div class="feed-header">
-        <h1>My Photos</h1>
-        <p class="feed-subtitle">My Photos</p>
-    </div>
     {% include 'partials/trail_logs/trail-logs-specific-animal-stats.html' %}
 
     <div class="feed-container">
-
         {% if photos_paginated %}
             <div class="trails-grid">
                 {% for photo in photos_paginated %}

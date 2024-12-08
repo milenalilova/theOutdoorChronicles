@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block title %}
@@ -6,11 +5,14 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Delete Animal Page</h1>
+    <div class="trails-header">
+        <h1>Delete Animal</h1>
+        <p class="trails-subtitle">Permanently remove this animal from the database</p>
+    </div>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-    
+
         <h2>Associated Trails:</h2>
         <ul>
             {% for trail in trails %}
@@ -19,7 +21,7 @@
                 <li>No associated trails.</li>
             {% endfor %}
         </ul>
-    
+
         <button type="submit">Delete Animal</button>
     </form>
 {% endblock %}

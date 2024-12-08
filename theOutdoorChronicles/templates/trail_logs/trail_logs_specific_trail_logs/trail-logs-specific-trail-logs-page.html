@@ -5,22 +5,19 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Specific Trail Log Page</h1>
+    <div class="feed-header">
+        <h1>My Logs for This Trail</h1>
+        <p class="feed-subtitle">All logs recorded on this trail</p>
+    </div>
 
     {% include 'partials/trail_logs/trail-logs-specific-trail-buttons.html' %}
-
-    <div class="feed-header">
-        <h1>My Logs</h1>
-        <p class="feed-subtitle">My Logs</p>
-    </div>
-    
     {% include 'partials/trail_logs/trail-logs-specific-trail-stats.html' %}
 
     <div class="feed-container">
         <div class="log-context-trail">
             {% include 'partials/trails/trail-details-card.html' with trail=trail %}
         </div>
-    
+
         {% if trail_logs %}
             {% for log in trail_logs %}
                 {% include 'partials/trail_logs/trail-log-card.html' %}

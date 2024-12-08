@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Edit Animal Page</h1>
+    <div class="trails-header">
+        <div class="trails-header">
+            <h1>Edit Animal Details</h1>
+            <p class="trails-subtitle">Update the information for this animal</p>
+        </div>
+
+        <p class="trails-subtitle">Update the information for this animal</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

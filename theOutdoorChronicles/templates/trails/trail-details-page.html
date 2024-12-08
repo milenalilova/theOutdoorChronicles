@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block main_content %}
+    <div class="feed-header">
+        <h1>Trail Details</h1>
+        <p class="feed-subtitle">View detailed information and stats for this trail</p>
+    </div>
+
     <div class="trail-details-container">
         <!-- Hero Image Section -->
         <div class="trail-hero">
@@ -108,7 +113,7 @@
                         <i class="fas fa-clock"></i>
                         <div class="stat-content">
                             <span class="stat-label">Average Duration</span>
-                            <span class="stat-value">{{ public_stats.avg_duration}} hrs</span>
+                            <span class="stat-value">{{ public_stats.avg_duration }} hrs</span>
                         </div>
                     </div>
                 {% endif %}

@@ -1,6 +1,7 @@
 from django import forms
 
 from theOutdoorChronicles.animals.models import Animal
+from theOutdoorChronicles.photos.models import Photo
 from theOutdoorChronicles.trail_logs.models import TrailLog
 
 
@@ -22,7 +23,11 @@ class TrailLogBaseForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-list'})
     )
 
-    # TODO add the uploaded photos to the edit form
+    photos_uploaded = forms.ModelMultipleChoiceField(
+        required=False,
+        queryset=Photo.objects.none(),
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-list'})
+    )
 
     class Meta:
         model = TrailLog
@@ -34,6 +39,8 @@ class TrailLogBaseForm(forms.ModelForm):
         if isinstance(trail_log, TrailLog):
             self.fields['animals_spotted'].queryset = trail_log.trail.animals.all()
             self.fields['animals_spotted'].initial = trail_log.animals.all()
+            self.fields['photos_uploaded'].queryset = trail_log.photos.all()
+            self.fields['photos_uploaded'].initial = trail_log.photos.all()
 
 
 class TrailLogCreateForm(TrailLogBaseForm):
@@ -52,5 +59,11 @@ class TrailLogDeleteForm(TrailLogBaseForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        if 'animals_spotted' in self.fields:
+            del self.fields['animals_spotted']
+        if 'photos_uploaded' in self.fields:
+            del self.fields['photos_uploaded']
+
         for _, field in self.fields.items():
             field.widget.attrs['readonly'] = 'readonly'

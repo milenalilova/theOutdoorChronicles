@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block main_content %}
+    <div class="feed-header">
+        <h1>Photo Details</h1>
+        <p class="feed-subtitle">View details and information about this photo</p>
+    </div>
+
     <div class="trail-details-container">
         <!-- Hero Image Section -->
         <div class="trail-hero">
             <img src="{{ photo.image.url }}" alt="{{ photo.trail.name }}'s picture">
-            <div class="trail-difficulty">
-                {{ photo.date_uploaded|date:"d M Y" }}
-            </div>
         </div>
 
         <!-- Key Statistics -->

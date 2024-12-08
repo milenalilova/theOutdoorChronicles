@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block main_content %}
+    <div class="trails-header">
+        <h1>Explore Stunning Photos</h1>
+        <p class="trails-subtitle">Discover the beauty of nature through photos</p>
+    </div>
     <div class="trails-grid">
         {% for photo in photos %}
             {% include 'partials/photos/photo-card.html' %}

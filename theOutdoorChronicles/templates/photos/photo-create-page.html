@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Create Photo Page</h1>
+    <div class="feed-header">
+        <h1>Upload a Photo</h1>
+        <p class="feed-subtitle">Share your photos with the community</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Create Animal Page</h1>
+    <div class="trails-header">
+        <h1>Create a New Animal</h1>
+        <p class="trails-subtitle">Add a new animal to the database with detailed information</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

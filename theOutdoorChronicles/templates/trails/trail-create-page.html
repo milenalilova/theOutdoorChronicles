@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Create Trail Page</h1>
+    <div class="feed-header">
+        <h1>Create a New Trail</h1>
+        <p class="feed-subtitle">Add a new trail to the database with detailed information</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

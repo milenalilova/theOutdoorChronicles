@@ -5,17 +5,15 @@
 {% endblock %}
 
 {% block main_content %}
-
-    {% include 'partials/trail_logs/trail-logs-my-buttons.html' %}
-
+    
     <div class="feed-header">
         <h1>Your Journey Trails</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
-
+    
+    {% include 'partials/trail_logs/trail-logs-my-buttons.html' %}
     {% include 'partials/trail_logs/trail-logs-my-stats.html' %}
-
-
+    
         {% if trails_paginated %}
             <div class="trails-grid">
                 {% for trail in trails_paginated %}

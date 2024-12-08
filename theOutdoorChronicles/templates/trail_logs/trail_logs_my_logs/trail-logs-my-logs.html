@@ -5,27 +5,26 @@
 {% endblock %}
 
 {% block main_content %}
-
-    {% include 'partials/trail_logs/trail-logs-my-buttons.html' %}
-
+    
     <div class="feed-header">
         <h1>Your Journey Logs</h1>
         <p class="feed-subtitle">Your hiking adventures</p>
     </div>
 
+    {% include 'partials/trail_logs/trail-logs-my-buttons.html' %}
     {% include 'partials/trail_logs/trail-logs-my-stats.html' %}
 
     <div class="feed-container">
 
         {% if trail_logs %}
-                {% for log in trail_logs %}
-                    <div class="log-context-trail">
-                        {% include 'partials/trails/trail-details-card.html' with trail=log.trail %}
-                    </div>
+            {% for log in trail_logs %}
+                <div class="log-context-trail">
+                    {% include 'partials/trails/trail-details-card.html' with trail=log.trail %}
+                </div>
 
-                    {% include 'partials/trail_logs/trail-log-card.html' %}
+                {% include 'partials/trail_logs/trail-log-card.html' %}
 
-                {% endfor %}
+            {% endfor %}
         {% else %}
             No Logs Yet!
         {% endif %}

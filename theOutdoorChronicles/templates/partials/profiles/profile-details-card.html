@@ -32,7 +32,7 @@
     </div>
 
     <!-- Action Buttons -->
-    {% if trail_log.user == request.user %}
+    {% if profile.user == request.user %}
         <div class="trail-actions">
             <a href="{% url 'edit-profile' user.pk %}" class="action-button edit">
                 <i class="fas fa-edit"></i> Edit Profile
@@ -42,5 +42,4 @@
             </a>
         </div>
     {% endif %}
-
 </div>

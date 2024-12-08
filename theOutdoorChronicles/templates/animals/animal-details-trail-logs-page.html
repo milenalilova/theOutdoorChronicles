@@ -5,27 +5,22 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Animal Trail Logs Page</h1>
-
-    {% include 'partials/animals/animal-details-buttons.html' %}
 
     <div class="feed-header">
-        <h1>All Users Logs</h1>
-        <p class="feed-subtitle">All Users Logs</p>
+        <h1>All User Logs</h1>
+        <p class="feed-subtitle">View logs of sightings and interactions with this animal</p>
     </div>
 
+    {% include 'partials/animals/animal-details-buttons.html' %}
     {% include 'partials/animals/animal-public-stats.html' %}
 
     {% if trail_logs_paginated %}
         <div class="feed-container">
             {% for log in trail_logs_paginated %}
-
                 <div class="log-context-trail">
                     {% include 'partials/trails/trail-details-card.html' with trail=log.trail %}
                 </div>
-
                 {% include 'partials/trail_logs/trail-log-card.html' with trail=log.trail %}
-
             {% endfor %}
         </div>
     {% else %}

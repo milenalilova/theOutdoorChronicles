@@ -5,14 +5,13 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Trail Log Details Animals Page</h1>
+    <div class="trails-header">
+        <h1>Animals in Your Log</h1>
+        <p class="trails-subtitle">View the animals spotted during this trail</p>
+    </div>
 
     {% include 'partials/trail_logs/trail-log-details-buttons.html' %}
-
-    <div class="feed-header">
-        <h1>Log's Animals</h1>
-        <p class="feed-subtitle">Your hiking adventures</p>
-    </div>
+    
     {% if animals %}
         <div class="feed-stats">
             <div class="stat-item">

@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Delete Photo Page</h1>
+    <div class="feed-header">
+        <h1>Delete Photo</h1>
+        <p class="feed-subtitle">Permanently remove this photo from your collection</p>
+    </div>
+    
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -19,7 +23,7 @@
                 {{ photo.animal }}
             </ul>
         {% endif %}
-    
+
         {% if photo.trail_logs.all %}
             <p>Associated Trail Logs:</p>
             <ul>
@@ -28,7 +32,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
-    
+
         <button type="submit">Delete Photo</button>
     </form>
 {% endblock %}

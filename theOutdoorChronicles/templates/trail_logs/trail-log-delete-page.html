@@ -5,10 +5,37 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Delete Trail Log Page</h1>
+    <div class="trails-header">
+        <h1>Delete Your Log</h1>
+        <p class="trails-subtitle">Permanently remove this entry
+            for {{ trail_log.trail }} from your journey</p>
+    </div>
+    <div class="trails-header">
+        {% if photos_uploaded %}
+            <h3>Related Data to be Deleted:</h3>
+            <ul>
+                <li>
+                    <strong>Photos:</strong>
+                    <a href="{% url 'trail-log-details-photos' trail_log.pk %}">(View {{ photos_uploaded.count }})</a>
+                </li>
+            </ul>
+        {% endif %}
+
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Delete Log</button>
+
+        <h2>Associated Animals:</h2>
+        <ul>
+            {% for animal in animals_spotted %}
+                <li>{{ animal.species }}; {{ animal.common_name }}</li>
+            {% empty %}
+                <li>No animals are associated with this trail.</li>
+            {% endfor %}
+        </ul>
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'trail-logs-my-logs' %}" class="btn btn-secondary">Cancel</a>
+
     </form>
 {% endblock %}

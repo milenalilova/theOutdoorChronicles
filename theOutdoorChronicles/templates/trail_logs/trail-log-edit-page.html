@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Edit Log Page</h1>
+
+    <div class="trails-header">
+        <h1>Edit Your Log</h1>
+        <p class="trails-subtitle">Update your journey on {{ traillog.trail.name }}, {{ traillog.trail.location }}</p>
+    </div>
+
     <form method="post" enctype="multipart/form-data">
-        <p>Trail log edit for: {{ traillog.trail.name }}</p>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit"> Edit Log</button>

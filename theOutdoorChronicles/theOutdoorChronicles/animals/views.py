@@ -113,7 +113,7 @@ class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('animal-list')
     permission_required = 'animals.delete_animal'
 
-    # gets trails the animal is found on, so they can be displayed before deletion
+    # Gets trails the animal is found on, so they can be displayed before deletion
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['trails'] = self.object.trails.all()
@@ -122,7 +122,8 @@ class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     def get_initial(self):
         return self.object.__dict__
 
-# TODO display user with link everywhere
+#     TODO maybe display all related photos as well before delete
+
 # TODO add tests
 # TODO async views
 # TODO add readme

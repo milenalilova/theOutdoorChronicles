@@ -7,13 +7,14 @@
 {% block main_content %}
 
     <div class="trails-header">
-        <h1>Log your experience at {{ trail.name }}, {{ trail.location }}</h1>
+        <h1>Log Your Experience</h1>
+    
         {% if not previous_logs_count %}
-            <p class="trails-subtitle">You have not been here before </p>
+            <p class="trails-subtitle">You have not been on {{ trail.name }}, {{ trail.location }} before </p>
         {% elif previous_logs_count == 1 %}
-            <p class="trails-subtitle">You have been here once before </p>
+            <p class="trails-subtitle">You have been on {{ trail.name }}, {{ trail.location }} once before </p>
         {% else %}
-            <p class="trails-subtitle">You have been here {{ previous_logs_count }} times before </p>
+            <p class="trails-subtitle">You have been on {{ trail.name }}, {{ trail.location }} {{ previous_logs_count }} times before </p>
         {% endif %}
     </div>
 

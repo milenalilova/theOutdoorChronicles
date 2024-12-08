@@ -5,26 +5,28 @@
 {% endblock %}
 
 {% block main_content %}
-    <h1>This is the Specific Trail Animals Page</h1>
+    <div class="feed-header">
+        <h1>My Animals Logged on This Trail</h1>
+        <p class="feed-subtitle">All the animals spotted and logged on this trail</p>
+    </div>
 
     {% include 'partials/trail_logs/trail-logs-specific-trail-buttons.html' %}
-    
-     <div class="feed-header">
-        <h1>My Animals</h1>
-        <p class="feed-subtitle">My Animals</p>
+    {% include 'partials/trail_logs/trail-logs-specific-trail-stats.html' %}
+
+    <div class="feed-container">
+        {% if animals_paginated %}
+            <div class="trails-grid">
+                {% for animal in animals_paginated %}
+                    {% include 'partials/animals/animal-details-card.html' %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>
+                No Animals Spotted Yet!
+            </div>
+        {% endif %}
     </div>
-    
-        {% include 'partials/trail_logs/trail-logs-specific-trail-stats.html' %}
-    
-    {% if animals_paginated %}
-        <div class="trails-grid">
-        {% for animal in animals_paginated %}
-            {% include 'partials/animals/animal-details-card.html' %}
-        {% endfor %}
-    {% else %}
-        No Animals Spotted Yet!
-    {% endif %}
-</div>
+
 
     {% if animals_paginated.has_other_pages %}
         {% include 'partials/common/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
