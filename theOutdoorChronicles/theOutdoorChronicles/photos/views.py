@@ -1,5 +1,6 @@
 import os
 
+from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django import forms
@@ -100,9 +101,6 @@ class PhotoListView(LoginRequiredMixin, ListView):
     context_object_name = 'photos'
     paginate_by = 9
     template_name = 'photos/photo-list-page.html'
-
-
-#     TODO this view maybe unnecessary
 
 
 class PhotoEditView(LoginRequiredMixin, UpdateView):

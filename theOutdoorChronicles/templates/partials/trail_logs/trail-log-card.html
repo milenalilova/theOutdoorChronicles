@@ -4,12 +4,12 @@
             <div>
                 <h2>{{ log.title }}</h2>
                 <span class="log-date">
-                <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
-            </span>
+                    <i class="fas fa-calendar"></i> {{ log.date_completed|date:"j F Y" }}
+                </span>
             </div>
             <div>
             <span class="log-date">
-                <i class="fas fa-user"></i> 
+                <i class="fas fa-user"></i>
                By <a href="{% url 'profile-details' log.user.profile.pk %}" class="user-profile-link">
                     {{ log.user.profile.get_display_name }}
                 </a>

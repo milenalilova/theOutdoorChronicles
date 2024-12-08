@@ -14,15 +14,6 @@
             </div>
         </div>
 
-        <!-- Photo Information -->
-        {#        <div class="trail-info-container">#}
-        {#            <div class="trail-header">#}
-        {#                <h1>{{ photo.trail.name }}</h1>#}
-        {#                <p class="trail-location">#}
-        {#                    <i class="fas fa-user"></i> Photo by {{ photo.user.username }}#}
-        {#                </p>#}
-        {#            </div>#}
-
         <!-- Key Statistics -->
         <div class="trail-stats-card">
             <div class="stat-item">
@@ -81,19 +72,20 @@
                         <a href="{% url 'trail-log-details' trail_log.pk %}">
                             <strong>{{ trail_log.title }}</strong>
                         </a>
-                        {#                         ({{ trail_log.date_completed|date:"d M Y" }})#}
                     {% endfor %}
                 </ul>
             </div>
         {% endif %}
-        <div class="trail-actions">
-            <a href="{% url 'photo-edit' photo.pk %}" class="action-button edit">
-                <i class="fas fa-edit"></i> Edit Photo
-            </a>
-            <a href="{% url 'photo-delete' photo.pk %}" class="action-button delete">
-                <i class="fas fa-trash-alt"></i> Delete Photo
-            </a>
-        </div>
+        {% if photo.user == request.user %}
+            <div class="trail-actions">
+                <a href="{% url 'photo-edit' photo.pk %}" class="action-button edit">
+                    <i class="fas fa-edit"></i> Edit Photo
+                </a>
+                <a href="{% url 'photo-delete' photo.pk %}" class="action-button delete">
+                    <i class="fas fa-trash-alt"></i> Delete Photo
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
