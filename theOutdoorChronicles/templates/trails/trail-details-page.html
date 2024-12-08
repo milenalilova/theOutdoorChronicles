@@ -103,12 +103,12 @@
                     </div>
                 {% endif %}
 
-                {% if public_stats.avg_duration > 0 %}
+                {% if public_stats.avg_duration %}
                     <div class="stat-item">
                         <i class="fas fa-clock"></i>
                         <div class="stat-content">
                             <span class="stat-label">Average Duration</span>
-                            <span class="stat-value">{{ public_stats.avg_duration }} hrs</span>
+                            <span class="stat-value">{{ public_stats.avg_duration}} hrs</span>
                         </div>
                     </div>
                 {% endif %}
@@ -147,4 +147,6 @@
             </div>
         </div>
     </div>
+
+    <div>Avg Duration: {{ public_stats.avg_duration }}</div>
 {% endblock %}

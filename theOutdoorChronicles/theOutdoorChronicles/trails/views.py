@@ -40,6 +40,8 @@ class TrailDetailsView(LoginRequiredMixin, DetailView):
             total_logs=Count('id'),
             avg_duration=Avg('duration') or timedelta(0),
         )
+        formatted_avg_duration = str(public_stats['avg_duration']).split('.')[0]
+        public_stats['avg_duration'] = formatted_avg_duration
 
         context['public_stats'] = public_stats
         context['trail'] = self.object

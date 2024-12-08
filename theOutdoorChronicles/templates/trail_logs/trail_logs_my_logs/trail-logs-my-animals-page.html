@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Trail Logs Animals
+{% endblock %}
+
+{% block main_content %}
+
+    {% include 'partials/trail_logs/trail-logs-my-buttons.html' %}
+
+    <div class="feed-header">
+        <h1>Your Journey Animals</h1>
+        <p class="feed-subtitle">Your hiking adventures</p>
+    </div>
+
+    {% include 'partials/trail_logs/trail-logs-my-stats.html' %}
+
+
+        {% if animals_paginated %}
+            <div class="trails-grid">
+                {% for animal in animals_paginated %}
+                    {% include 'partials/animals/animal-details-card.html' %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>
+                No Animals!
+            </div>
+        {% endif %}
+    {% if is_paginated %}
+        {% include 'partials/common/pagination.html' with page_obj=animals_paginated page_param=animals_page_param %}
+    {% endif %}
+    
+{% endblock %}

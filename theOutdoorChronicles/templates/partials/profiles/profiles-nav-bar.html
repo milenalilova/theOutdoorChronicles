@@ -4,7 +4,7 @@
 
             {% if user.is_authenticated %}
                 
-                <a href="{% url 'trail-logs-list' %}">View My Logs</a>
+                <a href="{% url 'trail-logs-my-logs' %}">View My Logs</a>
 
                 {% if perms.trails.add_trail %}
                     <a href="{% url 'trail-create' %}">Create Trail</a>

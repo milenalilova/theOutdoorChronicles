@@ -8,24 +8,26 @@
     <h1>This is the Specific Animal Photos Page</h1>
 
     {% include 'partials/trail_logs/trail-logs-specific-animal-buttons.html' %}
-       <div class="feed-header">
+    <div class="feed-header">
         <h1>My Photos</h1>
         <p class="feed-subtitle">My Photos</p>
     </div>
-        {% include 'partials/trail_logs/trail-logs-specific-animal-stats.html' %}
+    {% include 'partials/trail_logs/trail-logs-specific-animal-stats.html' %}
 
+    <div class="feed-container">
 
-    {% if photos_paginated %}
-        <div class="trails-grid">
-            {% for photo in photos_paginated %}
-                {% include 'partials/photos/photo-card.html' %}
-            {% endfor %}
-        </div>
-    {% else %}
-        <div>
-            No Photos Taken Yet!
-        </div>
-    {% endif %}
+        {% if photos_paginated %}
+            <div class="trails-grid">
+                {% for photo in photos_paginated %}
+                    {% include 'partials/photos/photo-card.html' %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>
+                No Photos Taken Yet!
+            </div>
+        {% endif %}
+    </div>
 
     {% if photos_paginated.has_other_pages %}
         {% include 'partials/common/pagination.html' with page_obj=photos_paginated page_param=photos_page_param %}

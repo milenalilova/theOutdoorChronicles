@@ -65,7 +65,7 @@ class TrailLogDetailsView(LoginRequiredMixin, DetailView):
     model = TrailLog
     context_object_name = 'trail_log'
     pk_url_kwarg = 'trail_log_id'
-    template_name = 'trail_logs/trail-log-details-page.html'
+    template_name = 'trail_logs/trail_log_details/trail-log-details-page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -78,18 +78,18 @@ class TrailLogDetailsView(LoginRequiredMixin, DetailView):
 
     def get_template_names(self):
         if 'animals' in self.request.path:
-            return 'trail_logs/trail-log-details-animals-page.html'
+            return 'trail_logs/trail_log_details/trail-log-details-animals-page.html'
         elif 'photos' in self.request.path:
-            return 'trail_logs/trail-log-details-photos-page.html'
+            return 'trail_logs/trail_log_details/trail-log-details-photos-page.html'
         else:
             return self.template_name
 
 
-class TrailLogListView(LoginRequiredMixin, ListView):  # all hiking user experience
+class TrailLogListView(LoginRequiredMixin, ListView):  # All hiking user experience
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
-    template_name = 'trail_logs/trail-logs-list-page.html'
+    template_name = 'trail_logs/trail_logs_my_logs/trail-logs-my-logs.html'
 
     def get_queryset(self):
         return TrailLog.objects.filter(user=self.request.user) \
@@ -105,11 +105,11 @@ class TrailLogListView(LoginRequiredMixin, ListView):  # all hiking user experie
             .distinct() \
             .count()
 
-        # uses reverse relation from Trail
+        # Uses reverse relation from Trail
         total_length = Trail.objects.filter(trail_logs__user=self.request.user) \
                            .aggregate(total_length=Sum('length'))['total_length'] or 0
 
-        # uses reverse relation from Animal
+        # Uses reverse relation from Animal
         total_species_seen = Animal.objects.filter(trail_logs__user=self.request.user) \
             .distinct() \
             .count()
@@ -137,11 +137,11 @@ class TrailLogListView(LoginRequiredMixin, ListView):  # all hiking user experie
 
     def get_template_names(self):
         if 'trails' in self.request.path:
-            return 'trail_logs/trail-logs-trails-page.html'
+            return 'trail_logs/trail_logs_my_logs/trail-logs-my-trails-page.html'
         elif 'animals' in self.request.path:
-            return 'trail_logs/trail-logs-animals-page.html'
+            return 'trail_logs/trail_logs_my_logs/trail-logs-my-animals-page.html'
         elif 'photos' in self.request.path:
-            return 'trail_logs/trail-logs-photos-page.html'
+            return 'trail_logs/trail_logs_my_logs/trail-logs-my-photos-page.html'
         else:
             return self.template_name
 
@@ -150,7 +150,7 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
-    template_name = 'trail_logs/trail-logs-specific-trail-logs-page.html'
+    template_name = 'trail_logs/trail_logs_specific_trail_logs/trail-logs-specific-trail-logs-page.html'
 
     def get_queryset(self):
         trail_id = self.kwargs.get('trail_id')
@@ -184,9 +184,9 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):
 
     def get_template_names(self):
         if 'animals' in self.request.path:
-            return 'trail_logs/trail-logs-specific-trail-animals-page.html'
+            return 'trail_logs/trail_logs_specific_trail_logs/trail-logs-specific-trail-animals-page.html'
         elif 'photos' in self.request.path:
-            return 'trail_logs/trail-logs-specific-trail-photos-page.html'
+            return 'trail_logs/trail_logs_specific_trail_logs/trail-logs-specific-trail-photos-page.html'
         else:
             return self.template_name
 
@@ -195,7 +195,7 @@ class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # every time th
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
-    template_name = 'trail_logs/trail-logs-specific-animal-logs-page.html'
+    template_name = 'trail_logs/trail_logs_specific_animal_logs/trail-logs-specific-animal-logs-page.html'
 
     def get_queryset(self):
         animal_id = self.kwargs['animal_id']
@@ -222,9 +222,9 @@ class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # every time th
 
     def get_template_names(self):
         if 'trails' in self.request.path:
-            return 'trail_logs/trail-logs-specific-animal-trails-page.html'
+            return 'trail_logs/trail_logs_specific_animal_logs/trail-logs-specific-animal-trails-page.html'
         elif 'photos' in self.request.path:
-            return 'trail_logs/trail-logs-specific-animal-photos-page.html'
+            return 'trail_logs/trail_logs_specific_animal_logs/trail-logs-specific-animal-photos-page.html'
         else:
             return self.template_name
 
@@ -256,7 +256,7 @@ class TrailLogDeleteView(LoginRequiredMixin, DeleteView):
     form_class = TrailLogDeleteForm
     pk_url_kwarg = 'trail_log_id'
     template_name = 'trail_logs/trail-log-delete-page.html'
-    success_url = reverse_lazy('trail-logs-list')
+    success_url = reverse_lazy('trail-logs-my-logs')
 
     def get_queryset(self):
         return TrailLog.objects.filter(user=self.request.user) \

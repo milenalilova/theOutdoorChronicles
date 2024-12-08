@@ -18,5 +18,3 @@ urlpatterns = [
         path('upload-photo/', photos_views.PhotoCreateView.as_view(), name='animals-photo-upload')
     ])),
 ]
-
-# TODO possibly add slugs
