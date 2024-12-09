@@ -122,8 +122,6 @@ class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     def get_initial(self):
         return self.object.__dict__
 
-#     TODO maybe display all related photos as well before delete
-
 # TODO add tests
 # TODO async views
 # TODO add readme
