@@ -13,12 +13,12 @@
     <div class="trails-header">
         {% if photos_uploaded %}
             <h3>Related Data to be Deleted:</h3>
-            <ul>
-                <li>
+            <div>
+                <p>
                     <strong>Photos:</strong>
                     <a href="{% url 'trail-log-details-photos' trail_log.pk %}">(View {{ photos_uploaded.count }})</a>
-                </li>
-            </ul>
+                </p>
+            </div>
         {% endif %}
 
     </div>
@@ -27,13 +27,13 @@
         {{ form.as_p }}
 
         <h2>Associated Animals:</h2>
-        <ul>
+        <div>
             {% for animal in animals_spotted %}
                 <li>{{ animal.species }}; {{ animal.common_name }}</li>
             {% empty %}
                 <li>No animals are associated with this trail.</li>
             {% endfor %}
-        </ul>
+        </div>
         <button type="submit" class="btn btn-danger">Confirm Delete</button>
         <a href="{% url 'trail-logs-my-logs' %}" class="btn btn-secondary">Cancel</a>
 

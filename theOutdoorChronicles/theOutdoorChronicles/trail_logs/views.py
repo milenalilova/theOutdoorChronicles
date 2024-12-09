@@ -123,7 +123,7 @@ class TrailLogListView(LoginRequiredMixin, ListView):  # All hiking user experie
         animals = Animal.objects.filter(trail_logs__user=self.request.user).distinct()
         context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
 
-        # photos are not always related to a trail_log
+        # Photos are not always related to a trail_log
         photos = Photo.objects.filter(user=self.request.user)
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
 
@@ -146,7 +146,7 @@ class TrailLogListView(LoginRequiredMixin, ListView):  # All hiking user experie
             return self.template_name
 
 
-class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):
+class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):  # Every time the user hiked this trail
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3
@@ -191,7 +191,7 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):
             return self.template_name
 
 
-class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # every time the user logged this animal
+class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # Every time the user logged this animal
     model = TrailLog
     context_object_name = 'trail_logs'
     paginate_by = 3

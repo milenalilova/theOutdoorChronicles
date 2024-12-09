@@ -14,13 +14,13 @@
         {{ form.as_p }}
 
         <h2>Associated Trails:</h2>
-        <ul>
+        <div>
             {% for trail in trails %}
                 <li>{{ trail.name }}</li>
             {% empty %}
                 <li>No associated trails.</li>
             {% endfor %}
-        </ul>
+        </div>
 
         <button type="submit">Delete Animal</button>
     </form>

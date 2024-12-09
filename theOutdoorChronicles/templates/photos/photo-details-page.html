@@ -69,13 +69,13 @@
         {% if photo.trail_logs.all %}
             <div class="trail-logs-card">
                 <h2>Trail Logs</h2>
-                <ul>
+                <div>
                     {% for trail_log in photo.trail_logs.all %}
                         <a href="{% url 'trail-log-details' trail_log.pk %}">
                             <strong>{{ trail_log.title }}</strong>
                         </a>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         {% endif %}
         {% if photo.user == request.user %}

@@ -19,18 +19,18 @@
 
         {% if photo.animal %}
             <p>Associated Animal:</p>
-            <ul>
+            <div>
                 {{ photo.animal }}
-            </ul>
+            </div>
         {% endif %}
 
         {% if photo.trail_logs.all %}
             <p>Associated Trail Logs:</p>
-            <ul>
+            <div>
                 {% for trail_log in trail_logs.all %}
                     <li>{{ trail_log.title }}</li>
                 {% endfor %}
-            </ul>
+            </div>
         {% endif %}
 
         <button type="submit">Delete Photo</button>
