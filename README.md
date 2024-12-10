@@ -12,8 +12,7 @@ In addition to browsing the curated content, users can log their own trail exper
   ` https://github.com/milenalilova/theOutdoorChronicles.git `
 - Install dependencies
   ` pip install -r requirements.txt `
-- Settings
-  For environment variables please use the Google Docs file provided with the survey
+- Settings - for environment variables please use the Google Docs file provided with the survey
 
 ## Features
 - **Explore Trails**: Explore detailed profiles of hiking trails and the wildlife associated with them, together with recorded user experiences, statistics, and photographs.
