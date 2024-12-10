@@ -51,6 +51,9 @@ class Animal(models.Model):
         related_name='animals'
     )
 
+    class Meta:
+        ordering = ['pk']
+
     def get_absolute_url(self):
         return reverse('animal-details', kwargs={'animal_id': self.pk})
 

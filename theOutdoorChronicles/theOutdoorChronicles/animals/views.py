@@ -123,8 +123,6 @@ class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
         return self.object.__dict__
 
 
-# TODO add Footer
 # TODO add tests
 # TODO async views
-# TODO add readme
 # TODO deploy

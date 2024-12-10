@@ -43,6 +43,8 @@ class Photo(models.Model):
         related_name='photos'
     )
 
+    class Meta:
+        ordering = ['pk']
+
     def __str__(self):
         return f"{self.trail.name}_{self.pk}"
-

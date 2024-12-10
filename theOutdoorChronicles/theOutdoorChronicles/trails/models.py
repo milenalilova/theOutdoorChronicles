@@ -66,9 +66,11 @@ class Trail(models.Model):
         blank=False
     )
 
+    class Meta:
+        ordering = ['pk']
+
     def get_absolute_url(self):
         return reverse('trail-details', kwargs={'trail_id': self.pk})
 
     def __str__(self):
         return f"{self.name}, {self.location}"
-
