@@ -53,4 +53,6 @@ In addition to browsing the curated content, users can log their own trail exper
 - CSS
 - HTML
 - Pillow
+- JavaScript
+- Leaflet
 
