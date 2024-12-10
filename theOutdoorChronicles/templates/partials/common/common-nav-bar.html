@@ -5,16 +5,15 @@
 
             {% if not user.is_authenticated %}
                 <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'about-page' %}">About</a>
             {% else %}
 
                 <a href="{% url 'trail-list' %}">Explore Trails</a>
                 <a href="{% url 'animal-list' %}">Explore Animals</a>
                 <a href="{% url 'photo-list' %}">Explore Photos</a>
-
                 <a href="{% url 'map-page' %}">Map</a>
                 <a href="{% url 'about-page' %}">About</a>
-
-
+                
                 <form action="{% url 'logout' %}" method="post" style="display: inline">
                     {% csrf_token %}
                     <button type="submit" class="navbar-link">Logout</button>
