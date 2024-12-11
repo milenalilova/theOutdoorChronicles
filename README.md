@@ -35,7 +35,7 @@ In addition to browsing the curated content, users can log their own trail exper
   
 - **Create an Account/Log In**: Users need to create an account or log in to see and contribute content, record sightings, and upload photos.
   
-- **Create Trails and Animals profiles**: This can only be done by a staffuser with permissions, or a superuser.
+- **Create Trails and Animals Profiles**: This can only be done by a staffuser with permissions, or a superuser.
   
 - **Explore Trails**: Registered users can search for trails based on name or location. A detailed description of the trail is provided, together with an option to log their own experience, upload photos, and see all other users' content related to the trail.
   
