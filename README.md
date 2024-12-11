@@ -13,6 +13,9 @@ In addition to browsing the curated content, users can log their own trail exper
 - **Install dependencies**
   ` pip install -r requirements.txt `
 - **Settings** - for environment variables please use the Google Docs file provided with the survey
+- Read comments in the caller.py file, at manage.py level
+
+- Run caller.py file to cerate database records. 
 
 ## Features
 - **Explore Trails**: Explore detailed profiles of hiking trails and the wildlife associated with them, together with recorded user experiences, statistics, and photographs.
