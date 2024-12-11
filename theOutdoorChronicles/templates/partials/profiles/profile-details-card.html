@@ -1,8 +1,13 @@
 <div class="trail-info-container">
     <div class="trail-header">
         <h1>{{ profile.user.username }}</h1>
+        {% if profile.nickname %}
+            <h2>{{ profile.nickname }}</h2>
+        {% endif %}
         <p class="trail-location">
-            <i class="fas fa-map-marker-alt"></i> {{ profile.location }}
+            {% if profile.location %}
+                <i class="fas fa-map-marker-alt"></i> {{ profile.location }}
+            {% endif %}
         </p>
     </div>
 
@@ -12,24 +17,66 @@
             <i class="fas fa-user"></i>
             <div class="stat-content">
                 <span class="stat-label">First Name</span>
-                <span class="stat-value">{{ profile.first_name }}</span>
+                {% if profile.first_name %}
+                    <span class="stat-value">{{ profile.first_name }}</span>
+                {% endif %}
             </div>
         </div>
         <div class="stat-item">
             <i class="fas fa-user"></i>
             <div class="stat-content">
                 <span class="stat-label">Last Name</span>
-                <span class="stat-value">{{ profile.last_name }}</span>
+                {% if profile.last_name %}
+                    <span class="stat-value">{{ profile.last_name }}</span>
+                {% endif %}
             </div>
         </div>
         <div class="stat-item">
             <i class="fas fa-location-dot"></i>
             <div class="stat-content">
                 <span class="stat-label">Location</span>
-                <span class="stat-value">{{ profile.location }}</span>
+                {% if profile.location %}
+                    <span class="stat-value">{{ profile.location }}</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-link"></i>
+            <div class="stat-content">
+                <span class="stat-label">Website</span>
+                <span class="stat-value">
+                    {% if profile.website %}
+                        <a href="{{ profile.website }}" target="_blank" class="trail-link">
+                            {{ profile.website }}
+                        </a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        <div class="stat-item">
+            <i class="fas fa-share-alt"></i>
+            <div class="stat-content">
+                <span class="stat-label">Social Media Account</span>
+                <span class="stat-value">
+                    {% if profile.social_media_account %}
+                        <a href="{{ profile.social_media_account }}" target="_blank" class="trail-link">
+                            {{ profile.social_media_account }}
+                        </a>
+                        {#                    {% else %}#}
+                        {#                        Not specified#}
+                    {% endif %}
+                </span>
             </div>
         </div>
     </div>
+
+    <!-- Bio Section -->
+    {% if profile.bio %}
+        <div class="trail-description-card">
+            <h2>About Me</h2>
+            <p class="log-notes">{{ profile.bio }}</p>
+        </div>
+    {% endif %}
 
     <!-- Action Buttons -->
     {% if profile.user == request.user %}
