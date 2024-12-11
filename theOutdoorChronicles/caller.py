@@ -13,6 +13,23 @@ from theOutdoorChronicles.trail_logs.models import TrailLog
 
 UserModel = get_user_model()
 
+'''
+This file creates few database records for testing. Feel free to create more if needed.
+
+Please note that Trail and Animal objects can only be created by a staff user with permissions, 
+or a supersuser. A regular user can only create TraiLLogs. 
+
+1. Users are created, if they do not exist yet.
+2. Trails objects are created if they do not exist yet.
+3. Animals objects  are created.
+4. Animals and trails relations are set
+5. Trail logs objects are created and relations with users and trails are set.
+
+Use images from mediafiles folder to upload from a trail, an animal or a rail log details page
+
+
+'''
+
 
 # Create users
 def create_users():
