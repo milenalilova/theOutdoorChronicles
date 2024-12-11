@@ -1,6 +1,5 @@
 import os
 
-from asgiref.sync import sync_to_async
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django import forms
@@ -35,11 +34,13 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
         if trail_log_id:
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
+
             trail_id = trail_log.trail.pk
 
         if trail_id:
             # Filter animals found on this trail
             trail = get_object_or_404(Trail, pk=trail_id)
+
             form.fields['animal'].queryset = trail.animals.all()
             form.fields['trail'].widget = forms.HiddenInput()
             form.fields['trail'].initial = trail_id
@@ -47,6 +48,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
         if animal_id:
             # Filter trails where this animal is found
             animal = get_object_or_404(Animal, pk=animal_id)
+
             form.fields['trail'].queryset = animal.trails.all()
             form.fields['animal'].widget = forms.HiddenInput()
             form.fields['animal'].initial = animal_id
@@ -62,7 +64,9 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
 
         if trail_log_id:
             trail_log = get_object_or_404(TrailLog, pk=trail_log_id)
-            if trail_log.user == self.request.user:  # Only owners of the trail_log can upload photos
+
+            # Only owners of the trail_log can upload photos
+            if trail_log.user == self.request.user:
                 trail_log.photos.add(photo)
             else:
                 raise PermissionDenied("You do not own this TrailLog.")
@@ -128,9 +132,11 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['trail'] = self.object.trail
         context['animal'] = self.object.animal
         context['trail_logs'] = self.object.trail_logs.all()
+
         return context
 
     def get_initial(self):
@@ -155,22 +161,4 @@ class PhotoDeleteView(LoginRequiredMixin, DeleteView):
 
         return response
 
-    # Option 2 also works
-    # def post(self, request, *args, **kwargs):
-    #     # Use get_object() to fetch the object
-    #     photo = self.get_object()
-    #
-    #     # Delete the image file from the filesystem
-    #     if photo.image:
-    #         # Construct the full path to the image
-    #         image_path = os.path.join(settings.MEDIA_ROOT, str(photo.image))
-    #
-    #         # Check if the file exists and delete it
-    #         if os.path.exists(image_path):
-    #             os.remove(image_path)
-    #
-    #     # Delete the database record
-    #     photo.delete()
-    #
-    #     # Redirect to success URL
-    #     return HttpResponseRedirect(reverse_lazy('photo-list'))
+

@@ -1,45 +1,14 @@
-from datetime import date
-
 from django.contrib.auth import get_user_model
 from django.db.models import Count
 from django.test import TestCase
 from django.urls import reverse
 
+from tests.test_variables_data import user_data, animal_data, trail_data, first_log_data
 from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.trail_logs.models import TrailLog
 from theOutdoorChronicles.trails.models import Trail
 
 UserModel = get_user_model()
-
-user_data = {
-    'username': 'testuser',
-    'email': 'pepi@pepi.com',
-    'password': 'pass1234'
-}
-
-trail_data = {
-    'name': 'TestTrail',
-    'location': 'France',
-    'length': 15,
-    'elevation_gain': 125,
-    'difficulty': 'Easy',
-    'route_type': 'Loop',
-    'description': 'Difficult'
-}
-animal_data = {
-    'image': 'images/photo_uploads/image.jpg',
-    'common_name': 'sparrow',
-    'species': 'some_name',
-    'conservation_status': 'CB',
-    'description': 'Some description',
-    'wikipedia_page': 'https://en.wikipedia.org/wiki/House_sparrow',
-}
-
-first_log_data = {
-    'title': 'Nice Walk',
-    'date_completed': date(2000, 12, 25),
-    'notes': 'It was a good walk'
-}
 
 
 class TestAnimalDetailsView(TestCase):

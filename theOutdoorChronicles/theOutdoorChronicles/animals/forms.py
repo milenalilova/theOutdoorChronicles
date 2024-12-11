@@ -14,6 +14,9 @@ class AnimalBaseForm(forms.ModelForm):
     class Meta:
         model = Animal
         exclude = ('trail_logs',)
+        help_texts = {
+            'additional_info': 'Enter a valid URL with more information about the animal.'
+        }
 
 
 class AnimalCreateForm(AnimalBaseForm):

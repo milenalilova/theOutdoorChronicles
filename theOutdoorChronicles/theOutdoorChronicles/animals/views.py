@@ -67,7 +67,6 @@ class AnimalDetailsView(LoginRequiredMixin, DetailView):
 class AnimalListView(LoginRequiredMixin, ListView):
     model = Animal
     paginate_by = 3
-
     template_name = 'animals/animal-list-page.html'
 
     def get(self, request, *args, **kwargs):
@@ -91,6 +90,7 @@ class AnimalListView(LoginRequiredMixin, ListView):
                 Q(common_name__icontains=search_query) |
                 Q(species__icontains=search_query)
             )
+
         return queryset
 
 
@@ -117,12 +117,8 @@ class AnimalDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['trails'] = self.object.trails.all()
+
         return context
 
     def get_initial(self):
         return self.object.__dict__
-
-
-# TODO add tests
-# TODO async views
-# TODO deploy

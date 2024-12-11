@@ -23,13 +23,13 @@ class TrailLogCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
 
         trail_id = self.kwargs.get('trail_id')
+
         if trail_id:
             trail = get_object_or_404(Trail, pk=trail_id)
+
             context['trail'] = trail
-            context['previous_logs_count'] = TrailLog.objects.filter(
-                user=self.request.user,
-                trail=trail
-            ).count()
+            context['previous_logs_count'] = TrailLog.objects.filter(user=self.request.user, trail=trail) \
+                .count()
 
         return context
 
@@ -37,8 +37,10 @@ class TrailLogCreateView(LoginRequiredMixin, CreateView):
         form = super().get_form(form_class)
 
         trail_id = self.kwargs.get('trail_id')
+
         if trail_id:
             trail = get_object_or_404(Trail, pk=trail_id)
+
             form.fields['trail'].widget = forms.HiddenInput()
             form.fields['trail'].initial = trail_id
             form.fields['animals_spotted'].queryset = trail.animals.all()
@@ -51,8 +53,10 @@ class TrailLogCreateView(LoginRequiredMixin, CreateView):
         trail_log.save()
 
         trail_id = self.kwargs.get('trail_id')
+
         if trail_id:
             trail = get_object_or_404(Trail, pk=trail_id)
+
             trail.trail_logs.add(trail_log)
 
         return super().form_valid(form)
@@ -69,8 +73,10 @@ class TrailLogDetailsView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['animals'] = self.object.animals.all()
         context['photos'] = self.object.photos.all()
+
         return context
 
     def get_queryset(self):
@@ -154,10 +160,9 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):  # Every time the
 
     def get_queryset(self):
         trail_id = self.kwargs.get('trail_id')
-        return TrailLog.objects.filter(
-            user=self.request.user,
-            trail_id=trail_id,
-        ).select_related('trail') \
+
+        return TrailLog.objects.filter(user=self.request.user, trail_id=trail_id, ) \
+            .select_related('trail') \
             .prefetch_related('animals', 'photos') \
             .order_by('-date_completed')
 
@@ -165,6 +170,7 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):  # Every time the
         context = super().get_context_data(**kwargs)
 
         trail_id = self.kwargs.get('trail_id')
+
         trail = get_object_or_404(Trail, pk=trail_id)
         context['trail'] = trail
 
@@ -172,13 +178,13 @@ class TrailLogSpecificTrailView(LoginRequiredMixin, ListView):  # Every time the
 
         # Paginate photos
         photos = Photo.objects.filter(trail_id=trail_id, user=self.request.user).distinct()
-        context['photos_count'] = photos.count()
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
+        context['photos_count'] = photos.count()
 
         # Paginate animals
         animals = Animal.objects.filter(trail_logs__in=context['trail_logs']).distinct()
-        context['animals_count'] = animals.count()
         context = paginate_and_add_to_context(animals, context, 'animal', self.paginate_by, self.request)
+        context['animals_count'] = animals.count()
 
         return context
 
@@ -199,10 +205,10 @@ class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # Every time th
 
     def get_queryset(self):
         animal_id = self.kwargs['animal_id']
-        return TrailLog.objects.filter(
-            animals__id=animal_id,
-            user=self.request.user
-        ).select_related('trail').prefetch_related('photos', 'animals')
+
+        return TrailLog.objects.filter(animals__id=animal_id, user=self.request.user) \
+            .select_related('trail') \
+            .prefetch_related('photos', 'animals')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -215,8 +221,8 @@ class TrailLogSpecificAnimalView(LoginRequiredMixin, ListView):  # Every time th
         context['trails_count'] = trails.count()
 
         photos = Photo.objects.filter(animal=animal, user=self.request.user)
-        context['photos_count'] = photos.count()
         context = paginate_and_add_to_context(photos, context, 'photo', self.paginate_by, self.request)
+        context['photos_count'] = photos.count()
 
         return context
 
@@ -241,8 +247,10 @@ class TrailLogEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+
         form.instance.animals.set(form.cleaned_data['animals_spotted'])
         form.instance.photos.set(form.cleaned_data['photos_uploaded'])
+
         return response
 
     def get_success_url(self):
@@ -263,8 +271,10 @@ class TrailLogDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['animals_spotted'] = self.object.animals.all()
         context['photos_uploaded'] = self.object.photos.all()
+
         return context
 
     def get_initial(self):

@@ -20,6 +20,7 @@ class AppUserRegisterView(CreateView):
     def form_valid(self, form):
         response = super().form_valid(form)
         login(self.request, self.object)
+
         return response
 
 
@@ -50,6 +51,7 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'accounts/profile-delete-page.html'
     success_url = reverse_lazy('home-page')
 
+    # When deleting a profile, the user is also deleted
     def get_queryset(self):
         return Profile.objects.filter(user=self.request.user)
 
@@ -57,6 +59,7 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
         profile = super().get_object(queryset=queryset)
         if profile.user != self.request.user:
             raise PermissionDenied("You cannot delete another user's profile.")
+
         return self.request.user
 
     def get_initial(self):
@@ -66,10 +69,12 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         response = super().form_valid(form)
         logout(self.request)
+
         return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         profile = Profile.objects.get(user=self.request.user)
         context['profile'] = profile
+
         return context

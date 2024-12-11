@@ -40,6 +40,7 @@ class TrailDetailsView(LoginRequiredMixin, DetailView):
             total_logs=Count('id'),
             avg_duration=Avg('duration') or timedelta(0),
         )
+
         formatted_avg_duration = str(public_stats['avg_duration']).split('.')[0]
         public_stats['avg_duration'] = formatted_avg_duration
 
@@ -83,6 +84,7 @@ class TrailListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['trails_search_form'] = TrailSearchForm(self.request.GET or None)
 
         return context
@@ -121,9 +123,11 @@ class TrailDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     # Displays all related data before deletion
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         context['animals'] = self.object.animals.all()
         context['photos'] = self.object.photos.count()
         context['trail_logs'] = self.object.trail_logs.count()
+
         return context
 
     def get_initial(self):

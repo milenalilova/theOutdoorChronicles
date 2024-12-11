@@ -20,7 +20,7 @@ class IndexView(TemplateView):
             if user_location:
                 random_trails = Trail.objects.filter(location__icontains=user_location)
                 random_animals = Animal.objects.filter(trails__in=random_trails).distinct()
-                # some trails have no animals
+                # Some trails have no animals
 
             if not user_location or not random_trails:
                 random_trails = Trail.objects.order_by('?')[:5]
@@ -36,11 +36,11 @@ class IndexView(TemplateView):
 
             if not random_trails:
                 random_trails = list(Trail.objects.order_by('?')[:5])
-                cache.set('daily_trails', random_trails, 86400)  # cashes for 24h
+                cache.set('daily_trails', random_trails, 86400)  # Cashes for 24h
 
             if not random_animals:
                 random_animals = list(Animal.objects.order_by('?')[:5])
-                cache.set('daily_animals', random_animals, 86400)
+                cache.set('daily_animals', random_animals, 86400)  # Cashes for 24h
 
             context['random_trails'] = random_trails
             context['random_animals'] = random_animals
