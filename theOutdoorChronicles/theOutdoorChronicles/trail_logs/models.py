@@ -4,6 +4,7 @@ from django.db import models
 from theOutdoorChronicles.animals.models import Animal
 from theOutdoorChronicles.common.mixins import TimeStampMixin
 from theOutdoorChronicles.photos.models import Photo
+from theOutdoorChronicles.trail_logs.validators import validate_date_not_in_future
 from theOutdoorChronicles.trails.models import Trail
 
 UserModel = get_user_model()
@@ -17,6 +18,7 @@ class TrailLog(TimeStampMixin, models.Model):
     )
 
     date_completed = models.DateField(
+        validators=[validate_date_not_in_future],
         null=False,
         blank=False
     )
