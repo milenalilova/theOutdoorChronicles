@@ -22,7 +22,6 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +38,8 @@ INSTALLED_APPS = [
     'theOutdoorChronicles.animals.apps.AnimalsConfig',
     'theOutdoorChronicles.photos.apps.PhotosConfig',
     'theOutdoorChronicles.trail_logs.apps.TrailLogsConfig',
-    'theOutdoorChronicles.maps.apps.MapsConfig'
+    'theOutdoorChronicles.maps.apps.MapsConfig',
+    'theOutdoorChronicles.weather.apps.WeatherConfig'
 ]
 
 MIDDLEWARE = [
@@ -134,3 +134,6 @@ AUTH_USER_MODEL = 'accounts.AppUser'
 
 LOGIN_REDIRECT_URL = reverse_lazy('home-page')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY')
+
