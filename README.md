@@ -29,6 +29,8 @@ In addition to browsing the curated content, users can log their own trail exper
 - **Photography Support**: Discover trails ideal for wildlife photography enthusiasts.
   
 - **Map**: Integrated world map.
+  
+- **Weather Forecast**: Weather forecast based on a city name.
 
 ## User Flow:
 - **Homepage**: Users land on the homepage, where they can see an overview of the available trails and wildlife content. Unregistered users can only see limited details with an invitation to register or login, Register/Login page and About page. Registered users see random trails and wildlife content based on their location, if such is provided.
