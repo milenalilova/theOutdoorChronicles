@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    403 - Access Forbidden
+{% endblock %}
+
+{% block main_content %}
+    <div class="error-page">
+        <img src="{% static 'images/403_snake.webp' %}" alt="403 Error">
+        <h1>Access Forbidden</h1>
+        <p>You don't have permission to access this resource.</p>
+        <a href="{% url 'home' %}">Return to Home</a>
+    </div>
+{% endblock %}

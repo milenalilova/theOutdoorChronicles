@@ -1,0 +1,903 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Pacifico, cursive;
+    line-height: 1.6
+}
+
+
+/* Navbar styles - updated to ensure consistency */
+.navbar {
+    padding: 15px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a, .navbar button[type="submit"] { /* Specifically target submit buttons in navbar */
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    background: none;
+    font-size: 16px;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+/* Remove any form specific styling within navbar */
+.navbar form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+}
+
+.navbar a:hover, .navbar button[type="submit"]:hover {
+    color: #007bff;
+}
+
+/* Main content styles */
+main {
+    flex: 1;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Footer styles */
+footer {
+     background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    /*margin-top: auto;*/
+    margin-top: 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* Generic container for content sections */
+.container {
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* Messages/Alerts styling */
+.messages {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Form styles - but not affecting navbar buttons */
+form:not(.navbar form) {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Regular submit buttons (not in navbar) */
+button[type="submit"]:not(.navbar button[type="submit"]) {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:not(.navbar button[type="submit"]):hover {
+    background-color: #0056b3;
+}
+
+
+/* Profile card styles */
+.profile-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+    max-width: 300px;
+}
+
+.profile-info {
+    margin: 10px 0;
+}
+
+/* Trail List Styles */
+.trails-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.trails-subtitle {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+/* Update grid to match new card size */
+.trails-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(320px, 380px));
+    gap: 2rem;
+    padding: 1rem;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+/* Add media queries for responsiveness */
+@media (max-width: 1200px) {
+    .trails-grid {
+        grid-template-columns: repeat(2, minmax(300px, 350px));
+    }
+}
+
+@media (max-width: 768px) {
+    .trails-grid {
+        grid-template-columns: minmax(300px, 350px);
+    }
+}
+
+/* Update card dimensions to accommodate larger image */
+.trail-card {
+    width: 100%;
+    max-width: 380px; /* Slightly increased for better proportion */
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px; /* Slightly increased for softer look */
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    transition: transform 0.3s ease;
+}
+
+/* Add zoom effect on hover */
+.trail-card:hover .trail-image img {
+    transform: scale(1.05);
+}
+
+/* Make the image section taller */
+.trail-image {
+    position: relative;
+    height: 300px; /* Increased from 200px */
+    overflow: hidden;
+}
+
+.trail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease; /* Add smooth zoom effect on hover */
+}
+
+/* Update difficulty badge positioning for larger image */
+/* Update difficulty badge positioning for larger image */
+.trail-difficulty {
+    position: absolute;
+    top: 1.5rem; /* Adjusted position */
+    right: 1.5rem;
+    padding: 0.6rem 1.2rem; /* Slightly larger badge */
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem; /* Slightly larger text */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Add shadow to badge */
+    background-color: #4CAF50; /* Default background for unknown status */
+}
+
+
+.trail-difficulty.easy {
+    background-color: #4CAF50;
+}
+
+.trail-difficulty.moderate {
+    background-color: #FF9800;
+}
+
+.trail-difficulty.hard {
+    background-color: #f44336;
+}
+
+.trail-content {
+    padding: 1.5rem;
+}
+
+.trail-name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.trail-location {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.trail-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.trail-stats span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.trail-details-btn {
+    display: block;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+    padding: 0.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.trail-details-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.page-link {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #007bff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background-color: #f8f9fa;
+}
+
+.page-link.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Update media queries for responsiveness */
+@media (max-width: 1200px) {
+    .trails-grid {
+        grid-template-columns: repeat(2, minmax(320px, 380px));
+    }
+}
+
+@media (max-width: 768px) {
+    .trails-grid {
+        grid-template-columns: minmax(320px, 380px);
+    }
+
+    .trail-image {
+        height: 250px; /* Slightly smaller on mobile for better proportion */
+    }
+}
+
+/* Trail Details Styles */
+.trail-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.trail-hero {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Increased height for more impact */
+    margin-bottom: 2rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.trail-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Trail Information Section */
+.trail-info-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.trail-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.trail-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.trail-location {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Statistics Card */
+.trail-stats-card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-item i {
+    font-size: 1.8rem;
+    color: #007bff;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Description Card */
+.trail-description-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.trail-description-card h2 {
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.trail-description-card p {
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Action Buttons */
+.trail-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.action-button.edit {
+    background-color: #007bff;
+    color: white;
+}
+
+.action-button.edit:hover {
+    background-color: #0056b3;
+}
+
+.action-button.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.action-button.delete:hover {
+    background-color: #c82333;
+}
+
+/* Difficulty Badge (reused from list view) */
+.trail-difficulty {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.trail-difficulty.easy {
+    background-color: #4CAF50;
+}
+
+.trail-difficulty.moderate {
+    background-color: #FF9800;
+}
+
+.trail-difficulty.hard {
+    background-color: #f44336;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .trail-hero {
+        height: 300px;
+    }
+
+    .trail-stats-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .trail-header h1 {
+        font-size: 2rem;
+    }
+
+    .action-button {
+        padding: 0.6rem 1rem;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Feed Layout */
+.feed-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.feed-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.feed-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Stats Bar */
+.feed-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* Log Card */
+.log-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.log-meta h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.log-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.privacy-badge {
+    background: #f8f9fa;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.log-trail-info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.trail-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.trail-link:hover {
+    text-decoration: underline;
+}
+
+/* Photos Grid */
+.log-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.log-photo {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Content */
+.log-content {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+/* Tags and Conditions */
+.log-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.condition-tag {
+    background: #e9ecef;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+/* Animals Section */
+.animals-spotted {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.animals-spotted h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+.animal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.animal-tag {
+    background: #e9ecef;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+/* View Details Button */
+.view-details-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+.view-details-btn:hover {
+    background: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .feed-container {
+        padding: 10px;
+    }
+
+    .feed-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .log-photos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Details Page Specific Styles */
+.log-details-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.log-hero {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.difficulty-badge {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.difficulty-badge.easy {
+    background-color: #28a745;
+}
+
+.difficulty-badge.moderate {
+    background-color: #ffc107;
+}
+
+.difficulty-badge.hard {
+    background-color: #dc3545;
+}
+
+.associated-trail {
+    margin-bottom: 2rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin: 1rem 0;
+}
+
+.stat-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-box i {
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.stat-value {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Log Sections */
+.log-section {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.log-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.log-section h2 i {
+    margin-right: 0.5rem;
+    color: #007bff;
+}
+
+.log-notes {
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
+/* Photos Grid */
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.photo-item {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+}
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.action-btn.edit {
+    background: #007bff;
+    color: white;
+}
+
+.action-btn.photo {
+    background: #28a745;
+    color: white;
+}
+
+.action-btn.delete {
+    background: #dc3545;
+    color: white;
+}
+
+.action-btn:hover {
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .photos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Only affects trail card in log details */
+.log-context-trail .trail-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+

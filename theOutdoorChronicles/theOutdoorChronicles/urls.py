@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 urlpatterns = [
@@ -14,6 +15,11 @@ urlpatterns = [
     path('maps/', include('theOutdoorChronicles.maps.urls')),
     path('weather/', include('theOutdoorChronicles.weather.urls')),
 ]
+
+handler403 = 'theOutdoorChronicles.common.views.custom_403'
+handler404 = 'theOutdoorChronicles.common.views.custom_404'
+
+urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

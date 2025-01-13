@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from theOutdoorChronicles.accounts.models import Profile
@@ -50,3 +51,11 @@ class IndexView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = 'common/about-page.html'
+
+
+def custom_403(request, exception):
+    return render(request, 'errors/403.html', status=403)
+
+
+def custom_404(request, exception):
+    return render(request, 'errors/404.html', status=404)
